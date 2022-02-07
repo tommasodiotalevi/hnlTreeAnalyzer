@@ -1,0 +1,6 @@
+*.root
+*.pyc
+*.swp
+*.txt
+plots/*
+output/*

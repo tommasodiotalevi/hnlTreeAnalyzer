@@ -1,0 +1,71 @@
+import ROOT
+import sys
+import os
+import json
+import subprocess
+
+configFileName = sys.argv[1]
+
+with open(configFileName, "r") as f:
+    config = json.loads(f.read())
+
+#ROOT.EnableImplicitMT(8)
+
+for dataset_category in ["data","signal","background"]:
+    for das_string in config[dataset_category]:
+        print("dataset_category: {}".format(dataset_category))
+        print("das_string: {}".format(das_string))
+
+        #get input files
+        inputFileName_list = config[dataset_category][das_string]["file_name_list"]
+        
+        chain = ROOT.TChain('wztree')
+        for inputFileName in inputFileName_list:
+            chain.Add(inputFileName)
+        
+        input_file_name = inputFileName_list[0].split("/")[-1].split(".")[0]
+        dataset_name_label = input_file_name[input_file_name.find("_")+1:input_file_name.find("_tree")]
+        outputDirName = config["output_dir_name"]
+        
+        
+        df = ROOT.RDataFrame(chain)
+        df = df.Define("C_Hnl_pt" ,"sqrt(C_Hnl_px*C_Hnl_px + C_Hnl_py*C_Hnl_py)")\
+               .Define("C_Hnl_lxy","sqrt(C_Hnl_vertex_x*C_Hnl_vertex_x + C_Hnl_vertex_y*C_Hnl_vertex_y)")\
+               .Define("C_mu1_pt" ,"sqrt(C_mu1_px*C_mu1_px + C_mu1_py*C_mu1_py)")\
+               .Define("C_mu2_pt" ,"sqrt(C_mu2_px*C_mu2_px + C_mu2_py*C_mu2_py)")\
+               .Define("C_pi_pt"  ,"sqrt(C_pi_px*C_pi_px + C_pi_py*C_pi_py)")\
+               .Define("mask","ArgMax(C_Hnl_pt)")
+        
+        slimmed_col_names = []
+        
+        #keep best hnl pt combo from each event
+        for c in df.GetColumnNames():
+            col_name = str(c)
+            col_type = df.GetColumnType(col_name)
+            if col_type.find("ROOT::VecOps")<0:
+                slimmed_col_names.append(col_name)
+                continue
+            df = df.Define(col_name+"_ptBest",col_name+"[mask]")
+            slimmed_col_names.append(str(col_name+"_ptBest"))
+        
+        outputFileName = "slimmed_"+dataset_name_label+"_tree.root"
+        outputDirName = "/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/slimmed_tree"
+        subprocess.call(['mkdir','-p',outputDirName])
+        outputPath = os.path.join(outputDirName,outputFileName)
+
+        df.Snapshot("slimmed_tree",outputPath,slimmed_col_names)
+
+        #update cfg file for hnl tree analyzer with location of slimmed hnl tree
+        out_cfg = {}
+        with open(configFileName, "r") as f:
+            out_cfg = json.loads(f.read())
+
+        dataset_dic = out_cfg[dataset_category][das_string]
+        dataset_dic["slimmed_file_name_list"] = [str(outputPath)]
+
+        out_cfg[dataset_category][das_string] = dataset_dic
+        
+        with open(configFileName, "w") as f:
+            json.dump(out_cfg,f, indent=4, sort_keys=True)
+
+

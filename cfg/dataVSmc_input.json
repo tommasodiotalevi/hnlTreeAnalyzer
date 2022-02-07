@@ -1,0 +1,43 @@
+{
+	"inputDirName"	:"/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/output",
+	"outDirName"	:"/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/plots",
+
+	"background"	:{"out_hnl_tree_analyzer_QCD_Pt-20to30_MuEnrichedPt5_TuneCP5_13TeV_pythia8.root" :
+                           {"label": "QCD Pt20-30"},
+                          "out_hnl_tree_analyzer_QCD_Pt-30to50_MuEnrichedPt5_TuneCP5_13TeV_pythia8.root" :
+                           {"label": "QCD Pt30-50"}
+                         },
+
+	"signal"	:{"out_hnl_tree_analyzer_BToNMuX_NToEMuPi_SoftQCD_b_mN1p0_ctau10p0mm_TuneCP5_13TeV-pythia8-evtgen.root" : 
+                           {"label": "m_{N}=1.5 GeV, c#tau=10.0 mm"}
+                         },
+
+	"data"		:{"out_hnl_tree_analyzer_ParkingBPH1_Run2018D-05May2019promptD-v1.root" :
+                           {"label": "Data",
+                            "integrated_lumi": 0.190581949}
+                         },
+
+	"plotNameList"	:["h_hnl_pt",
+                          "h_hnl_preFit_mass",
+                          "h_hnl_postFit_mass",
+                          "h_hnl_postFit_mass_ss",
+                          "h_hnl_lxy",
+                          "h_hnl_vtx_prob",
+                          "h_hnl_vtx_cos2D",
+                          "h_hnl_vtx_dispSig",
+                          "h_mu2_pt",
+                          "h_mu2_eta",
+                          "h_mu1_pt",
+                          "h_mu1_eta",
+                          "h_mu1_ip_z",
+                          "h_mu1_ip_xy",
+                          "h_mu1_ips_z",
+                          "h_mu1_ips_xy",
+                          "h_pi_pt",
+                          "h_pi_eta",
+                          "h_pi_ip_z",
+                          "h_pi_ip_xy",
+                          "h_pi_ips_z",
+                          "h_pi_ips_xy",
+                          "h_pv"]
+}
