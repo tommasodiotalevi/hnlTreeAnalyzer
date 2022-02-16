@@ -1,62 +1,36 @@
 {
-    "background": {
-        "/QCD_Pt-20to30_MuEnrichedPt5_TuneCP5_13TeV_pythia8/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v4/MINIAODSIM": {
-            "cross_section": 398500000.0, 
-            "file_name_list": [
-                "/afs/cern.ch/work/l/llunerti/private/CMSSW_10_2_27/src/hnlAnalysis/analyzer/hnlAnalyzer_QCD_Pt-20to30_MuEnrichedPt5_TuneCP5_13TeV_pythia8_tree.root"
-            ], 
-            "filter_efficiency": 0.006555, 
-            "processed_events": 100, 
-            "production_time": "2022-02-03 17:22:05.656527"
-        }, 
-        "/QCD_Pt-30to50_MuEnrichedPt5_TuneCP5_13TeV_pythia8/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v3/MINIAODSIM": {
-            "cross_section": 106900000.0, 
-            "file_name_list": [
-                "/afs/cern.ch/work/l/llunerti/private/CMSSW_10_2_27/src/hnlAnalysis/analyzer/hnlAnalyzer_QCD_Pt-30to50_MuEnrichedPt5_TuneCP5_13TeV_pythia8_tree.root"
-            ], 
-            "filter_efficiency": 0.0123, 
-            "processed_events": 10000, 
-            "production_time": "2022-01-26 14:48:10.897634", 
-            "slimmed_file_name_list": [
-                "/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/slimmed_tree/slimmed_QCD_Pt-30to50_MuEnrichedPt5_TuneCP5_13TeV_pythia8_tree.root"
-            ]
-        }, 
-        "/QCD_Pt-50to80_MuEnrichedPt5_TuneCP5_13TeV_pythia8/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v3/MINIAODSIM": {
-            "cross_section": 15710000.0, 
-            "file_name_list": [
-                "/afs/cern.ch/work/l/llunerti/private/CMSSW_10_2_27/src/hnlAnalysis/analyzer/hnlAnalyzer_QCD_Pt-50to80_MuEnrichedPt5_TuneCP5_13TeV_pythia8_tree.root"
-            ], 
-            "filter_efficiency": 0.02324, 
-            "processed_events": 10000, 
-            "production_time": "2022-01-26 14:48:30.969495", 
-            "slimmed_file_name_list": [
-                "/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/slimmed_tree/slimmed_QCD_Pt-50to80_MuEnrichedPt5_TuneCP5_13TeV_pythia8_tree.root"
-            ]
-        }
+    "QCD_Pt-50to80": {
+        "cross_section": 15710000.0, 
+        "das_string": "/QCD_Pt-50to80_MuEnrichedPt5_TuneCP5_13TeV_pythia8/RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v3/MINIAODSIM", 
+        "dataset_category": "background", 
+        "file_name_list": [
+            "/afs/cern.ch/work/l/llunerti/private/CMSSW_10_2_27/src/hnlAnalysis/analyzer/hnlAnalyzer_QCD_Pt-50to80_MuEnrichedPt5_TuneCP5_13TeV_pythia8_tree.root"
+        ], 
+        "filter_efficiency": 0.02324, 
+        "processed_events": 10000, 
+        "production_time": "2022-02-16 11:56:09.291280"
     }, 
-    "data": {
-        "/ParkingBPH1/Run2018D-05May2019promptD-v1/MINIAOD": {
-            "file_name_list": [
-                "/afs/cern.ch/work/l/llunerti/private/CMSSW_10_2_27/src/hnlAnalysis/analyzer/hnlAnalyzer_ParkingBPH1_Run2018D-05May2019promptD-v1_tree.root"
-            ], 
-            "integrated_lumi": -1.0, 
-            "processed_events": 10000, 
-            "production_time": "2022-02-07 14:23:46.557597"
-        }
+    "mN1p0_ctau10p0": {
+        "cross_section": 1.0, 
+        "das_string": "/BToNMuX_NToEMuPi_SoftQCD_b_mN1p0_ctau10p0mm_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-Custom_RDStar_BParking_102X_upgrade2018_realistic_v15-v2/MINIAODSIM", 
+        "dataset_category": "signal", 
+        "file_name_list": [
+            "/afs/cern.ch/work/l/llunerti/private/CMSSW_10_2_27/src/hnlAnalysis/analyzer/hnlAnalyzer_BToNMuX_NToEMuPi_SoftQCD_b_mN1p0_ctau10p0mm_TuneCP5_13TeV-pythia8-evtgen_tree.root"
+        ], 
+        "filter_efficiency": 0.00585, 
+        "processed_events": 10000, 
+        "production_time": "2022-02-16 14:16:45.864971"
     }, 
-    "output_dir_name": "/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/output", 
-    "signal": {
-        "/BToNMuX_NToEMuPi_SoftQCD_b_mN1p0_ctau10p0mm_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-Custom_RDStar_BParking_102X_upgrade2018_realistic_v15-v2/MINIAODSIM": {
-            "cross_section": 1.0, 
-            "file_name_list": [
-                "/afs/cern.ch/work/l/llunerti/private/CMSSW_10_2_27/src/hnlAnalysis/analyzer/hnlAnalyzer_BToNMuX_NToEMuPi_SoftQCD_b_mN1p0_ctau10p0mm_TuneCP5_13TeV-pythia8-evtgen_tree.root"
-            ], 
-            "filter_efficiency": 0.00585, 
-            "processed_events": 10000, 
-            "production_time": "2022-01-26 14:48:57.022340", 
-            "slimmed_file_name_list": [
-                "/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/slimmed_tree/slimmed_BToNMuX_NToEMuPi_SoftQCD_b_mN1p0_ctau10p0mm_TuneCP5_13TeV-pythia8-evtgen_tree.root"
-            ]
-        }
-    }
+    "mN1p5_ctau10p0": {
+        "cross_section": 1.0, 
+        "das_string": "/BToNMuX_NToEMuPi_SoftQCD_b_mN1p5_ctau10p0mm_TuneCP5_13TeV-pythia8-evtgen/RunIIAutumn18MiniAOD-Custom_RDStar_BParking_102X_upgrade2018_realistic_v15-v2/MINIAODSIM", 
+        "dataset_category": "signal", 
+        "file_name_list": [
+            "/afs/cern.ch/work/l/llunerti/private/CMSSW_10_2_27/src/hnlAnalysis/analyzer/hnlAnalyzer_BToNMuX_NToEMuPi_SoftQCD_b_mN1p5_ctau10p0mm_TuneCP5_13TeV-pythia8-evtgen_tree.root"
+        ], 
+        "filter_efficiency": 0.00372, 
+        "processed_events": 10000, 
+        "production_time": "2022-02-16 12:52:33.383928"
+    }, 
+    "output_dir_name": "/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/output"
 }

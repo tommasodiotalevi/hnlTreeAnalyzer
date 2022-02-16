@@ -9,7 +9,7 @@ with open(configFileName, "r") as f:
 import ROOT
 
 inputDirName = str(config["inputDirName"])
-outDirName = str(config["outDirName"])
+outDirName = str(os.path.join(config["outDirName"],inputDirName.split("/")[-1])) 
 
 inputMCFileName = inputDirName + "/" + "hadd_bkg.root"
 subprocess.call(["hadd","-f",inputMCFileName] + [str(inputDirName + "/" + bkgFileName) for bkgFileName in config["background"].keys()])

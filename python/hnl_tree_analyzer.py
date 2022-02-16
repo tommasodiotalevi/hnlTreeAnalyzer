@@ -9,21 +9,21 @@ import numpy
 start_time = time.time()
 
 configFileName = sys.argv[1]
-dataset_category = sys.argv[2]
-das_string = sys.argv[3]
+dataset_to_process = sys.argv[2]
 
 with open(configFileName, "r") as f:
     config = json.loads(f.read())
 
 #get input files
-inputFileName_list = config[dataset_category][das_string]["slimmed_file_name_list"]
+inputFileName_list = config[dataset_to_process]["slimmed_file_name_list"]
+dataset_category = config[dataset_to_process]["dataset_category"]
 
 event_weight = 1.
 
 if dataset_category != "data":
-    cross_section      = float(config[dataset_category][das_string]["cross_section"])
-    filter_efficiency  = float(config[dataset_category][das_string]["filter_efficiency"])
-    total_events       = float(config[dataset_category][das_string]["processed_events"])
+    cross_section      = float(config[dataset_to_process]["cross_section"])
+    filter_efficiency  = float(config[dataset_to_process]["filter_efficiency"])
+    total_events       = float(config[dataset_to_process]["processed_events"])
     event_weight = cross_section*filter_efficiency/total_events
 
 print("event_weight: {}".format(event_weight))
@@ -77,15 +77,13 @@ for cat in cat_dict:
     m_pv               = ("h_pv",";Number of primary vertices;Events", 60, 0., 60.)
     m_pu_trueInt       = ("h_pu_trueInt",";Number of true PU interactions;Events", 60, 0., 60.)
     
-    #m_hnl_postFit_mass_ss = ("h_hnl_postFit_mass_ss",";HNL (post-fit) mass [GeV];Events", 40, 0.25, 6.)
-    
     ROOT.EnableImplicitMT(8)
     
     df = ROOT.RDataFrame(chain)
     
     df = df.Define("weight",str(event_weight))    
     df = df.Filter(cat_dict[cat] ,cat+" category")
-    df = df.Filter("mu9_ip6_matched_ptBest>0 || mu12_ip6_matched_ptBest>0" ,"mu9_ip6 mu12_ip6 matched")
+    df = df.Filter("mu9_ip6_matched_ptBest>0 || mu12_ip6_matched_ptBest>0" ,"mu9_ip6 or mu12_ip6 matched")
     tot_events = df.Count().GetValue()
 
     #build signal selection efficiency csv file 
