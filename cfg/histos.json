@@ -1,0 +1,226 @@
+{
+    "h_mumupi_mass":
+        {
+		"title"	:";#mu#mu#pi mass [GeV];Events",
+		"xlow"	:0.25,
+		"xhigh"	:9.0,
+		"nbins"	:40 ,
+		"var"	:"C_mass_ptBest"
+	},
+    "h_hnl_preFit_mass":
+        {
+		"title"	:";HNL (pre-fit) mass [GeV];Events",
+		"xlow"	:0.25,
+		"xhigh"	:6.0,
+		"nbins"	:40 ,
+		"var"	:"C_Hnl_preFit_mass_ptBest"
+	},
+    "h_hnl_postFit_mass":
+        {
+		"title"	:";HNL (post-fit) mass [GeV];Events",
+		"xlow"	:0.25,
+		"xhigh"	:6.0,
+		"nbins"	:40,
+		"var"	:"C_Hnl_mass_ptBest"
+	},
+    "h_hnl_pt":
+        {
+		"title"	:";HNL p_{T} [GeV];Events",
+		"xlow"	:6.0,
+		"xhigh"	:40.0,
+		"nbins"	:34,
+		"var"	:"C_Hnl_pt_ptBest"
+	},
+    "h_hnl_lxy":
+        {
+		"title"	:";HNL L_{xy} [cm];Events",
+		"xlow"	:0.0,
+		"xhigh"	:40.0,
+		"nbins"	:20,
+		"var": "C_Hnl_lxy_ptBest"
+	},
+    "h_hnl_vtx_prob":
+        {
+		"title"	:";SV probability;Events",
+		"xlow"	:0.0,
+		"xhigh"	:1.0,
+		"nbins"	:50,
+		"var"	:"C_Hnl_vertex_prob_ptBest"
+	},
+    "h_hnl_vtx_cos2D":
+        {
+		"title"	:";SV cos2D;Events",
+		"xlow"	:-1.0,
+		"xhigh"	:1.0,
+		"nbins"	:50,
+		"var"	:"C_Hnl_vertex_cos2D_ptBest"
+	},
+    "h_hnl_vtx_dispSig":
+        {
+		"title"	:";SV displacement significance;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:50,
+		"var"	:"C_Hnl_vertex_sig_ptBest"
+	},
+    "h_mu1_pt":
+        {
+		"title"	:";#mu_{1} p_{T} [GeV];Events",
+		"xlow"	:6.0,
+		"xhigh"	:30.0,
+		"nbins"	:24,
+		"var"	:"C_mu1_pt_ptBest"
+	},
+    "h_mu1_eta":
+        {
+		"title"	:";#mu_{1} #eta;Events",
+		"xlow"	:-2.5,
+		"xhigh"	:2.5,
+		"nbins"	:20,
+		"var"	:"C_mu1_eta_ptBest"
+	},
+    "h_mu1_BS_ip":
+        {
+		"title"	:";#mu_{1} 3D IP [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:5.0,
+		"nbins"	:20,
+		"var"	:"C_mu1_BS_ip_ptBest"
+	},
+    "h_mu1_BS_ip_xy":
+        {
+		"title"	:";#mu_{1} xy IP [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:5.0,
+		"nbins"	:20,
+		"var"	:"C_mu1_BS_ip_xy_ptBest"
+	},
+    "h_mu1_BS_ips":
+        {
+		"title"	:";#mu_{1} 3D IPS [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:200.0,
+		"nbins"	:20,
+		"var"	:"C_mu1_BS_ips_ptBest"
+	},
+    "h_mu1_BS_ips_xy":
+        {
+		"title"	:";#mu_{1} xy IPS [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:200.0,
+		"nbins"	:20,
+		"var"	:"C_mu1_BS_ips_xy_ptBest"
+	},
+    "h_mu2_pt":
+        {
+		"title"	:";#mu_{2} p_{T} [GeV];Events",
+		"xlow"	:6.0,
+		"xhigh"	:30.0,
+		"nbins"	:24,
+		"var"	:"C_mu2_pt_ptBest"
+	},
+    "h_mu2_eta":
+        {
+		"title"	:";#mu_{2} #eta;Events",
+		"xlow"	:-2.5,
+		"xhigh"	:2.5,
+		"nbins"	:20,
+		"var"	:"C_mu2_eta_ptBest"
+	},
+    "h_mu2_BS_ip":
+        {
+		"title"	:";#mu_{2} 3D IP [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:5.0,
+		"nbins"	:20,
+		"var"	:"C_mu2_BS_ip_ptBest"
+	},
+    "h_mu2_BS_ip_xy":
+        {
+		"title"	:";#mu_{2} xy IP [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:5.0,
+		"nbins"	:20,
+		"var"	:"C_mu2_BS_ip_xy_ptBest"
+	},
+    "h_mu2_BS_ips":
+        {
+		"title"	:";#mu_{2} 3D IPS [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:200.0,
+		"nbins"	:20,
+		"var"	:"C_mu2_BS_ips_ptBest"
+	},
+    "h_mu2_BS_ips_xy":
+        {
+		"title"	:";#mu_{2} xy IPS [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:200.0,
+		"nbins"	:20,
+		"var"	:"C_mu2_BS_ips_xy_ptBest"
+	},
+    "h_pi_pt":
+        {
+		"title"	:";#pi p_{T} [GeV];Events",
+		"xlow"	:0.0,
+		"xhigh"	:20.0,
+		"nbins"	:20,
+		"var"	:"C_pi_pt_ptBest"
+	},
+    "h_pi_eta":
+        {
+		"title"	:";#pi #eta;Events",
+		"xlow"	:-2.5,
+		"xhigh"	:2.5,
+		"nbins"	:20,
+		"var"	:"C_pi_eta_ptBest"
+	},
+    "h_pi_BS_ip_z":
+        {
+		"title"	:";#pi z IP [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:5.0,
+		"nbins"	:20,
+		"var"	:"C_pi_BS_ip_z_ptBest"
+	},
+    "h_pi_BS_ip_xy":
+        {
+		"title"	:";#pi xy IP [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:5.0,
+		"nbins"	:20,
+		"var"	:"C_pi_BS_ip_xy_ptBest"
+	},
+    "h_pi_BS_ips_z":
+        {
+		"title"	:";#pi z IPS [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:200.0,
+		"nbins"	:20,
+		"var"	:"C_pi_BS_ips_z_ptBest"
+	},
+    "h_pi_BS_ips_xy":
+        {
+		"title"	:";#pi xy IPS [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:200.0,
+		"nbins"	:20,
+		"var"	:"C_pi_BS_ips_z_ptBest"
+	},
+    "h_pv":
+        {
+		"title"	:";Number of primary vertices;Events",
+		"xlow"	:0.0,
+		"xhigh"	:60.0,
+		"nbins"	:60,
+		"var"	:"nPV"
+	},
+    "h_pu_trueInt":
+        {
+		"title"	:";Number of true PU interactions;Events",
+		"xlow"	:0.0,
+		"xhigh"	:60.0,
+		"nbins"	:60,
+		"var"	:"nPU_trueInt"
+	}
+}
