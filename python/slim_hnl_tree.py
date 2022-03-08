@@ -3,6 +3,8 @@ import sys
 import os
 import json
 import subprocess
+import time
+start_time = time.time()
 
 configFileName = sys.argv[1]
 dataset_to_slim = sys.argv[2]
@@ -31,6 +33,7 @@ df = df.Define("C_Hnl_pt" ,"sqrt(C_Hnl_px*C_Hnl_px + C_Hnl_py*C_Hnl_py)")\
        .Define("C_mu2_pt" ,"sqrt(C_mu2_px*C_mu2_px + C_mu2_py*C_mu2_py)")\
        .Define("C_pi_pt"  ,"sqrt(C_pi_px*C_pi_px + C_pi_py*C_pi_py)")\
        .Define("mask","ArgMax(C_Hnl_pt)")
+       #.Define("mask","ArgMax(C_Hnl_vertex_cos2D)")
 
 slimmed_col_names = []
 
@@ -41,11 +44,13 @@ for c in df.GetColumnNames():
     if col_type.find("ROOT::VecOps")<0:
         slimmed_col_names.append(col_name)
         continue
+    #df = df.Define(col_name+"_cos2DBest",col_name+"[mask]")
+    #slimmed_col_names.append(str(col_name+"_cos2DBest"))
     df = df.Define(col_name+"_ptBest",col_name+"[mask]")
     slimmed_col_names.append(str(col_name+"_ptBest"))
 
 outputFileName = "slimmed_"+dataset_name_label+"_tree.root"
-outputDirName = "/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/slimmed_tree"
+outputDirName = "/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/slimmed_tree/test"
 subprocess.call(['mkdir','-p',outputDirName])
 outputPath = os.path.join(outputDirName,outputFileName)
 
@@ -66,4 +71,4 @@ out_cfg[dataset_to_slim] = dataset_dic
 with open(configFileName, "w") as f:
     json.dump(out_cfg,f, indent=4, sort_keys=True)
 
-
+print("--- %s seconds ---" % (time.time() - start_time))
