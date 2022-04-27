@@ -1,0 +1,210 @@
+{
+    "h_ds_mass":
+        {
+		"title"	:";D_{s} (post-fit) mass [GeV];Events",
+		"xlow"	:1.75,
+		"xhigh"	:2.15,
+		"nbins"	:50,
+		"var"	:"Ds_mass"
+	},
+    "h_ds_pt":
+        {
+		"title"	:";D_{s} p_{T} [GeV];Events",
+		"xlow"	:0.0,
+		"xhigh"	:40.0,
+		"nbins"	:40,
+		"var"	:"Ds_pt"
+	},
+    "h_ds_lxy":
+        {
+		"title"	:";D_{s} L_{xy} [cm];Events",
+		"xlow"	:0.0,
+		"xhigh"	:40.0,
+		"nbins"	:20,
+		"var": "Ds_lxy"
+	},
+    "h_ds_vtx_prob":
+        {
+		"title"	:";SV probability;Events",
+		"xlow"	:0.0,
+		"xhigh"	:1.0,
+		"nbins"	:50,
+		"var"	:"Ds_vertex_prob"
+	},
+    "h_ds_vtx_cos2D":
+        {
+		"title"	:";SV cos2D;Events",
+		"xlow"	:-1.0,
+		"xhigh"	:1.0,
+		"nbins"	:50,
+		"var"	:"Ds_vertex_cos2D"
+	},
+    "h_ds_vtx_dispSig":
+        {
+		"title"	:";SV displacement significance;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:50,
+		"var"	:"Ds_vertex_sig"
+	},
+    "h_mu1_Phi_pt":
+        {
+		"title"	:";#mu_{HNL} p_{T} [GeV];Events",
+		"xlow"	:0.0,
+		"xhigh"	:30.0,
+		"nbins"	:60,
+		"var"	:"mu1_Phi_pt"
+	},
+    "h_mu1_Phi_eta":
+        {
+		"title"	:";#mu_{HNL} #eta;Events",
+		"xlow"	:-2.5,
+		"xhigh"	:2.5,
+		"nbins"	:20,
+		"var"	:"mu1_Phi_eta"
+	},
+    "h_mu1_Phi_BS_ip":
+        {
+		"title"	:";#mu_{HNL} 3D IP [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:5.0,
+		"nbins"	:20,
+		"var"	:"mu1_Phi_BS_ip"
+	},
+    "h_mu1_Phi_BS_ip_xy":
+        {
+		"title"	:";#mu_{HNL} xy IP [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:5.0,
+		"nbins"	:20,
+		"var"	:"mu1_Phi_BS_ip_xy"
+	},
+    "h_mu1_Phi_BS_ips":
+        {
+		"title"	:";#mu_{HNL} 3D IPS [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:200.0,
+		"nbins"	:20,
+		"var"	:"mu1_Phi_BS_ips"
+	},
+    "h_mu1_Phi_BS_ips_xy":
+        {
+		"title"	:";#mu_{HNL} xy IPS [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:200.0,
+		"nbins"	:20,
+		"var"	:"mu1_Phi_BS_ips_xy"
+	},
+    "h_mu2_Phi_pt":
+        {
+		"title"	:";#mu_{B} p_{T} [GeV];Events",
+		"xlow"	:0.0,
+		"xhigh"	:30.0,
+		"nbins"	:60,
+		"var"	:"mu2_Phi_pt"
+	},
+    "h_mu2_Phi_eta":
+        {
+		"title"	:";#mu_{B} #eta;Events",
+		"xlow"	:-2.5,
+		"xhigh"	:2.5,
+		"nbins"	:20,
+		"var"	:"mu2_Phi_eta"
+	},
+    "h_mu2_Phi_BS_ip":
+        {
+		"title"	:";#mu_{B} 3D IP [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:5.0,
+		"nbins"	:20,
+		"var"	:"mu2_Phi_BS_ip"
+	},
+    "h_mu2_Phi_BS_ip_xy":
+        {
+		"title"	:";#mu_{B} xy IP [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:5.0,
+		"nbins"	:20,
+		"var"	:"mu2_Phi_BS_ip_xy"
+	},
+    "h_mu2_Phi_BS_ips":
+        {
+		"title"	:";#mu_{B} 3D IPS [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:200.0,
+		"nbins"	:20,
+		"var"	:"mu2_Phi_BS_ips"
+	},
+    "h_mu2_Phi_BS_ips_xy":
+        {
+		"title"	:";#mu_{B} xy IPS [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:200.0,
+		"nbins"	:20,
+		"var"	:"mu2_Phi_BS_ips_xy"
+	},
+    "h_pi_pt":
+        {
+		"title"	:";#pi p_{T} [GeV];Events",
+		"xlow"	:0.0,
+		"xhigh"	:20.0,
+		"nbins"	:40,
+		"var"	:"pi_pt"
+	},
+    "h_pi_eta":
+        {
+		"title"	:";#pi #eta;Events",
+		"xlow"	:-2.5,
+		"xhigh"	:2.5,
+		"nbins"	:20,
+		"var"	:"pi_eta"
+	},
+    "h_pi_BS_ip_z":
+        {
+		"title"	:";#pi z IP [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:5.0,
+		"nbins"	:20,
+		"var"	:"pi_BS_ip_z"
+	},
+    "h_pi_BS_ip_xy":
+        {
+		"title"	:";#pi xy IP [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:5.0,
+		"nbins"	:20,
+		"var"	:"pi_BS_ip_xy"
+	},
+    "h_pi_BS_ips_z":
+        {
+		"title"	:";#pi z IPS [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:200.0,
+		"nbins"	:20,
+		"var"	:"pi_BS_ips_z"
+	},
+    "h_pi_BS_ips_xy":
+        {
+		"title"	:";#pi xy IPS [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:200.0,
+		"nbins"	:20,
+		"var"	:"pi_BS_ips_z"
+	},
+    "h_pv":
+        {
+		"title"	:";Number of primary vertices;Events",
+		"xlow"	:0.0,
+		"xhigh"	:60.0,
+		"nbins"	:60,
+		"var"	:"nPV"
+	},
+    "h_pu_trueInt":
+        {
+		"title"	:";Number of true PU interactions;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:100,
+		"var"	:"nPU_trueInt"
+	}
+}
