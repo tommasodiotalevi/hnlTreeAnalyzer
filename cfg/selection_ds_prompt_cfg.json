@@ -1,0 +1,71 @@
+{
+	"categories":[
+		{"printout":"inclusive category (no cuts)",
+		 "label"   :"inclusive",
+		 "cut"     :"C_mu1_Phi_charge!=0"}
+	],
+	"selection_eff_scan": [
+		{"name"    : "Ds_lxy",
+		 "low_edge": -1.0,
+		 "up_edge" : 30.0,
+		 "logic"   : ">"
+		},
+		{"name"    : "Ds_pt",
+		 "low_edge": -1.0,
+		 "up_edge" : 30.0,
+		 "logic"   : ">"
+		}
+	],
+	"new_variables" : [
+		{"name"	:"Ds_lxy",
+		 "definition":"sqrt(Ds_vertex_x*Ds_vertex_x + Ds_vertex_y*Ds_vertex_y)"
+		},
+		{"name"	:"mu1_Phi_matched_MU8_IP3",
+		 "definition":"get_mu_trigger_matching(mu8_ip3_matched,mu_trig_idx, mu1_Phi_idx)"
+		},
+		{"name"	:"mu1_Phi_matched_MU9_IP6",
+		 "definition":"get_mu_trigger_matching(mu9_ip6_matched,mu_trig_idx, mu1_Phi_idx)"
+		},
+		{"name"	:"mu2_Phi_matched_MU8_IP3",
+		 "definition":"get_mu_trigger_matching(mu8_ip3_matched,mu_trig_idx, mu2_Phi_idx)"
+		},
+		{"name"	:"mu2_Phi_matched_MU9_IP6",
+		 "definition":"get_mu_trigger_matching(mu9_ip6_matched,mu_trig_idx, mu2_Phi_idx)"
+		}
+	],
+	"best_cand_var" :
+		{"name"	:"best_cand_idx",
+		 "definition":"get_best_cand_idx(Ds_pt)"
+		},	
+	"selection_cuts" :[
+		{"cut":"mu1_Phi_matched_MU9_IP6>0 || mu1_Phi_matched_MU8_IP3>0 || mu2_Phi_matched_MU9_IP6>0 || mu2_Phi_matched_MU8_IP3>0",
+		 "printout":"at least a mu from phi matched MU8_IP3 || MU9_IP6"
+		},
+		{"cut":"(C_mu1_Phi_charge+C_mu2_Phi_charge)==0",
+		 "printout":"opposite charge muons"
+		},
+		{"cut":"mu1_Phi_pt>3.0",
+		 "printout":"leading muon from Phi pt>1.5"
+		},
+		{"cut":"mu1_Phi_isSoft>0",
+		 "printout":"leading muon from Phi is soft"
+		},
+		{"cut":"mu2_Phi_pt>1.5",
+		 "printout":"sub-leading muon from Phi pt>1.5"
+		},
+		{"cut":"mu2_Phi_isSoft>0",
+		 "printout":"sub-leading muon from Phi is soft"
+		}
+	],
+	"gen_matching_cuts" :[
+		{"cut":"mu1_isHnlDaughter>0",
+		 "printout":"muon matching HNL mu daughter"
+		},
+		{"cut":"pi_isHnlDaughter>0",
+		 "printout":"pi matching HNL pi daughter"
+		},
+		{"cut":"mu_B_isHnlBrother>0",
+		 "printout":"trigger muon is HNL brother"
+		}
+	]
+}
