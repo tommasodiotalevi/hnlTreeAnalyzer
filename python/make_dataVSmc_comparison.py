@@ -18,6 +18,9 @@ inputDataFileName = inputDirName + "/" + "hadd_data.root"
 subprocess.call(["hadd","-f",inputDataFileName] + [str(inputDirName + "/" + dataFileName) for dataFileName in config["data"].keys()])
 
 for plotName in config["plotNameList"]:
+
+    print(plotName)
+
     ROOT.gROOT.SetBatch(ROOT.kTRUE)
 
     c = ROOT.TCanvas("c","c",900,800)
@@ -32,7 +35,6 @@ for plotName in config["plotNameList"]:
     padLower.SetTopMargin(0.12)
     padLower.SetGridy()
     padLower.Draw()
-
     
     histoName = str(plotName)
     colorList = [ROOT.kRed, ROOT.kGreen, ROOT.kBlue, ROOT.kYellow, ROOT.kMagenta, ROOT.kCyan, ROOT.kOrange, ROOT.kSpring, ROOT.kTeal, ROOT.kAzure, ROOT.kViolet, ROOT.kPink]
@@ -57,15 +59,23 @@ for plotName in config["plotNameList"]:
     xaxis_label = str()
     data_filename = list(config["data"].keys())[0]
     lumi_data = float(config["data"][data_filename]["integrated_lumi"]) #/pb
+    tot_integral = float(0)
+
+    for filename in config["background"]:
+        inputFileDic_bkg [filename] = ROOT.TFile.Open(str(os.path.join(inputDirName,filename)))
+        inputHistoDic_bkg[filename] = ROOT.TH1D(inputFileDic_bkg[filename].Get(histoName))
+        tot_integral += inputHistoDic_bkg[filename].Integral()
     
     #Stacking background histos
     for filename in config["background"]:
         inputFileDic_bkg [filename] = ROOT.TFile.Open(str(os.path.join(inputDirName,filename)))
         inputHistoDic_bkg[filename] = ROOT.TH1D(inputFileDic_bkg[filename].Get(histoName))
-        inputHistoDic_bkg[filename].Scale(lumi_data)
+        #inputHistoDic_bkg[filename].Scale(lumi_data)
+        inputHistoDic_bkg[filename].Scale(1./tot_integral)
         inputHistoDic_bkg[filename].SetLineColor(ROOT.kBlack)
         inputHistoDic_bkg[filename].SetFillColor(colorList[iColor])
-        overflowBin = inputHistoDic_bkg[filename].GetXaxis().GetLast() + 1
+        #overflowBin = inputHistoDic_bkg[filename].GetXaxis().GetLast() + 1
+        overflowBin = inputHistoDic_bkg[filename].GetXaxis().GetLast()
         inputHistoDic_bkg[filename].GetXaxis().SetRange(1,overflowBin)
         xaxis_label = str(inputHistoDic_bkg[filename].GetXaxis().GetTitle())
         histoStacked.Add(inputHistoDic_bkg[filename])
@@ -85,13 +95,15 @@ for plotName in config["plotNameList"]:
     histoStacked.SetMinimum(0.)
     hmax = float(histoStacked.GetMaximum())
     histoStacked.SetMaximum(hmax+(hmax/3))
-    overflowBin = histoStacked.GetXaxis().GetLast() + 1
+    #overflowBin = histoStacked.GetXaxis().GetLast() + 1
+    overflowBin = histoStacked.GetXaxis().GetLast()
     histoStacked.GetXaxis().SetRange(1,overflowBin)
     padUpper.Update()
     
     #Superimposing data
     inputDataFile = ROOT.TFile.Open(str(inputDataFileName))
     inputDataHisto = ROOT.TH1D(inputDataFile.Get(histoName))
+    inputDataHisto.Scale(1./inputDataHisto.Integral())
     padUpper.cd()
     inputDataHisto.SetLineColor(ROOT.kBlack)
     inputDataHisto.SetMarkerStyle(20)
@@ -102,7 +114,8 @@ for plotName in config["plotNameList"]:
 
     inputMCFile = ROOT.TFile.Open(str(inputMCFileName))
     inputMCHisto = ROOT.TH1D(inputMCFile.Get(histoName))
-    inputMCHisto.Scale(lumi_data)
+    #inputMCHisto.Scale(lumi_data)
+    inputMCHisto.Scale(1./tot_integral)
     
     hRatio = inputDataHisto.Clone()
     hRatio.Divide(inputMCHisto)
@@ -119,7 +132,6 @@ for plotName in config["plotNameList"]:
     hRatio.GetYaxis().SetTitleSize(0.12)
     hRatio.GetYaxis().SetLabelSize(0.12)
     hRatio.GetXaxis().SetLabelSize(0.12)
-    #hRatio.GetXaxis().SetRange(-1,overflowBin)
     hRatio.GetXaxis().SetRange(1,overflowBin)
     hRatio.GetYaxis().SetTitleOffset(0.4)
     hRatio.GetYaxis().SetNdivisions(5)
