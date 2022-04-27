@@ -29,7 +29,17 @@ for varName in config["variables"]:
             t = ROOT.TTree()
             t.ReadFile(os.path.join(inputDirName,fileName))
             df = ROOT.RDataFrame(t)
-            gr_dict[cat][i] = df.Graph(varName+"_cut",varName+"_eff")
+
+            sel_eff = varName+"_pass/("+varName+"_pass+"+varName+"_fail)"
+            rej_eff = "1.0-("+varName+"_pass/("+varName+"_pass+"+varName+"_fail))"
+            df = df.Define("sel_eff",sel_eff)
+            df = df.Define("rej_eff",rej_eff)
+            var_to_plot = "sel_eff"
+            # plot 1-selection_eff=bkg_rejection in case of background
+            if cat == "background":
+                var_to_plot = "rej_eff"
+
+            gr_dict[cat][i] = df.Graph(varName+"_cut",var_to_plot)
             gr_dict[cat][i].GetXaxis().SetTitle(config["variables"][varName]["x_label"])
             gr_dict[cat][i].GetYaxis().SetTitle("")
             gr_dict[cat][i].GetYaxis().SetRangeUser(-0.1,1.1)
