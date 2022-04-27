@@ -5,7 +5,7 @@
 		"xlow"	:0.25,
 		"xhigh"	:9.0,
 		"nbins"	:40 ,
-		"var"	:"C_mass_ptBest"
+		"var"	:"C_Ds_mass"
 	},
     "h_hnl_preFit_mass":
         {
@@ -13,7 +13,7 @@
 		"xlow"	:0.25,
 		"xhigh"	:6.0,
 		"nbins"	:40 ,
-		"var"	:"C_Hnl_preFit_mass_ptBest"
+		"var"	:"C_Hnl_preFit_mass"
 	},
     "h_hnl_postFit_mass":
         {
@@ -21,7 +21,7 @@
 		"xlow"	:0.25,
 		"xhigh"	:6.0,
 		"nbins"	:40,
-		"var"	:"C_Hnl_mass_ptBest"
+		"var"	:"C_Hnl_mass"
 	},
     "h_hnl_pt":
         {
@@ -29,7 +29,7 @@
 		"xlow"	:6.0,
 		"xhigh"	:40.0,
 		"nbins"	:34,
-		"var"	:"C_Hnl_pt_ptBest"
+		"var"	:"C_Hnl_pt"
 	},
     "h_hnl_lxy":
         {
@@ -37,7 +37,7 @@
 		"xlow"	:0.0,
 		"xhigh"	:40.0,
 		"nbins"	:20,
-		"var": "C_Hnl_lxy_ptBest"
+		"var": "C_Hnl_lxy"
 	},
     "h_hnl_vtx_prob":
         {
@@ -45,7 +45,7 @@
 		"xlow"	:0.0,
 		"xhigh"	:1.0,
 		"nbins"	:50,
-		"var"	:"C_Hnl_vertex_prob_ptBest"
+		"var"	:"C_Hnl_vertex_prob"
 	},
     "h_hnl_vtx_cos2D":
         {
@@ -53,7 +53,7 @@
 		"xlow"	:-1.0,
 		"xhigh"	:1.0,
 		"nbins"	:50,
-		"var"	:"C_Hnl_vertex_cos2D_ptBest"
+		"var"	:"C_Hnl_vertex_cos2D"
 	},
     "h_hnl_vtx_dispSig":
         {
@@ -61,111 +61,111 @@
 		"xlow"	:0.0,
 		"xhigh"	:100.0,
 		"nbins"	:50,
-		"var"	:"C_Hnl_vertex_sig_ptBest"
+		"var"	:"C_Hnl_vertex_sig"
 	},
-    "h_mu1_pt":
+    "h_mu_Hnl_pt":
         {
 		"title"	:";#mu_{1} p_{T} [GeV];Events",
-		"xlow"	:6.0,
+		"xlow"	:0.0,
 		"xhigh"	:30.0,
-		"nbins"	:24,
-		"var"	:"C_mu1_pt_ptBest"
+		"nbins"	:60,
+		"var"	:"C_mu_Hnl_pt"
 	},
-    "h_mu1_eta":
+    "h_mu_Hnl_eta":
         {
 		"title"	:";#mu_{1} #eta;Events",
 		"xlow"	:-2.5,
 		"xhigh"	:2.5,
 		"nbins"	:20,
-		"var"	:"C_mu1_eta_ptBest"
+		"var"	:"C_mu_Hnl_eta"
 	},
-    "h_mu1_BS_ip":
+    "h_mu_Hnl_BS_ip":
         {
 		"title"	:";#mu_{1} 3D IP [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
 		"xhigh"	:5.0,
 		"nbins"	:20,
-		"var"	:"C_mu1_BS_ip_ptBest"
+		"var"	:"C_mu_Hnl_BS_ip"
 	},
-    "h_mu1_BS_ip_xy":
+    "h_mu_Hnl_BS_ip_xy":
         {
 		"title"	:";#mu_{1} xy IP [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
 		"xhigh"	:5.0,
 		"nbins"	:20,
-		"var"	:"C_mu1_BS_ip_xy_ptBest"
+		"var"	:"C_mu_Hnl_BS_ip_xy"
 	},
-    "h_mu1_BS_ips":
+    "h_mu_Hnl_BS_ips":
         {
 		"title"	:";#mu_{1} 3D IPS [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
 		"xhigh"	:200.0,
 		"nbins"	:20,
-		"var"	:"C_mu1_BS_ips_ptBest"
+		"var"	:"C_mu_Hnl_BS_ips"
 	},
-    "h_mu1_BS_ips_xy":
+    "h_mu_Hnl_BS_ips_xy":
         {
 		"title"	:";#mu_{1} xy IPS [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
 		"xhigh"	:200.0,
 		"nbins"	:20,
-		"var"	:"C_mu1_BS_ips_xy_ptBest"
+		"var"	:"C_mu_Hnl_BS_ips_xy"
 	},
-    "h_mu2_pt":
+    "h_mu_Ds_pt":
         {
-		"title"	:";#mu_{2} p_{T} [GeV];Events",
+		"title"	:";#mu_{Ds} p_{T} [GeV];Events",
 		"xlow"	:6.0,
 		"xhigh"	:30.0,
 		"nbins"	:24,
-		"var"	:"C_mu2_pt_ptBest"
+		"var"	:"C_mu_Ds_pt"
 	},
-    "h_mu2_eta":
+    "h_mu_Ds_eta":
         {
-		"title"	:";#mu_{2} #eta;Events",
+		"title"	:";#mu_{Ds} #eta;Events",
 		"xlow"	:-2.5,
 		"xhigh"	:2.5,
 		"nbins"	:20,
-		"var"	:"C_mu2_eta_ptBest"
+		"var"	:"C_mu_Ds_eta"
 	},
-    "h_mu2_BS_ip":
+    "h_mu_Ds_BS_ip":
         {
-		"title"	:";#mu_{2} 3D IP [cm] w.r.t. BS;Events",
+		"title"	:";#mu_{Ds} 3D IP [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
 		"xhigh"	:5.0,
 		"nbins"	:20,
-		"var"	:"C_mu2_BS_ip_ptBest"
+		"var"	:"C_mu_Ds_BS_ip"
 	},
-    "h_mu2_BS_ip_xy":
+    "h_mu_Ds_BS_ip_xy":
         {
-		"title"	:";#mu_{2} xy IP [cm] w.r.t. BS;Events",
+		"title"	:";#mu_{Ds} xy IP [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
 		"xhigh"	:5.0,
 		"nbins"	:20,
-		"var"	:"C_mu2_BS_ip_xy_ptBest"
+		"var"	:"C_mu_Ds_BS_ip_xy"
 	},
-    "h_mu2_BS_ips":
+    "h_mu_Ds_BS_ips":
         {
-		"title"	:";#mu_{2} 3D IPS [cm] w.r.t. BS;Events",
+		"title"	:";#mu_{Ds} 3D IPS [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
 		"xhigh"	:200.0,
 		"nbins"	:20,
-		"var"	:"C_mu2_BS_ips_ptBest"
+		"var"	:"C_mu_Ds_BS_ips"
 	},
-    "h_mu2_BS_ips_xy":
+    "h_mu_Ds_BS_ips_xy":
         {
-		"title"	:";#mu_{2} xy IPS [cm] w.r.t. BS;Events",
+		"title"	:";#mu_{Ds} xy IPS [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
 		"xhigh"	:200.0,
 		"nbins"	:20,
-		"var"	:"C_mu2_BS_ips_xy_ptBest"
+		"var"	:"C_mu_Ds_BS_ips_xy"
 	},
     "h_pi_pt":
         {
 		"title"	:";#pi p_{T} [GeV];Events",
 		"xlow"	:0.0,
 		"xhigh"	:20.0,
-		"nbins"	:20,
-		"var"	:"C_pi_pt_ptBest"
+		"nbins"	:40,
+		"var"	:"C_pi_pt"
 	},
     "h_pi_eta":
         {
@@ -173,7 +173,7 @@
 		"xlow"	:-2.5,
 		"xhigh"	:2.5,
 		"nbins"	:20,
-		"var"	:"C_pi_eta_ptBest"
+		"var"	:"C_pi_eta"
 	},
     "h_pi_BS_ip_z":
         {
@@ -181,7 +181,7 @@
 		"xlow"	:0.0,
 		"xhigh"	:5.0,
 		"nbins"	:20,
-		"var"	:"C_pi_BS_ip_z_ptBest"
+		"var"	:"C_pi_BS_ip_z"
 	},
     "h_pi_BS_ip_xy":
         {
@@ -189,7 +189,7 @@
 		"xlow"	:0.0,
 		"xhigh"	:5.0,
 		"nbins"	:20,
-		"var"	:"C_pi_BS_ip_xy_ptBest"
+		"var"	:"C_pi_BS_ip_xy"
 	},
     "h_pi_BS_ips_z":
         {
@@ -197,7 +197,7 @@
 		"xlow"	:0.0,
 		"xhigh"	:200.0,
 		"nbins"	:20,
-		"var"	:"C_pi_BS_ips_z_ptBest"
+		"var"	:"C_pi_BS_ips_z"
 	},
     "h_pi_BS_ips_xy":
         {
@@ -205,7 +205,7 @@
 		"xlow"	:0.0,
 		"xhigh"	:200.0,
 		"nbins"	:20,
-		"var"	:"C_pi_BS_ips_z_ptBest"
+		"var"	:"C_pi_BS_ips_z"
 	},
     "h_pv":
         {
@@ -219,8 +219,16 @@
         {
 		"title"	:";Number of true PU interactions;Events",
 		"xlow"	:0.0,
-		"xhigh"	:60.0,
-		"nbins"	:60,
+		"xhigh"	:100.0,
+		"nbins"	:100,
 		"var"	:"nPU_trueInt"
+	},
+    "h_mu1mu2_mass":
+        {
+		"title"	:";M(#mu_1,#mu_2);Events",
+		"xlow"	:0.0,
+		"xhigh"	:10,
+		"nbins"	:100,
+		"var"	:"C_mu1mu2_mass"
 	}
 }
