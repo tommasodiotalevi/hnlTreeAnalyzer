@@ -1,20 +1,19 @@
 {
-	"inputDirName"	:"/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/output/hnl/lxplus/neutralHnl",
+	"inputDirName"	:"/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/output/ds_to_hnl/lxplus/neutralHnl/",
 	"outDirName"	:"/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/plots/sel_opt",
 
-	"background"	:{"sel_eff_tree_QCD_Pt-20to30_MuEnrichedPt5_TuneCP5_13TeV_pythia8.csv" :
-                           {"label" : "bkg rej (QCD Pt20-30)",
-			    "marker": 24}
+	"background"	:{"filename": "sel_eff_tree__background_neutralHnl.csv",
+                           "label"  : "bkg rej (QCD Pt20-30)"
                          },
 
-	"signal"	:{"sel_eff_tree_BToNMuX_NToEMuPi_SoftQCD_b_mN1p5_ctau10p0mm_TuneCP5_13TeV-pythia8-evtgen.csv" : 
-                           {"label": "sig eff (m_{N}=1.5 GeV, c#tau=10.0 mm)",
-			    "marker": 21}
+	"signal"	:{"filename": "sel_eff_tree__signal_neutralHnl.csv",
+                          "label"   : "sig eff (m_{N}=1.5 GeV, c#tau=10.0 mm)"
                          },
 
-	"variables"	:{"C_Hnl_lxy":
-		           {"x_label":"Cut on HNL L_{xy} [cm]"},
-                          "C_Hnl_pt" :
-			   {"x_label":"Cut on HNL p_{T} [GeV]"}
-	                 }
+	"variables"	:[
+		{"name":"C_Hnl_lxy",
+		"x_label":"Cut on HNL L_{xy} [cm]"},
+		{"name":"C_Ds_pt",
+		"x_label":"Cut on HNL p_{T} [GeV]"}
+	]
 }

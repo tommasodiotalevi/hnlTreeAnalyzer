@@ -5,7 +5,7 @@
 		"xlow"	:1.75,
 		"xhigh"	:2.15,
 		"nbins"	:50,
-		"var"	:"Ds_mass"
+		"var"	:"C_Ds_mass"
 	},
     "h_ds_pt":
         {
@@ -13,15 +13,119 @@
 		"xlow"	:0.0,
 		"xhigh"	:40.0,
 		"nbins"	:40,
-		"var"	:"Ds_pt"
+		"var"	:"C_Ds_pt"
 	},
-    "h_ds_lxy":
+    "h_ds_l_prop_old":
         {
-		"title"	:";D_{s} L_{xy} [cm];Events",
+		"title"	:";D_{s} proper decay length w.r.t. PV [cm] (old def.);Events",
 		"xlow"	:0.0,
-		"xhigh"	:40.0,
+		"xhigh"	:0.1,
 		"nbins"	:20,
-		"var": "Ds_lxy"
+		"var": "C_Ds_l_prop_old"
+	},
+    "h_ds_l_prop":
+        {
+		"title"	:";D_{s} proper decay length w.r.t. PV [cm];Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.1,
+		"nbins"	:20,
+		"var": "C_Ds_l_prop"
+	},
+    "h_ds_vtx_3DDist_PV":
+        {
+		"title"	:";D_{s} L [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:20.0,
+		"nbins"	:20,
+		"var": "C_Ds_vertex_3DDist_PV"
+	},
+    "h_ds_vtx_2DDist_PV":
+        {
+		"title"	:";D_{s} L_{xy} [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:20.0,
+		"nbins"	:20,
+		"var": "C_Ds_vertex_2DDist_PV"
+	},
+    "h_ds_vtx_3DDist_BS":
+        {
+		"title"	:";D_{s} L [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:20.0,
+		"nbins"	:20,
+		"var": "C_Ds_vertex_3DDist_BS"
+	},
+    "h_ds_vtx_2DDist_BS":
+        {
+		"title"	:";D_{s} L_{xy} [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:20.0,
+		"nbins"	:20,
+		"var": "C_Ds_vertex_2DDist_BS"
+	},
+    "h_ds_vtx_3DErr_PV":
+        {
+		"title"	:";D_{s} #sigma_{L} [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.5,
+		"nbins"	:20,
+		"var": "C_Ds_vertex_3DErr_PV"
+	},
+    "h_ds_vtx_2DErr_PV":
+        {
+		"title"	:";D_{s} #sigma_{L_{xy}} [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.5,
+		"nbins"	:20,
+		"var": "C_Ds_vertex_2DErr_PV"
+	},
+    "h_ds_vtx_3DErr_BS":
+        {
+		"title"	:";D_{s} #sigma{L} [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.5,
+		"nbins"	:20,
+		"var": "C_Ds_vertex_3DErr_BS"
+	},
+    "h_ds_vtx_2DErr_BS":
+        {
+		"title"	:";D_{s} #sigma{L_{xy}} [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.5,
+		"nbins"	:20,
+		"var": "C_Ds_vertex_2DErr_BS"
+	},
+    "h_ds_vtx_3DSig_BS":
+        {
+		"title"	:";3D D_{s} vertex significance w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:50,
+		"var"	:"C_Ds_vertex_3DSig_BS"
+	},
+    "h_ds_vtx_2DSig_BS":
+        {
+		"title"	:";2D D_{s} vertex significance w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:50,
+		"var"	:"C_Ds_vertex_2DSig_BS"
+	},
+    "h_ds_vtx_3DSig_PV":
+        {
+		"title"	:";3D D_{s} vertex significance w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:50,
+		"var"	:"C_Ds_vertex_3DSig_PV"
+	},
+    "h_ds_vtx_2DSig_PV":
+        {
+		"title"	:";2D D_{s} vertex significance w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:50,
+		"var"	:"C_Ds_vertex_2DSig_PV"
 	},
     "h_ds_vtx_prob":
         {
@@ -29,7 +133,7 @@
 		"xlow"	:0.0,
 		"xhigh"	:1.0,
 		"nbins"	:50,
-		"var"	:"Ds_vertex_prob"
+		"var"	:"C_Ds_vertex_prob"
 	},
     "h_ds_vtx_cos2D":
         {
@@ -37,111 +141,135 @@
 		"xlow"	:-1.0,
 		"xhigh"	:1.0,
 		"nbins"	:50,
-		"var"	:"Ds_vertex_cos2D"
-	},
-    "h_ds_vtx_dispSig":
-        {
-		"title"	:";SV displacement significance;Events",
-		"xlow"	:0.0,
-		"xhigh"	:100.0,
-		"nbins"	:50,
-		"var"	:"Ds_vertex_sig"
+		"var"	:"C_Ds_vertex_cos2D"
 	},
     "h_mu1_Phi_pt":
         {
-		"title"	:";#mu_{HNL} p_{T} [GeV];Events",
+		"title"	:";#mu^{1}_{#phi} p_{T} [GeV];Events",
 		"xlow"	:0.0,
 		"xhigh"	:30.0,
 		"nbins"	:60,
-		"var"	:"mu1_Phi_pt"
+		"var"	:"C_mu1_Phi_pt"
 	},
     "h_mu1_Phi_eta":
         {
-		"title"	:";#mu_{HNL} #eta;Events",
+		"title"	:";#mu^{1}_{#phi} #eta;Events",
 		"xlow"	:-2.5,
 		"xhigh"	:2.5,
 		"nbins"	:20,
-		"var"	:"mu1_Phi_eta"
-	},
-    "h_mu1_Phi_BS_ip":
-        {
-		"title"	:";#mu_{HNL} 3D IP [cm] w.r.t. BS;Events",
-		"xlow"	:0.0,
-		"xhigh"	:5.0,
-		"nbins"	:20,
-		"var"	:"mu1_Phi_BS_ip"
+		"var"	:"C_mu1_Phi_eta"
 	},
     "h_mu1_Phi_BS_ip_xy":
         {
-		"title"	:";#mu_{HNL} xy IP [cm] w.r.t. BS;Events",
+		"title"	:";#mu^{1}_{#phi} xy IP [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:5.0,
+		"xhigh"	:0.1,
 		"nbins"	:20,
-		"var"	:"mu1_Phi_BS_ip_xy"
-	},
-    "h_mu1_Phi_BS_ips":
-        {
-		"title"	:";#mu_{HNL} 3D IPS [cm] w.r.t. BS;Events",
-		"xlow"	:0.0,
-		"xhigh"	:200.0,
-		"nbins"	:20,
-		"var"	:"mu1_Phi_BS_ips"
+		"var"	:"C_mu1_Phi_BS_ip_xy"
 	},
     "h_mu1_Phi_BS_ips_xy":
         {
-		"title"	:";#mu_{HNL} xy IPS [cm] w.r.t. BS;Events",
+		"title"	:";#mu^{1}_{#phi} xy IPS w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:200.0,
+		"xhigh"	:100.0,
 		"nbins"	:20,
-		"var"	:"mu1_Phi_BS_ips_xy"
+		"var"	:"C_mu1_Phi_BS_ips_xy"
+	},
+    "h_mu1_Phi_PV_ip_xy":
+        {
+		"title"	:";#mu^{1}_{#phi} xy IP [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.1,
+		"nbins"	:20,
+		"var"	:"C_mu1_Phi_PV_ip_xy"
+	},
+    "h_mu1_Phi_PV_ips_xy":
+        {
+		"title"	:";#mu^{1}_{#phi} xy IPS w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:20,
+		"var"	:"C_mu1_Phi_PV_ips_xy"
+	},
+    "h_mu1_Phi_PV_ip_z":
+        {
+		"title"	:";#mu^{1}_{#phi} z IP [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.1,
+		"nbins"	:20,
+		"var"	:"C_mu1_Phi_PV_ip_z"
+	},
+    "h_mu1_Phi_PV_ips_z":
+        {
+		"title"	:";#mu^{1}_{#phi} z IPS w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:20,
+		"var"	:"C_mu1_Phi_PV_ips_z"
 	},
     "h_mu2_Phi_pt":
         {
-		"title"	:";#mu_{B} p_{T} [GeV];Events",
+		"title"	:";#mu^{2}_{#phi} p_{T} [GeV];Events",
 		"xlow"	:0.0,
 		"xhigh"	:30.0,
 		"nbins"	:60,
-		"var"	:"mu2_Phi_pt"
+		"var"	:"C_mu2_Phi_pt"
 	},
     "h_mu2_Phi_eta":
         {
-		"title"	:";#mu_{B} #eta;Events",
+		"title"	:";#mu^{2}_{#phi} #eta;Events",
 		"xlow"	:-2.5,
 		"xhigh"	:2.5,
 		"nbins"	:20,
-		"var"	:"mu2_Phi_eta"
-	},
-    "h_mu2_Phi_BS_ip":
-        {
-		"title"	:";#mu_{B} 3D IP [cm] w.r.t. BS;Events",
-		"xlow"	:0.0,
-		"xhigh"	:5.0,
-		"nbins"	:20,
-		"var"	:"mu2_Phi_BS_ip"
+		"var"	:"C_mu2_Phi_eta"
 	},
     "h_mu2_Phi_BS_ip_xy":
         {
-		"title"	:";#mu_{B} xy IP [cm] w.r.t. BS;Events",
+		"title"	:";#mu^{2}_{#phi} xy IP [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:5.0,
+		"xhigh"	:0.1,
 		"nbins"	:20,
-		"var"	:"mu2_Phi_BS_ip_xy"
-	},
-    "h_mu2_Phi_BS_ips":
-        {
-		"title"	:";#mu_{B} 3D IPS [cm] w.r.t. BS;Events",
-		"xlow"	:0.0,
-		"xhigh"	:200.0,
-		"nbins"	:20,
-		"var"	:"mu2_Phi_BS_ips"
+		"var"	:"C_mu2_Phi_BS_ip_xy"
 	},
     "h_mu2_Phi_BS_ips_xy":
         {
-		"title"	:";#mu_{B} xy IPS [cm] w.r.t. BS;Events",
+		"title"	:";#mu^{2}_{#phi} xy IPS w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:200.0,
+		"xhigh"	:100.0,
 		"nbins"	:20,
-		"var"	:"mu2_Phi_BS_ips_xy"
+		"var"	:"C_mu2_Phi_BS_ips_xy"
+	},
+    "h_mu2_Phi_PV_ip_xy":
+        {
+		"title"	:";#mu^{2}_{#phi} xy IP [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.1,
+		"nbins"	:20,
+		"var"	:"C_mu2_Phi_PV_ip_xy"
+	},
+    "h_mu2_Phi_PV_ips_xy":
+        {
+		"title"	:";#mu^{2}_{#phi} xy IPS w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:20,
+		"var"	:"C_mu2_Phi_PV_ips_xy"
+	},
+    "h_mu2_Phi_PV_ip_z":
+        {
+		"title"	:";#mu^{2}_{#phi} z IP [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.1,
+		"nbins"	:20,
+		"var"	:"C_mu2_Phi_PV_ip_z"
+	},
+    "h_mu2_Phi_PV_ips_z":
+        {
+		"title"	:";#mu^{2}_{#phi} z IPS w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:20,
+		"var"	:"C_mu2_Phi_PV_ips_z"
 	},
     "h_pi_pt":
         {
@@ -149,7 +277,7 @@
 		"xlow"	:0.0,
 		"xhigh"	:20.0,
 		"nbins"	:40,
-		"var"	:"pi_pt"
+		"var"	:"C_pi_pt"
 	},
     "h_pi_eta":
         {
@@ -157,39 +285,39 @@
 		"xlow"	:-2.5,
 		"xhigh"	:2.5,
 		"nbins"	:20,
-		"var"	:"pi_eta"
-	},
-    "h_pi_BS_ip_z":
-        {
-		"title"	:";#pi z IP [cm] w.r.t. BS;Events",
-		"xlow"	:0.0,
-		"xhigh"	:5.0,
-		"nbins"	:20,
-		"var"	:"pi_BS_ip_z"
+		"var"	:"C_pi_eta"
 	},
     "h_pi_BS_ip_xy":
         {
 		"title"	:";#pi xy IP [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:5.0,
+		"xhigh"	:0.1,
 		"nbins"	:20,
-		"var"	:"pi_BS_ip_xy"
-	},
-    "h_pi_BS_ips_z":
-        {
-		"title"	:";#pi z IPS [cm] w.r.t. BS;Events",
-		"xlow"	:0.0,
-		"xhigh"	:200.0,
-		"nbins"	:20,
-		"var"	:"pi_BS_ips_z"
+		"var"	:"C_pi_BS_ip_xy"
 	},
     "h_pi_BS_ips_xy":
         {
-		"title"	:";#pi xy IPS [cm] w.r.t. BS;Events",
+		"title"	:";#pi xy IPS w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:200.0,
+		"xhigh"	:100.0,
 		"nbins"	:20,
-		"var"	:"pi_BS_ips_z"
+		"var"	:"C_pi_BS_ips_xy"
+	},
+    "h_pi_BS_ip_z":
+        {
+		"title"	:";#pi z IP [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.1,
+		"nbins"	:20,
+		"var"	:"C_pi_BS_ip_z"
+	},
+    "h_pi_BS_ips_z":
+        {
+		"title"	:";#pi z IPS w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:20,
+		"var"	:"C_pi_BS_ips_z"
 	},
     "h_pv":
         {

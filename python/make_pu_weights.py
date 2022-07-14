@@ -24,4 +24,4 @@ weightHisto.SetTitle("pu_weights")
 weightHisto.Divide(inputHistoMC)
 
 # save
-weightHisto.SaveAs("pu_weights.root")
+weightHisto.SaveAs("pu_weights_ParkingBPH6_B_HLT_Mu9_IP6.root")

@@ -17,26 +17,23 @@
 		}
 	],
 	"new_variables" : [
-		{"name"	:"C_Ds_lxy",
-		 "definition":"sqrt(C_Ds_vertex_x*C_Ds_vertex_x + C_Ds_vertex_y*C_Ds_vertex_y)"
-		},
 		{"name"	:"C_mu_B_matched_MU8_IP3",
-		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched,C_mu_trig_idx, C_mu_B_idx)"
+		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched,HLT_mu_trig_idx, C_mu_B_idx)"
 		},
 		{"name"	:"C_mu_B_matched_MU9_IP6",
-		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched,C_mu_trig_idx, C_mu_B_idx)"
+		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched,HLT_mu_trig_idx, C_mu_B_idx)"
 		},
 		{"name"	:"C_mu1_Phi_matched_MU8_IP3",
-		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched,C_mu_trig_idx, C_mu1_Phi_idx)"
+		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched,HLT_mu_trig_idx, C_mu1_Phi_idx)"
 		},
 		{"name"	:"C_mu1_Phi_matched_MU9_IP6",
-		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched,C_mu_trig_idx, C_mu1_Phi_idx)"
+		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched,HLT_mu_trig_idx, C_mu1_Phi_idx)"
 		},
 		{"name"	:"C_mu2_Phi_matched_MU8_IP3",
-		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched,C_mu_trig_idx, C_mu2_Phi_idx)"
+		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched,HLT_mu_trig_idx, C_mu2_Phi_idx)"
 		},
 		{"name"	:"C_mu2_Phi_matched_MU9_IP6",
-		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched,C_mu_trig_idx, C_mu2_Phi_idx)"
+		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched,HLT_mu_trig_idx, C_mu2_Phi_idx)"
 		}
 	],
 	"best_cand_var" :
@@ -50,17 +47,14 @@
 		{"cut":"(C_mu1_Phi_charge+C_mu2_Phi_charge)==0",
 		 "printout":"opposite charge muons"
 		},
-		{"cut":"C_mu1_Phi_pt>3.0",
-		 "printout":"leading muon from Phi pt>1.5"
-		},
 		{"cut":"C_mu1_Phi_isSoft>0",
 		 "printout":"leading muon from Phi is soft"
 		},
-		{"cut":"C_mu2_Phi_pt>1.5",
-		 "printout":"sub-leading muon from Phi pt>1.5"
-		},
 		{"cut":"C_mu2_Phi_isSoft>0",
 		 "printout":"sub-leading muon from Phi is soft"
+		},
+		{"cut":"C_mu_B_isSoft>0",
+		 "printout":"muon from B is soft"
 		}
 	],
 	"gen_matching_cuts" :[

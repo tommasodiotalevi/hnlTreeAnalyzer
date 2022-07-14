@@ -1,42 +1,65 @@
 {
-	"inputDirName"	:"/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/output/ds_to_hnl/crab/chargedHnl/",
+	"inputDirName"	:"/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/output/ds_to_hnl/crab/neutralHnl/",
 	"outDirName"	:"/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/plots/ds_to_hnl",
 
-	"background"	:{"out_tree_analyzer_HnlToMuPi_prompt_QCD_Pt-30To50_MuEnrichedPt5_TuneCP5_13TeV-pythia8_chargedHnl.root" :
+	"background"	:{"histograms_HnlToMuPi_prompt_QCD_Pt-20To30_MuEnrichedPt5_TuneCP5_neutralHnl.root" :
+                           {"label": "QCD Pt20-30"},
+                          "histograms_HnlToMuPi_prompt_QCD_Pt-30To50_MuEnrichedPt5_TuneCP5_neutralHnl.root" :
                            {"label": "QCD Pt30-50"},
-                          "out_tree_analyzer_HnlToMuPi_prompt_QCD_Pt-50To80_MuEnrichedPt5_TuneCP5_13TeV-pythia8_chargedHnl.root" :
-                           {"label": "QCD Pt50-80"}
+                          "histograms_HnlToMuPi_prompt_QCD_Pt-50To80_MuEnrichedPt5_TuneCP5_neutralHnl.root" :
+                           {"label": "QCD Pt50-80"},
+                          "histograms_HnlToMuPi_prompt_QCD_Pt-80To120_MuEnrichedPt5_TuneCP5_neutralHnl.root" :
+                           {"label": "QCD Pt80-120"},
+                          "histograms_HnlToMuPi_prompt_QCD_Pt-120To170_MuEnrichedPt5_TuneCP5_neutralHnl.root" :
+                           {"label": "QCD Pt120-170"},
+                          "histograms_HnlToMuPi_prompt_QCD_Pt-170To300_MuEnrichedPt5_TuneCP5_13TeV-pythia8_tree_neutralHnl.root" :
+                           {"label": "QCD Pt170-300"}
                          },
 
-	"signal"	:{"out_tree_analyzer_BToNMuX_NToEMuPi_SoftQCD_b_mN1p5_ctau10p0mm_TuneCP5_13TeV-pythia8-evtgen_chargedHnl.root" : 
+	"signal"	:{"histograms_HnlToMuPi_prompt_DsToNMu_NToMuPi_SoftQCD_mN1p5_ctau10p0mm_TuneCP5_13TeV-pythia8-evtgen_tree_neutralHnl.root" : 
                            {"label": "m_{N}=1.5 GeV, c#tau=10.0 mm"}
                          },
 
-	"data"		:{"out_tree_analyzer_HnlToMuPi_prompt_ParkingBPH6_Run2018B-UL2018_MiniAODv2-v1_chargedHnl.root" :
+	"data"		:{"histograms_HnlToMuPi_prompt_ParkingBPH6_Run2018B-UL2018_neutralHnl.root" :
                            {"label": "Data",
                             "integrated_lumi": 1.0}
                          },
 
 	"plotNameList"	:["h_hnl_pt",
                           "h_mumupi_mass",
-                          "h_hnl_preFit_mass",
                           "h_hnl_postFit_mass",
-                          "h_hnl_lxy",
                           "h_hnl_vtx_prob",
                           "h_hnl_vtx_cos2D",
-                          "h_hnl_vtx_dispSig",
+			  "h_hnl_vtx_3DSig_BS",
+			  "h_hnl_vtx_2DSig_BS",
+			  "h_hnl_vtx_3DSig_PV",
+			  "h_hnl_vtx_2DSig_PV",
+			  "h_hnl_vtx_3DDist_BS",
+			  "h_hnl_vtx_2DDist_BS",
+			  "h_hnl_vtx_3DDist_PV",
+			  "h_hnl_vtx_2DDist_PV",
+			  "h_hnl_vtx_3DErr_BS",
+			  "h_hnl_vtx_2DErr_BS",
+			  "h_hnl_vtx_3DErr_PV",
+			  "h_hnl_vtx_2DErr_PV",
                           "h_mu_Hnl_pt",
                           "h_mu_Hnl_eta",
-                          "h_mu_Hnl_BS_ip",
                           "h_mu_Hnl_BS_ip_xy",
-                          "h_mu_Hnl_BS_ips",
                           "h_mu_Hnl_BS_ips_xy",
+			  "h_mu_Hnl_PV_ip_z",
+			  "h_mu_Hnl_PV_ip_xy",
+                          "h_mu_Hnl_BS_ips_xy",
+                          "h_mu_Hnl_PV_ips_xy",
+                          "h_mu_Hnl_PV_ips_z",
                           "h_mu_Ds_pt",
                           "h_mu_Ds_eta",
-                          "h_mu_Ds_BS_ip",
                           "h_mu_Ds_BS_ip_xy",
-                          "h_mu_Ds_BS_ips",
                           "h_mu_Ds_BS_ips_xy",
+			  "h_mu_Ds_PV_ip_z",
+			  "h_mu_Ds_PV_ip_xy",
+                          "h_mu_Ds_BS_ips_xy",
+                          "h_mu_Ds_PV_ips_xy",
+                          "h_mu_Ds_PV_ips_z",
                           "h_pi_pt",
                           "h_pi_eta",
                           "h_pi_BS_ip_z",

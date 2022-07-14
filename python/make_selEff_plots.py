@@ -3,7 +3,19 @@ import sys
 import os
 import subprocess
 import json
-script, configFileName = sys.argv
+import argparse
+import math
+from array import array
+
+parser = argparse.ArgumentParser(description="")
+parser.add_argument("cfg_filename", help="Path to the input configuration file")
+parser.add_argument("--nS"        , type=int           , default=2435  , help="Number of expected signal events")
+parser.add_argument("--nB"        , type=int           , default=21542 , help="Number of expected background events")
+args = parser.parse_args()
+
+configFileName = args.cfg_filename
+nB = args.nB
+nS = args.nS
 
 with open(configFileName, "r") as f:
     config = json.loads(f.read())
@@ -11,55 +23,45 @@ with open(configFileName, "r") as f:
 inputDirName = str(config["inputDirName"])
 outDirName = str(config["outDirName"])
 
-for varName in config["variables"]:
+def significance(s,b):
+    sig = 0
+    if b!=0:
+        sig = math.sqrt(2*( (s+b)*math.log(1+(s/b)) - s))
+    return sig
+
+
+if __name__ == "__main__":
     ROOT.gROOT.SetBatch(ROOT.kTRUE)
-    c = ROOT.TCanvas("c","c",900,800)
+    print("Input file for background: {}".format(os.path.join(config["inputDirName"],config["background"]["filename"])))
+    print("Input file for signal: {}".format(os.path.join(config["inputDirName"],config["signal"]["filename"])))
 
-    #initialize TGraphs here otherwise it will save empty canvas
-    gr_dict = {"signal" : [ROOT.TGraph() for fileName in config["signal"]],
-               "background" : [ROOT.TGraph() for fileName in config["background"]]}
+    st = ROOT.TTree()
+    bt = ROOT.TTree()
+    st.ReadFile(os.path.join(config["inputDirName"],config["background"]["filename"]))
+    bt.ReadFile(os.path.join(config["inputDirName"],config["signal"]["filename"]))
+    sdf = ROOT.RDataFrame(st)
+    bdf = ROOT.RDataFrame(bt)
+    for var in config["variables"]:
+        c = ROOT.TCanvas("c","c",800,800)
+        x = var["name"]
+        sdf = sdf.Define(x+"_eff",x+"_pass/"+"("+x+"_pass+"+x+"_fail)")
+        bdf = bdf.Define(x+"_eff",x+"_pass/"+"("+x+"_pass+"+x+"_fail)")
+        eff_s = [a for a in sdf.Take['float'](x+'_eff').GetValue()]
+        eff_b = [a for a in bdf.Take['float'](x+'_eff').GetValue()]
+        sign = array('f')
+        for (s,b) in zip(eff_s,eff_b):
+            sign.append(significance(nS*s,nB*b))
+        cuts = array('f')
+        for a in bdf.Take['float'](x+'_cut').GetValue():
+            cuts.append(a)
+        n = len(cuts)
+        gr = ROOT.TGraph(n,cuts,sign)
+        gr.Draw()
+        gr.SetMarkerStyle(24)
+        gr.GetXaxis().SetTitle(var["x_label"])
+        gr.GetYaxis().SetTitle("Significance")
+        c.SaveAs(os.path.join(config["outDirName"],x+".png"))
+        del c
 
-    leg = ROOT.TLegend(0.60, 0.55, 0.87, 0.67)
 
-    k = int(0)
-    for cat in ["signal","background"]:
-        for i in range(0,len(config[cat])):
-            fileNameList = list(config[cat].keys())
-            fileName = fileNameList[i]
-            t = ROOT.TTree()
-            t.ReadFile(os.path.join(inputDirName,fileName))
-            df = ROOT.RDataFrame(t)
 
-            sel_eff = varName+"_pass/("+varName+"_pass+"+varName+"_fail)"
-            rej_eff = "1.0-("+varName+"_pass/("+varName+"_pass+"+varName+"_fail))"
-            df = df.Define("sel_eff",sel_eff)
-            df = df.Define("rej_eff",rej_eff)
-            var_to_plot = "sel_eff"
-            # plot 1-selection_eff=bkg_rejection in case of background
-            if cat == "background":
-                var_to_plot = "rej_eff"
-
-            gr_dict[cat][i] = df.Graph(varName+"_cut",var_to_plot)
-            gr_dict[cat][i].GetXaxis().SetTitle(config["variables"][varName]["x_label"])
-            gr_dict[cat][i].GetYaxis().SetTitle("")
-            gr_dict[cat][i].GetYaxis().SetRangeUser(-0.1,1.1)
-            gr_dict[cat][i].SetTitle("")
-            gr_dict[cat][i].SetMarkerStyle(config[cat][fileName]["marker"])
-            gr_dict[cat][i].SetMarkerSize(1.5)
-            opt = "ap"
-            if k>0:
-                opt ="p same"
-
-            gr_dict[cat][i].Draw(opt)
-
-            leg_label = str(config[cat][fileName]["label"])
-            leg.AddEntry(gr_dict[cat][i].GetValue(),leg_label,"p")
-
-            k+=1
-
-    leg.Draw("same")
-    
-    subprocess.call(["mkdir","-p",outDirName])
-    c.SaveAs(outDirName + "/" + varName +"_selEff.png")
-    c.SaveAs(outDirName + "/" + varName +"_selEff.root")
-    del c

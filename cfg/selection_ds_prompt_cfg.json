@@ -1,71 +1,96 @@
 {
 	"categories":[
-		{"printout":"inclusive category (no cuts)",
+		{"printout":"inclusive (dummy cut)",
 		 "label"   :"inclusive",
-		 "cut"     :"C_mu1_Phi_charge!=0"}
+		 "cut"     :"C_mu2_Phi_charge!=0"}
+	],
+	"_categories":[
+		{"printout":"prompt Ds",
+		 "label"   :"prompt",
+		 "cut"     :"C_mu1_Phi_isBsGGDaughter<1 && C_mu2_Phi_isBsGGDaughter<1"},
+		{"printout":"Bs->Ds",
+		 "label"   :"non-prompt",
+		 "cut"     :"C_mu1_Phi_isBsGGDaughter>0 && C_mu2_Phi_isBsGGDaughter>0"}
 	],
 	"selection_eff_scan": [
-		{"name"    : "Ds_lxy",
+		{"name"    : "C_Ds_lxy",
 		 "low_edge": -1.0,
 		 "up_edge" : 30.0,
 		 "logic"   : ">"
 		},
-		{"name"    : "Ds_pt",
+		{"name"    : "C_Ds_pt",
 		 "low_edge": -1.0,
 		 "up_edge" : 30.0,
 		 "logic"   : ">"
 		}
 	],
 	"new_variables" : [
-		{"name"	:"Ds_lxy",
-		 "definition":"sqrt(Ds_vertex_x*Ds_vertex_x + Ds_vertex_y*Ds_vertex_y)"
+		{"name"	:"C_mu1_Phi_matched_MU8_IP3",
+		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched, HLT_mu_trig_idx, C_mu1_Phi_idx)"
 		},
-		{"name"	:"mu1_Phi_matched_MU8_IP3",
-		 "definition":"get_mu_trigger_matching(mu8_ip3_matched,mu_trig_idx, mu1_Phi_idx)"
+		{"name"	:"C_mu1_Phi_matched_MU9_IP6",
+		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched, HLT_mu_trig_idx, C_mu1_Phi_idx)"
 		},
-		{"name"	:"mu1_Phi_matched_MU9_IP6",
-		 "definition":"get_mu_trigger_matching(mu9_ip6_matched,mu_trig_idx, mu1_Phi_idx)"
+		{"name"	:"C_mu2_Phi_matched_MU8_IP3",
+		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched, HLT_mu_trig_idx, C_mu2_Phi_idx)"
 		},
-		{"name"	:"mu2_Phi_matched_MU8_IP3",
-		 "definition":"get_mu_trigger_matching(mu8_ip3_matched,mu_trig_idx, mu2_Phi_idx)"
+		{"name"	:"C_mu2_Phi_matched_MU9_IP6",
+		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched, HLT_mu_trig_idx, C_mu2_Phi_idx)"
+		}
+	],
+	"_new_variables" : [
+		{"name"	:"C_Ds_p",
+		 "definition":"sqrt(C_Ds_px*C_Ds_px + C_Ds_py*C_Ds_py + C_Ds_pz*C_Ds_pz)"
 		},
-		{"name"	:"mu2_Phi_matched_MU9_IP6",
-		 "definition":"get_mu_trigger_matching(mu9_ip6_matched,mu_trig_idx, mu2_Phi_idx)"
+		{"name"	:"C_Ds_l",
+		 "definition":"sqrt((C_Ds_vertex_x-PV_x[0])*(C_Ds_vertex_x-PV_x[0]) + (C_Ds_vertex_y-PV_y[0])*(C_Ds_vertex_y-PV_y[0]) +(C_Ds_vertex_z-PV_z[0])*(C_Ds_vertex_z-PV_z[0]))"
+		},
+		{"name"	:"C_Ds_l_prop_old",
+		 "definition":"(C_Ds_l*C_Ds_mass)/C_Ds_p"
+		},
+		{"name"	:"C_Ds_l_prop",
+		 "definition":"(C_Ds_vertex_3DDist_PV*C_Ds_mass)/C_Ds_p"
+		},
+		{"name"	:"C_mu1_Phi_matched_MU8_IP3",
+		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched, HLT_mu_trig_idx, C_mu1_Phi_idx)"
+		},
+		{"name"	:"C_mu1_Phi_matched_MU9_IP6",
+		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched, HLT_mu_trig_idx, C_mu1_Phi_idx)"
+		},
+		{"name"	:"C_mu2_Phi_matched_MU8_IP3",
+		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched, HLT_mu_trig_idx, C_mu2_Phi_idx)"
+		},
+		{"name"	:"C_mu2_Phi_matched_MU9_IP6",
+		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched, HLT_mu_trig_idx, C_mu2_Phi_idx)"
 		}
 	],
 	"best_cand_var" :
 		{"name"	:"best_cand_idx",
-		 "definition":"get_best_cand_idx(Ds_pt)"
+		 "definition":"get_best_cand_idx(C_Ds_pt)"
 		},	
 	"selection_cuts" :[
-		{"cut":"mu1_Phi_matched_MU9_IP6>0 || mu1_Phi_matched_MU8_IP3>0 || mu2_Phi_matched_MU9_IP6>0 || mu2_Phi_matched_MU8_IP3>0",
-		 "printout":"at least a mu from phi matched MU8_IP3 || MU9_IP6"
+		{"cut":"C_mu1_Phi_matched_MU8_IP3>0 || C_mu1_Phi_matched_MU9_IP6>0 || C_mu2_Phi_matched_MU8_IP3>0 || C_mu2_Phi_matched_MU9_IP6>0",
+		 "printout":"at least one mu matched MU9_IP6 || MU8_IP3"
+		},
+		{"cut":"(fabs(C_mu1_Phi_eta)<1.2 && C_mu1_Phi_pt>3.5) || (fabs(C_mu1_Phi_eta)>1.2 && fabs(C_mu1_Phi_eta)<2.4 && C_mu1_Phi_pt>2.0)",
+		 "printout":"mu1 pt/eta cut"
+		},
+		{"cut":"(fabs(C_mu2_Phi_eta)<1.2 && C_mu2_Phi_pt>3.5) || (fabs(C_mu2_Phi_eta)>1.2 && fabs(C_mu2_Phi_eta)<2.4 && C_mu2_Phi_pt>2.0)",
+		 "printout":"mu2 pt/eta cut"
 		},
 		{"cut":"(C_mu1_Phi_charge+C_mu2_Phi_charge)==0",
 		 "printout":"opposite charge muons"
 		},
-		{"cut":"mu1_Phi_pt>3.0",
-		 "printout":"leading muon from Phi pt>1.5"
-		},
-		{"cut":"mu1_Phi_isSoft>0",
+		{"cut":"C_mu1_Phi_isSoft>0",
 		 "printout":"leading muon from Phi is soft"
 		},
-		{"cut":"mu2_Phi_pt>1.5",
-		 "printout":"sub-leading muon from Phi pt>1.5"
-		},
-		{"cut":"mu2_Phi_isSoft>0",
+		{"cut":"C_mu2_Phi_isSoft>0",
 		 "printout":"sub-leading muon from Phi is soft"
 		}
 	],
 	"gen_matching_cuts" :[
-		{"cut":"mu1_isHnlDaughter>0",
-		 "printout":"muon matching HNL mu daughter"
-		},
-		{"cut":"pi_isHnlDaughter>0",
-		 "printout":"pi matching HNL pi daughter"
-		},
-		{"cut":"mu_B_isHnlBrother>0",
-		 "printout":"trigger muon is HNL brother"
+		{"cut":"C_mu1_Phi_charge!=0",
+		 "printout":"dummy cut"
 		}
 	]
 }

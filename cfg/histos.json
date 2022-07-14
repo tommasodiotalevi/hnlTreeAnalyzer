@@ -2,46 +2,94 @@
     "h_mumupi_mass":
         {
 		"title"	:";#mu#mu#pi mass [GeV];Events",
-		"xlow"	:0.25,
-		"xhigh"	:9.0,
+		"xlow"	:0.0,
+		"xhigh"	:3.0,
 		"nbins"	:40 ,
 		"var"	:"C_Ds_mass"
-	},
-    "h_hnl_preFit_mass":
-        {
-		"title"	:";HNL (pre-fit) mass [GeV];Events",
-		"xlow"	:0.25,
-		"xhigh"	:6.0,
-		"nbins"	:40 ,
-		"var"	:"C_Hnl_preFit_mass"
 	},
     "h_hnl_postFit_mass":
         {
 		"title"	:";HNL (post-fit) mass [GeV];Events",
-		"xlow"	:0.25,
-		"xhigh"	:6.0,
+		"xlow"	:0.0,
+		"xhigh"	:2.0,
 		"nbins"	:40,
 		"var"	:"C_Hnl_mass"
 	},
     "h_hnl_pt":
         {
 		"title"	:";HNL p_{T} [GeV];Events",
-		"xlow"	:6.0,
-		"xhigh"	:40.0,
-		"nbins"	:34,
-		"var"	:"C_Hnl_pt"
-	},
-    "h_hnl_lxy":
-        {
-		"title"	:";HNL L_{xy} [cm];Events",
 		"xlow"	:0.0,
 		"xhigh"	:40.0,
+		"nbins"	:40,
+		"var"	:"C_Hnl_pt"
+	},
+    "h_hnl_vtx_3DDist_PV":
+        {
+		"title"	:";HNL L [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:20.0,
 		"nbins"	:20,
-		"var": "C_Hnl_lxy"
+		"var": "C_Hnl_vertex_3DDist_PV"
+	},
+    "h_hnl_vtx_2DDist_PV":
+        {
+		"title"	:";HNL L_{xy} [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:20.0,
+		"nbins"	:20,
+		"var": "C_Hnl_vertex_2DDist_PV"
+	},
+    "h_hnl_vtx_3DDist_BS":
+        {
+		"title"	:";HNL L [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:20.0,
+		"nbins"	:20,
+		"var": "C_Hnl_vertex_3DDist_BS"
+	},
+    "h_hnl_vtx_2DDist_BS":
+        {
+		"title"	:";HNL L_{xy} [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:20.0,
+		"nbins"	:20,
+		"var": "C_Hnl_vertex_2DDist_BS"
+	},
+    "h_hnl_vtx_3DErr_PV":
+        {
+		"title"	:";HNL #sigma_{L} [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.5,
+		"nbins"	:20,
+		"var": "C_Hnl_vertex_3DErr_PV"
+	},
+    "h_hnl_vtx_2DErr_PV":
+        {
+		"title"	:";HNL #sigma_{L_{xy}} [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.5,
+		"nbins"	:20,
+		"var": "C_Hnl_vertex_2DErr_PV"
+	},
+    "h_hnl_vtx_3DErr_BS":
+        {
+		"title"	:";HNL #sigma_{L} [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.5,
+		"nbins"	:20,
+		"var": "C_Hnl_vertex_3DErr_BS"
+	},
+    "h_hnl_vtx_2DErr_BS":
+        {
+		"title"	:";HNL #sigma_{L_{xy}} [cm] w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.5,
+		"nbins"	:20,
+		"var": "C_Hnl_vertex_2DErr_BS"
 	},
     "h_hnl_vtx_prob":
         {
-		"title"	:";SV probability;Events",
+		"title"	:";HNL vertex probability;Events",
 		"xlow"	:0.0,
 		"xhigh"	:1.0,
 		"nbins"	:50,
@@ -49,23 +97,47 @@
 	},
     "h_hnl_vtx_cos2D":
         {
-		"title"	:";SV cos2D;Events",
+		"title"	:";HNL vertex cos2D;Events",
 		"xlow"	:-1.0,
 		"xhigh"	:1.0,
 		"nbins"	:50,
 		"var"	:"C_Hnl_vertex_cos2D"
 	},
-    "h_hnl_vtx_dispSig":
+    "h_hnl_vtx_3DSig_BS":
         {
-		"title"	:";SV displacement significance;Events",
+		"title"	:";3D HNL vertex significance w.r.t. BS;Events",
 		"xlow"	:0.0,
 		"xhigh"	:100.0,
 		"nbins"	:50,
-		"var"	:"C_Hnl_vertex_sig"
+		"var"	:"C_Hnl_vertex_3DSig_BS"
+	},
+    "h_hnl_vtx_2DSig_BS":
+        {
+		"title"	:";2D HNL vertex significance w.r.t. BS;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:50,
+		"var"	:"C_Hnl_vertex_2DSig_BS"
+	},
+    "h_hnl_vtx_3DSig_PV":
+        {
+		"title"	:";3D HNL vertex significance w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:50,
+		"var"	:"C_Hnl_vertex_3DSig_PV"
+	},
+    "h_hnl_vtx_2DSig_PV":
+        {
+		"title"	:";2D HNL vertex significance w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:50,
+		"var"	:"C_Hnl_vertex_2DSig_PV"
 	},
     "h_mu_Hnl_pt":
         {
-		"title"	:";#mu_{1} p_{T} [GeV];Events",
+		"title"	:";#mu_{HNL} p_{T} [GeV];Events",
 		"xlow"	:0.0,
 		"xhigh"	:30.0,
 		"nbins"	:60,
@@ -73,7 +145,7 @@
 	},
     "h_mu_Hnl_eta":
         {
-		"title"	:";#mu_{1} #eta;Events",
+		"title"	:";#mu_{HNL} #eta;Events",
 		"xlow"	:-2.5,
 		"xhigh"	:2.5,
 		"nbins"	:20,
@@ -81,7 +153,7 @@
 	},
     "h_mu_Hnl_BS_ip":
         {
-		"title"	:";#mu_{1} 3D IP [cm] w.r.t. BS;Events",
+		"title"	:";#mu_{HNL} 3D IP [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
 		"xhigh"	:5.0,
 		"nbins"	:20,
@@ -89,31 +161,79 @@
 	},
     "h_mu_Hnl_BS_ip_xy":
         {
-		"title"	:";#mu_{1} xy IP [cm] w.r.t. BS;Events",
+		"title"	:";#mu_{HNL} xy IP [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:5.0,
+		"xhigh"	:0.5,
 		"nbins"	:20,
 		"var"	:"C_mu_Hnl_BS_ip_xy"
 	},
+    "h_mu_Hnl_PV_ip_z":
+        {
+		"title"	:";#mu_{HNL} z IP [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.1,
+		"nbins"	:20,
+		"var"	:"C_mu_Hnl_PV_ip_z"
+	},
+    "h_mu_Hnl_PV_ip_xy":
+        {
+		"title"	:";#mu_{HNL} xy IP [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.1,
+		"nbins"	:20,
+		"var"	:"C_mu_Hnl_PV_ip_xy"
+	},
+    "h_mu_Hnl_PV_ip":
+        {
+		"title"	:";#mu_{HNL} 3D IP [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.1,
+		"nbins"	:20,
+		"var"	:"C_mu_Hnl_PV_ip"
+	},
     "h_mu_Hnl_BS_ips":
         {
-		"title"	:";#mu_{1} 3D IPS [cm] w.r.t. BS;Events",
+		"title"	:";#mu_{HNL} 3D IPS w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:200.0,
+		"xhigh"	:20.0,
 		"nbins"	:20,
 		"var"	:"C_mu_Hnl_BS_ips"
 	},
     "h_mu_Hnl_BS_ips_xy":
         {
-		"title"	:";#mu_{1} xy IPS [cm] w.r.t. BS;Events",
+		"title"	:";#mu_{HNL} xy IPS w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:200.0,
+		"xhigh"	:100.0,
 		"nbins"	:20,
 		"var"	:"C_mu_Hnl_BS_ips_xy"
 	},
+    "h_mu_Hnl_PV_ips_z":
+        {
+		"title"	:";#mu_{HNL} z IPS w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:20,
+		"var"	:"C_mu_Hnl_PV_ips_z"
+	},
+    "h_mu_Hnl_PV_ips_xy":
+        {
+		"title"	:";#mu_{HNL} xy IPS w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:20,
+		"var"	:"C_mu_Hnl_PV_ips_xy"
+	},
+    "h_mu_Hnl_PV_ips":
+        {
+		"title"	:";#mu_{HNL} 3D IPS w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:20.0,
+		"nbins"	:20,
+		"var"	:"C_mu_Hnl_PV_ips"
+	},
     "h_mu_Ds_pt":
         {
-		"title"	:";#mu_{Ds} p_{T} [GeV];Events",
+		"title"	:";#mu_{D_{s}} p_{T} [GeV];Events",
 		"xlow"	:6.0,
 		"xhigh"	:30.0,
 		"nbins"	:24,
@@ -121,7 +241,7 @@
 	},
     "h_mu_Ds_eta":
         {
-		"title"	:";#mu_{Ds} #eta;Events",
+		"title"	:";#mu_{D_{s}} #eta;Events",
 		"xlow"	:-2.5,
 		"xhigh"	:2.5,
 		"nbins"	:20,
@@ -129,7 +249,7 @@
 	},
     "h_mu_Ds_BS_ip":
         {
-		"title"	:";#mu_{Ds} 3D IP [cm] w.r.t. BS;Events",
+		"title"	:";#mu_{D_{s}} 3D IP [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
 		"xhigh"	:5.0,
 		"nbins"	:20,
@@ -137,27 +257,75 @@
 	},
     "h_mu_Ds_BS_ip_xy":
         {
-		"title"	:";#mu_{Ds} xy IP [cm] w.r.t. BS;Events",
+		"title"	:";#mu_{D_{s}} xy IP [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:5.0,
+		"xhigh"	:0.5,
 		"nbins"	:20,
 		"var"	:"C_mu_Ds_BS_ip_xy"
 	},
+    "h_mu_Ds_PV_ip_z":
+        {
+		"title"	:";#mu_{D_{s}} z IP [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.1,
+		"nbins"	:20,
+		"var"	:"C_mu_Ds_PV_ip_z"
+	},
+    "h_mu_Ds_PV_ip_xy":
+        {
+		"title"	:";#mu_{D_{s}} xy IP [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.1,
+		"nbins"	:20,
+		"var"	:"C_mu_Ds_PV_ip_xy"
+	},
+    "h_mu_Ds_PV_ip":
+        {
+		"title"	:";#mu_{D_{s}} 3D IP [cm] w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:0.1,
+		"nbins"	:20,
+		"var"	:"C_mu_Ds_PV_ip"
+	},
     "h_mu_Ds_BS_ips":
         {
-		"title"	:";#mu_{Ds} 3D IPS [cm] w.r.t. BS;Events",
+		"title"	:";#mu_{D_{s}} 3D IPS w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:200.0,
+		"xhigh"	:20.0,
 		"nbins"	:20,
 		"var"	:"C_mu_Ds_BS_ips"
 	},
     "h_mu_Ds_BS_ips_xy":
         {
-		"title"	:";#mu_{Ds} xy IPS [cm] w.r.t. BS;Events",
+		"title"	:";#mu_{D_{s}} xy IPS w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:200.0,
+		"xhigh"	:100.0,
 		"nbins"	:20,
 		"var"	:"C_mu_Ds_BS_ips_xy"
+	},
+    "h_mu_Ds_PV_ips_z":
+        {
+		"title"	:";#mu_{D_{s}} z IPS w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:20,
+		"var"	:"C_mu_Ds_PV_ips_z"
+	},
+    "h_mu_Ds_PV_ips_xy":
+        {
+		"title"	:";#mu_{D_{s}} xy IPS w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:100.0,
+		"nbins"	:20,
+		"var"	:"C_mu_Ds_PV_ips_xy"
+	},
+    "h_mu_Ds_PV_ips":
+        {
+		"title"	:";#mu_{HNL} 3D IPS w.r.t. PV;Events",
+		"xlow"	:0.0,
+		"xhigh"	:20.0,
+		"nbins"	:20,
+		"var"	:"C_mu_Ds_PV_ips"
 	},
     "h_pi_pt":
         {
@@ -187,7 +355,7 @@
         {
 		"title"	:";#pi xy IP [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:5.0,
+		"xhigh"	:0.5,
 		"nbins"	:20,
 		"var"	:"C_pi_BS_ip_xy"
 	},
@@ -195,7 +363,7 @@
         {
 		"title"	:";#pi z IPS [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:200.0,
+		"xhigh"	:100.0,
 		"nbins"	:20,
 		"var"	:"C_pi_BS_ips_z"
 	},
@@ -203,7 +371,7 @@
         {
 		"title"	:";#pi xy IPS [cm] w.r.t. BS;Events",
 		"xlow"	:0.0,
-		"xhigh"	:200.0,
+		"xhigh"	:100.0,
 		"nbins"	:20,
 		"var"	:"C_pi_BS_ips_z"
 	},
@@ -225,10 +393,10 @@
 	},
     "h_mu1mu2_mass":
         {
-		"title"	:";M(#mu_1,#mu_2);Events",
+		"title"	:";M(#mu_{1},#mu_{2});Events",
 		"xlow"	:0.0,
-		"xhigh"	:10,
-		"nbins"	:100,
+		"xhigh"	:3,
+		"nbins"	:30,
 		"var"	:"C_mu1mu2_mass"
 	}
 }

@@ -3,7 +3,6 @@
 #include "TCanvas.h"
 #include "TH1D.h"
 #include "TLatex.h"
-#include "Math/Vector4D.h"
 #include "TStyle.h"
 
 using namespace ROOT;
@@ -28,10 +27,6 @@ size_t get_best_cand_idx(RVec<double> cand_var)
 RVec<short> get_mu_trigger_matching(RVec<short> trigger_match, RVec<unsigned> trig_mu_idx, RVec<unsigned> mu_idx)
 {
   RVec<short> mu_has_matched_trigger(mu_idx.size());
-  //mu_has_matched_trigger.reserve(mu_idx.size());
-  //for(unsigned i=0; i<mu_has_matched_trigger.size(); ++i){
-  //  mu_has_matched_trigger[i] = 0;
-  //}
 
   for(unsigned i_trigMatch=0; i_trigMatch<trigger_match.size(); ++i_trigMatch){
 

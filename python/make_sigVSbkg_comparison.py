@@ -13,6 +13,7 @@ outDirName = str(config["outDirName"])
 
 for plotName in config["plotNameList"]:
     ROOT.gROOT.SetBatch(ROOT.kTRUE)
+    ROOT.gStyle.SetOptStat(0)
 
     c = ROOT.TCanvas("c","c",800,800)
     
@@ -39,6 +40,10 @@ for plotName in config["plotNameList"]:
 
     xaxis_label = str()
     integral_tot = float()
+    hmax = float()
+    hmax_sig = float()
+    
+
     for filename in config["background"]:
         inputFileDic_bkg [filename] = ROOT.TFile.Open(str(os.path.join(inputDirName,filename)))
         inputHistoDic_bkg[filename] = ROOT.TH1D(inputFileDic_bkg[filename].Get(histoName))
@@ -51,7 +56,8 @@ for plotName in config["plotNameList"]:
         inputHistoDic_bkg[filename].Scale(1./integral_tot)
         inputHistoDic_bkg[filename].SetLineColor(ROOT.kBlack)
         inputHistoDic_bkg[filename].SetFillColor(colorList[iColor])
-        overflowBin = inputHistoDic_bkg[filename].GetXaxis().GetLast() + 1
+        #overflowBin = inputHistoDic_bkg[filename].GetXaxis().GetLast() + 1
+        overflowBin = inputHistoDic_bkg[filename].GetXaxis().GetLast() # This is not the overflow bin
         inputHistoDic_bkg[filename].GetXaxis().SetRange(1,overflowBin)
         xaxis_label = str(inputHistoDic_bkg[filename].GetXaxis().GetTitle())
         histoStacked.Add(inputHistoDic_bkg[filename])
@@ -67,13 +73,7 @@ for plotName in config["plotNameList"]:
     histoStacked.SetMinimum(0.)
     histoStacked.GetXaxis().SetTitle(xaxis_label)
     hmax = float(histoStacked.GetMaximum())
-    histoStacked.SetMaximum(hmax+(hmax/3))
-    overflowBin = histoStacked.GetXaxis().GetLast() + 1
-    histoStacked.GetXaxis().SetRange(1,overflowBin)
-    histoStacked.Draw("hist")
-    c.Update()
 
-    
     #Superimposing signal
     for filename in config["signal"]:
         inputFileDic_sig [filename] = ROOT.TFile.Open(str(os.path.join(inputDirName,filename)))
@@ -84,20 +84,35 @@ for plotName in config["plotNameList"]:
         inputHistoDic_sig[filename].SetLineColor(ROOT.kBlack)
         inputHistoDic_sig[filename].SetLineWidth(2)
         inputHistoDic_sig[filename].SetLineStyle(1+iLineStyle)
-        overflowBin = inputHistoDic_sig[filename].GetXaxis().GetLast() + 1
+        #overflowBin = inputHistoDic_sig[filename].GetXaxis().GetLast() + 1
+        overflowBin = inputHistoDic_sig[filename].GetXaxis().GetLast() #This is not the overflow bin
         inputHistoDic_sig[filename].GetXaxis().SetRange(1,overflowBin)
         sigLabel = config["signal"][filename]["label"]
+        hmax_sig = float(inputHistoDic_sig[filename].GetMaximum())
         leg_sigVSbkg.AddEntry(inputHistoDic_sig[filename],sigLabel)
-        inputHistoDic_sig[filename].SetAxisRange(0.,2.,"Y")
-        inputHistoDic_sig[filename].Draw("histo same")
+        inputHistoDic_sig[filename].Draw("hist")
+
+        if hmax_sig>hmax:
+            hmax = hmax_sig
+        yedge = hmax+(hmax/2)
+        inputHistoDic_sig[filename].SetMaximum(yedge)
         iLineStyle+=1
+
+
+    #overflowBin = histoStacked.GetXaxis().GetLast() + 1
+    overflowBin = histoStacked.GetXaxis().GetLast() # This is not the overflow bin
+    histoStacked.GetXaxis().SetRange(1,overflowBin)
+    histoStacked.Draw("hist same")
+    c.Update()
+
 
 
     leg_sigVSbkg.Draw("same")
     c.Update()
 
-    subprocess.call(["mkdir","-p",outDirName])
-    c.SaveAs(outDirName + "/" + histoName +"_sigVSbkg.png")
-    c.SaveAs(outDirName + "/" + histoName +"_sigVSbkg.root")
+    outputFullPath = os.path.join(outDirName,"sigVSbkg")
+    subprocess.call(["mkdir","-p",outputFullPath])
+    c.SaveAs(os.path.join(outputFullPath,histoName +"_sigVSbkg.png"))
+    c.SaveAs(os.path.join(outputFullPath,histoName +"_sigVSbkg.root"))
 
     del c

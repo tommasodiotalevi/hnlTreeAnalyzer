@@ -11,10 +11,12 @@ import ROOT
 inputDirName = str(config["inputDirName"])
 outDirName = str(os.path.join(config["outDirName"],inputDirName.split("/")[-1])) 
 
-inputMCFileName = inputDirName + "/" + "hadd_bkg.root"
+#inputMCFileName = inputDirName + "/" + "hadd_bkg.root"
+inputMCFileName = os.path.join(inputDirName,"hadd_bkg.root")
 subprocess.call(["hadd","-f",inputMCFileName] + [str(inputDirName + "/" + bkgFileName) for bkgFileName in config["background"].keys()])
 
-inputDataFileName = inputDirName + "/" + "hadd_data.root"
+#inputDataFileName = inputDirName + "/" + "hadd_data.root"
+inputDataFileName = os.path.join(inputDirName,"hadd_data.root")
 subprocess.call(["hadd","-f",inputDataFileName] + [str(inputDirName + "/" + dataFileName) for dataFileName in config["data"].keys()])
 
 for plotName in config["plotNameList"]:
@@ -40,7 +42,7 @@ for plotName in config["plotNameList"]:
     colorList = [ROOT.kRed, ROOT.kGreen, ROOT.kBlue, ROOT.kYellow, ROOT.kMagenta, ROOT.kCyan, ROOT.kOrange, ROOT.kSpring, ROOT.kTeal, ROOT.kAzure, ROOT.kViolet, ROOT.kPink]
     iColor = 0
     iLineStyle=0
-    leg_dataVSmc = ROOT.TLegend(0.65, 0.75, 0.87, 0.87)
+    leg_dataVSmc = ROOT.TLegend(0.65, 0.65, 0.87, 0.87)
     
     histoStacked = ROOT.THStack("histoStacked","histoStacked")
     
@@ -67,10 +69,15 @@ for plotName in config["plotNameList"]:
         tot_integral += inputHistoDic_bkg[filename].Integral()
     
     #Stacking background histos
+    #for filename in sorted(config["background"]):
     for filename in config["background"]:
+        print("FILE: {}".format(filename))
         inputFileDic_bkg [filename] = ROOT.TFile.Open(str(os.path.join(inputDirName,filename)))
         inputHistoDic_bkg[filename] = ROOT.TH1D(inputFileDic_bkg[filename].Get(histoName))
         #inputHistoDic_bkg[filename].Scale(lumi_data)
+        histo_integral = inputHistoDic_bkg[filename].Integral()
+        print("histo_integral = {}".format(histo_integral))
+        print("tot_integral = {}".format(tot_integral))
         inputHistoDic_bkg[filename].Scale(1./tot_integral)
         inputHistoDic_bkg[filename].SetLineColor(ROOT.kBlack)
         inputHistoDic_bkg[filename].SetFillColor(colorList[iColor])
@@ -94,7 +101,7 @@ for plotName in config["plotNameList"]:
     histoStacked.GetXaxis().SetLabelSize(0)
     histoStacked.SetMinimum(0.)
     hmax = float(histoStacked.GetMaximum())
-    histoStacked.SetMaximum(hmax+(hmax/3))
+    histoStacked.SetMaximum(hmax+(hmax/2))
     #overflowBin = histoStacked.GetXaxis().GetLast() + 1
     overflowBin = histoStacked.GetXaxis().GetLast()
     histoStacked.GetXaxis().SetRange(1,overflowBin)
@@ -108,7 +115,8 @@ for plotName in config["plotNameList"]:
     inputDataHisto.SetLineColor(ROOT.kBlack)
     inputDataHisto.SetMarkerStyle(20)
     inputDataHisto.GetXaxis().SetRange(1,overflowBin)
-    leg_dataVSmc.AddEntry(inputDataHisto,"DATA")
+    a_filename = list(config["data"].keys())[0]
+    leg_dataVSmc.AddEntry(inputDataHisto,config["data"][a_filename]["label"])
     inputDataHisto.Draw("ex0p same")
     leg_dataVSmc.Draw("same")
 
@@ -139,6 +147,6 @@ for plotName in config["plotNameList"]:
     hRatio.Draw()
     
     subprocess.call(["mkdir","-p",outDirName])
-    c.SaveAs(outDirName + "/" + histoName +"_dataVSmc.png")
-    c.SaveAs(outDirName + "/" + histoName +"_dataVSmc.root")
+    c.SaveAs(os.path.join(outDirName,histoName +"_dataVSmc.png"))
+    c.SaveAs(os.path.join(outDirName,histoName +"_dataVSmc.root"))
     del c

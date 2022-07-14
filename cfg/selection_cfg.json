@@ -1,39 +1,21 @@
 {
 	"categories":[
-		{"printout":"chargedHnl category",
-		 "label"   :"chargedHnl",
-		 "cut"     :"C_mu_Hnl_charge+C_pi_charge != 0"},
 		{"printout":"neutralHnl category",
 		 "label"   :"neutralHnl",
-		 "cut"     :"C_mu_Hnl_charge+C_pi_charge == 0"}
-	],
-	"selection_eff_scan": [
-		{"name"    : "C_Hnl_lxy",
-		 "low_edge": -1.0,
-		 "up_edge" : 30.0,
-		 "logic"   : ">"
-		},
-		{"name"    : "C_Hnl_pt",
-		 "low_edge": -1.0,
-		 "up_edge" : 30.0,
-		 "logic"   : ">"
-		}
+		 "cut"     :"(C_mu_Hnl_charge+C_pi_charge) == 0"}
 	],
 	"new_variables" : [
-		{"name"	:"C_Hnl_lxy",
-		 "definition":"sqrt(C_Hnl_vertex_x*C_Hnl_vertex_x + C_Hnl_vertex_y*C_Hnl_vertex_y)"
+		{"name"	:"C_Hnl_p",
+		 "definition":"sqrt(C_Hnl_px*C_Hnl_px + C_Hnl_py*C_Hnl_py + C_Hnl_pz*C_Hnl_pz)"
+		},
+		{"name"	:"C_Hnl_l_prop",
+		 "definition":"(C_Hnl_vertex_3DDist_PV*C_Hnl_mass)/C_Hnl_p"
 		},
 		{"name"	:"C_mu_Ds_matched_MU9_IP6",
 		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched,HLT_mu_trig_idx, C_mu_Ds_idx)"
 		},
-		{"name"	:"C_mu_Ds_matched_MU8_IP3",
-		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched,HLT_mu_trig_idx, C_mu_Ds_idx)"
-		},
 		{"name"	:"C_mu_Hnl_matched_MU9_IP6",
 		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)"
-		},
-		{"name"	:"C_mu_Hnl_matched_MU8_IP3",
-		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)"
 		}
 	],
 	"best_cand_var" :
@@ -41,8 +23,14 @@
 		 "definition":"get_best_cand_idx(C_Ds_pt)"
 		},	
 	"selection_cuts" :[
-		{"cut":"C_mu_Ds_matched_MU9_IP6>0 || C_mu_Ds_matched_MU8_IP3>0 || C_mu_Hnl_matched_MU9_IP6>0 || C_mu_Hnl_matched_MU8_IP3>0",
-		 "printout":"MU9_IP6 or MU8_IP3 matched with any muon"
+		{"cut":"C_mu_Ds_matched_MU9_IP6>0",
+		 "printout":"MU9_IP6 matched with muon from Ds"
+		},
+		{"cut":"C_mu_Ds_isSoft>0",
+		 "printout":"mu from Ds pass soft ID"
+		},
+		{"cut":"C_mu_Hnl_isSoft>0",
+		 "printout":"mu from Ds pass soft ID"
 		}
 	],
 	"gen_matching_cuts" :[
@@ -51,9 +39,19 @@
 		},
 		{"cut":"C_pi_isHnlDaughter>0",
 		 "printout":"pi matching HNL pi daughter"
+		}
+	],
+	"mN1p5_ctau10p0mm_rw_points" :[15.0,30.0,45.0,60.0,75.0,90.0,100.0],
+	"selection_eff_scan": [
+		{"name"    : "C_Hnl_lxy",
+		 "low_edge": -1.0,
+		 "up_edge" : 30.0,
+		 "logic"   : ">"
 		},
-		{"cut":"C_mu_B_isHnlBrother>0",
-		 "printout":"trigger muon is HNL brother"
+		{"name"    : "C_Ds_pt",
+		 "low_edge": -1.0,
+		 "up_edge" : 30.0,
+		 "logic"   : ">"
 		}
 	]
 }
