@@ -183,6 +183,7 @@ for cat in selection["categories"]:
                 for new_ctau in selection["mN"+hnl_mass_label+"_ctau"+old_ctau_label+"mm_rw_points"]:
                   old_ctau = float(old_ctau_label.replace("p","."))
                   w_expr   = "("+str(old_ctau)+"/"+str(new_ctau)+")*"+"exp(C_Hnl_gen_l_prop*("+str(1./old_ctau)+"-"+str(1./new_ctau)+"))"
+                  print("---> weight = {}".format(w_expr))
                   df = df.Define("ctau_weight_"+old_ctau_label+"TO"+str(new_ctau).replace(".","p"),w_expr)
 
         if args.saveOutputTree and not output_tree_has_been_saved:
@@ -275,7 +276,7 @@ for cat in selection["categories"]:
                     histo_model = (weighted_histo_name,title,nbins,xlow,xhigh)
 
                     var_name = str(histos[histo_name]["var"])
-                    print("---> {}".format(var_name))
+                    #print("---> {}".format(var_name))
 
                     histo_dict[weighted_histo_name]= df.Histo1D(histo_model,var_name,"tot_weight_"+weight_label)
 

@@ -23,6 +23,11 @@
 		 "definition":"get_best_cand_idx(C_Ds_pt)"
 		},	
 	"selection_cuts" :[
+		{"cut":"C_mu_Ds_isSoft>-300",
+		 "printout":"mu from Ds pass soft ID"
+		}
+	],
+	"_selection_cuts" :[
 		{"cut":"C_mu_Ds_matched_MU9_IP6>0",
 		 "printout":"MU9_IP6 matched with muon from Ds"
 		},
@@ -30,12 +35,15 @@
 		 "printout":"mu from Ds pass soft ID"
 		},
 		{"cut":"C_mu_Hnl_isSoft>0",
-		 "printout":"mu from Ds pass soft ID"
+		 "printout":"mu from HNL pass soft ID"
 		}
 	],
 	"gen_matching_cuts" :[
 		{"cut":"C_mu_Hnl_isHnlDaughter>0",
 		 "printout":"muon matching HNL mu daughter"
+		},
+		{"cut":"C_mu_Ds_isHnlBrother>0",
+		 "printout":"muon matching Ds mu daughter"
 		},
 		{"cut":"C_pi_isHnlDaughter>0",
 		 "printout":"pi matching HNL pi daughter"
