@@ -8,6 +8,7 @@
 using namespace ROOT;
 using namespace ROOT::VecOps;
 
+//select the best candidate based on cand_var,
 size_t get_best_cand_idx(RVec<double> cand_var)
 {
   float var_best = -1;
@@ -18,6 +19,39 @@ size_t get_best_cand_idx(RVec<double> cand_var)
     {
       var_best = cand_var.at(i);
       idx_best = i;
+    }
+  }
+
+  return idx_best;
+}
+
+//select the best candidate based on cand_var,
+//if more than one mu1mu2pi permutation is present
+//then then select the best combination based on mu1mu2_var
+size_t get_best_cand_idx(RVec<double> cand_var, RVec<double> mu1mu2_var, RVec<unsigned> mu1_idx, RVec<unsigned> mu2_idx, RVec<unsigned> pi_idx)
+{
+  float var_best = -9999.;
+  size_t idx_best = 9999;
+
+  //select best candidate based on cand_var
+  for (unsigned i=0; i<cand_var.size(); ++i)
+  {
+    if(cand_var.at(i)>var_best)
+    {
+      var_best = cand_var.at(i);
+      idx_best = i;
+    }
+  }
+
+  //if more than one permutation exists, check mu1m2_var
+  for (unsigned j=0; j<cand_var.size(); ++j)
+  {
+    if (mu1_idx.at(idx_best) == mu2_idx.at(j) && mu2_idx.at(idx_best) == mu1_idx.at(j) && pi_idx.at(idx_best) == pi_idx.at(j))
+    {
+      if(mu1mu2_var.at(j) > mu1mu2_var.at(idx_best))
+      {
+        idx_best = j;
+      }
     }
   }
 
@@ -39,4 +73,25 @@ RVec<short> get_mu_trigger_matching(RVec<short> trigger_match, RVec<unsigned> tr
   }
 
   return mu_has_matched_trigger;
+}
+
+//for debugging
+RVec<short> get_multiple_permutations(RVec<unsigned> mu1_idx, RVec<unsigned> mu2_idx, RVec<unsigned> pi_idx)
+{
+  RVec<short> cand_has_multiple_permutations(mu1_idx.size(),0);
+
+  for (unsigned i=0; i<mu1_idx.size(); ++i)
+  {
+    for (unsigned j=+1; j<mu1_idx.size(); ++j)
+    {
+      if (mu1_idx.at(i) == mu2_idx.at(j) && mu2_idx.at(i) == mu1_idx.at(j) && pi_idx.at(i) == pi_idx.at(j))
+      {
+        cand_has_multiple_permutations[i] = 1;
+        cand_has_multiple_permutations[j] = 1;
+      }
+    }
+  }
+
+  return cand_has_multiple_permutations;
+
 }
