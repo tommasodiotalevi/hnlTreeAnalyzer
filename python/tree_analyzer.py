@@ -14,7 +14,6 @@ parser = argparse.ArgumentParser(description="")
 parser.add_argument("cfg_filename"      ,                                     help="Path to the input configuration file")
 parser.add_argument("dataset_short_name",                                     help="Short name of the input sample to process")
 parser.add_argument("--saveOutputTree"  , action='store_true', default=False, help="Save an output tree (after all the cuts)")
-parser.add_argument("--saveOutputWS"    , action='store_true', default=False, help="Save an output workspace (after all the cuts)")
 parser.add_argument("--saveSlimmedTree" , action='store_true', default=False, help="Save an output tree (before the cuts and after best candidate selection)")
 parser.add_argument("--noHistograms"    , action='store_true', default=False, help="Do not save histogram as output")
 parser.add_argument("--addSPlotWeight"  , action='store_true', default=False, help="Add splot weight for data")
@@ -106,9 +105,7 @@ print("{} total entries ...".format(chain.GetEntries()))
 input_file_name = inputFileName_list[0].split("/")[-1].split(".")[0]
 dataset_name_label = input_file_name[input_file_name.find("_")+1:input_file_name.rfind("_")]
 
-# save output tree only once without applying categorization
-output_ws_has_been_saved  = False
-output_tree_has_been_saved  = False
+# save slimmed tree only once without applying categorization
 slimmed_tree_has_been_saved = False
 
 reports = {}
@@ -166,10 +163,12 @@ for cat in selection["categories"]:
                 json.dump(ntuples,f, indent=4, sort_keys=True)
             print("{} updated".format(config["ntuples_cfg_file_full_path"])) 
 
+    #apply categorization 
+    df = df.Filter(cat["cut"] ,cat["printout"])
     
     if not args.skipSelCuts:
         #apply selection
-        for sel in selection["selection_cuts"]:
+        for sel in cat["selection_cuts"]:
             df = df.Filter(sel["cut"],sel["printout"])
 
         
@@ -186,9 +185,9 @@ for cat in selection["categories"]:
                   print("---> weight = {}".format(w_expr))
                   df = df.Define("ctau_weight_"+old_ctau_label+"TO"+str(new_ctau).replace(".","p"),w_expr)
 
-        if args.saveOutputTree and not output_tree_has_been_saved:
-            finalTree_outputFileName = "tree_"+dataset_name_label+".root"
-            finalCSV_outputFileName  = "tree_"+dataset_name_label+".csv"
+        if args.saveOutputTree and cat["save"]=="yes":
+            finalTree_outputFileName = "tree_"+dataset_name_label+"_"+cat["label"]+".root"
+            finalCSV_outputFileName  = "tree_"+dataset_name_label+"_"+cat["label"]+".csv"
             finalTree_outputDirName = os.path.join(config["tree_output_dir_name"],dataset_name_label)
             subprocess.call(['mkdir','-p',finalTree_outputDirName])
             finalTree_outFullPath = os.path.join(finalTree_outputDirName,finalTree_outputFileName)
@@ -199,34 +198,13 @@ for cat in selection["categories"]:
             a = df.AsNumpy([x for x in df.GetColumnNames() if x.find("C_")==0])
             arr = numpy.array([x for x in a.values()]).transpose()
             numpy.savetxt(finalCSV_outFullPath, arr, delimiter=',', header=",".join([str(x) for x in a.keys()]), comments='')
-            output_tree_has_been_saved = True
+            #output_tree_has_been_saved = True
             print("Output tree saved in {}".format(finalTree_outFullPath))
             print("Output csv saved in {}".format(finalCSV_outFullPath))
             ntuples[dataset_to_process]["final_file_name_list"] = [str(finalTree_outFullPath)]
             with open(config["ntuples_cfg_file_full_path"], "w") as f:
                 json.dump(ntuples,f, indent=4, sort_keys=True)
             print("{} updated".format(config["ntuples_cfg_file_full_path"]))
-
-    if args.saveOutputWS and not output_ws_has_been_saved:
-        ws_outputFileName = "ws_"+dataset_name_label+".root"
-        ws_outputDirName = os.path.join(config["tree_output_dir_name"],dataset_name_label) #same directory as the output tree
-        subprocess.call(['mkdir','-p',ws_outputDirName])
-        ws_outFullPath = os.path.join(ws_outputDirName,ws_outputFileName)
-        #
-        # save workspace
-        ROOT.gInterpreter.Declare('RooRealVar C_Hnl_mass ("C_Hnl_mass","C_Hnl_mass",0.2,2.5);')
-        ROOT.gInterpreter.Declare('auto cppdf = (ROOT::RDataFrame*)TPython::Eval("df");')
-        ROOT.gInterpreter.Declare('auto rds = cppdf->Book<float>(RooDataSetHelper("dataset","dataset",RooArgSet(C_Hnl_mass)),{"C_Hnl_mass"});')
-        roodataset = ROOT.rds.GetValue()
-        ws = ROOT.RooWorkspace("ws")
-        ws.Import(roodataset)
-        ws.SaveAs(ws_outFullPath)
-        #
-        output_ws_has_been_saved = True
-        print("Output RooFit workspace saved in {}".format(ws_outFullPath))
-
-    #apply categorization 
-    df = df.Filter(cat["cut"] ,cat["printout"])
 
     if dataset_category=="data" and args.addSPlotWeight:
         sdf = ROOT.RDataFrame(config["splot_weight_tree_name"],config["splot_weight_input_file"]) # get tree containing splot weights
@@ -243,7 +221,8 @@ for cat in selection["categories"]:
     #save histograms
     if not args.noHistograms:
         histo_outputFileName = "histograms_"+dataset_name_label+"_"+cat["label"]+".root"
-        histo_outputDirName = os.path.join(config["output_dir_name"],cat["label"])        
+        #histo_outputDirName = os.path.join(config["output_dir_name"],cat["label"])        
+        histo_outputDirName = config["output_dir_name"]        
         subprocess.call(['mkdir','-p',histo_outputDirName])
         histo_outFullPath = os.path.join(histo_outputDirName,histo_outputFileName)
         histo_outputFile = ROOT.TFile.Open(histo_outFullPath,"RECREATE")
