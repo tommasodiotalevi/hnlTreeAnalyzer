@@ -40,8 +40,12 @@
             "name": "C_mu_Hnl_matched_MU9_IP6"
         },
         {
-            "definition": "get_multiple_permutations(C_mu_Ds_idx,C_mu_Hnl_idx,C_pi_idx)",
-            "name": "C_hasMultiplePermutations"
+            "definition": "get_PxPyPzE_HnlInvariantMass(C_mu_Hnl_fitted_px,C_mu_Hnl_fitted_py,C_mu_Hnl_fitted_pz,C_mu_Hnl_fitted_E,C_pi_fitted_px,C_pi_fitted_py,C_pi_fitted_pz,C_pi_fitted_E)",
+            "name": "C_Hnl_fitted_mass"
+        },
+        {
+            "definition": "get_PxPyPzE_newM_HnlInvariantMass(C_mu_Hnl_fitted_px,C_mu_Hnl_fitted_py,C_mu_Hnl_fitted_pz,C_mu_Hnl_fitted_E,0.105658,C_pi_fitted_px,C_pi_fitted_py,C_pi_fitted_pz,C_pi_fitted_E,0.493677)",
+            "name": "C_Hnl_fitted_mK_mass"
         }
     ],
     "best_cand_var": {
@@ -60,7 +64,7 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>-1",
+                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
                     "printout": "MU9_IP6 matched with muon from Ds"
                 },
                 {
@@ -84,7 +88,7 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>-1",
+                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
                     "printout": "MU9_IP6 matched with muon from Ds"
                 },
                 {
@@ -108,7 +112,7 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>-1",
+                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
                     "printout": "MU9_IP6 matched with muon from Ds"
                 },
                 {
@@ -132,7 +136,7 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>-1",
+                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
                     "printout": "MU9_IP6 matched with muon from Ds"
                 },
                 {
@@ -156,7 +160,7 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>-1",
+                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
                     "printout": "MU9_IP6 matched with muon from Ds"
                 },
                 {
@@ -180,7 +184,27 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>-1",
+                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
+                    "printout": "MU9_IP6 matched with muon from Ds"
+                },
+                {
+                    "cut": "C_mu_Ds_isSoft>0",
+                    "printout": "mu from Ds pass soft ID"
+                },
+                {
+                    "cut": "C_mu_Hnl_isSoft>0",
+                    "printout": "mu from HNL pass soft ID"
+                }
+            ]
+        },
+        {
+            "cut": "(C_mu_Hnl_charge+C_pi_charge) == 0",
+            "label": "inclusive",
+            "printout": "neutral HNL category",
+            "save": "yes",
+            "selection_cuts": [
+                {
+                    "cut": "C_mu_Ds_matched_MU9_IP6>-99.0",
                     "printout": "MU9_IP6 matched with muon from Ds"
                 },
                 {
