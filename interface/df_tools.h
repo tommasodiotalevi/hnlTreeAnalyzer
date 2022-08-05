@@ -4,6 +4,7 @@
 #include "TH1D.h"
 #include "TLatex.h"
 #include "TStyle.h"
+#include "TLorentzVector.h"
 
 using namespace ROOT;
 using namespace ROOT::VecOps;
@@ -73,6 +74,50 @@ RVec<short> get_mu_trigger_matching(RVec<short> trigger_match, RVec<unsigned> tr
   }
 
   return mu_has_matched_trigger;
+}
+
+//this is to get candidate invariant mass with different 
+//final state particle mass ipothesis
+RVec<Double_t> get_PxPyPzE_newM_HnlInvariantMass(RVec<Double_t> px_1, RVec<Double_t> py_1, RVec<Double_t> pz_1, RVec<Double_t> E_1, Double_t m_1,
+		                                 RVec<Double_t> px_2, RVec<Double_t> py_2, RVec<Double_t> pz_2, RVec<Double_t> E_2, Double_t m_2)
+{
+  size_t n_cand = px_1.size();
+  RVec<Double_t> cand_inv_mass(n_cand,0.);
+
+  for(unsigned i=0; i<n_cand; ++i)
+  {
+    TLorentzVector p4_1;
+    TLorentzVector p4_2;
+    p4_1.SetPxPyPzE(px_1[i],py_1[i],pz_1[i],E_1[i]);
+    p4_2.SetPxPyPzE(px_2[i],py_2[i],pz_2[i],E_2[i]);
+    TLorentzVector p4_newM_1;
+    TLorentzVector p4_newM_2;
+    p4_newM_1.SetPtEtaPhiM(p4_1.Pt(),p4_1.Eta(),p4_1.Phi(),m_1);
+    p4_newM_2.SetPtEtaPhiM(p4_2.Pt(),p4_2.Eta(),p4_2.Phi(),m_2);
+    cand_inv_mass[i]=(p4_newM_1+p4_newM_2).M();
+  }
+
+  return cand_inv_mass;
+
+}
+
+RVec<Double_t> get_PxPyPzE_HnlInvariantMass(RVec<Double_t> px_1, RVec<Double_t> py_1, RVec<Double_t> pz_1, RVec<Double_t> E_1,
+		                            RVec<Double_t> px_2, RVec<Double_t> py_2, RVec<Double_t> pz_2, RVec<Double_t> E_2)
+{
+  size_t n_cand = px_1.size();
+  RVec<Double_t> cand_inv_mass(n_cand,0.);
+
+  for(unsigned i=0; i<n_cand; ++i)
+  {
+    TLorentzVector p4_1;
+    TLorentzVector p4_2;
+    p4_1.SetPxPyPzE(px_1[i],py_1[i],pz_1[i],E_1[i]);
+    p4_2.SetPxPyPzE(px_2[i],py_2[i],pz_2[i],E_2[i]);
+    cand_inv_mass[i]=(p4_1+p4_2).M();
+  }
+
+  return cand_inv_mass;
+
 }
 
 //for debugging
