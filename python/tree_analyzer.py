@@ -107,6 +107,8 @@ dataset_name_label = input_file_name[input_file_name.find("_")+1:input_file_name
 
 # save slimmed tree only once without applying categorization
 slimmed_tree_has_been_saved = False
+if args.saveOutputTree:
+    ntuples[dataset_to_process]["final_file_name_list"] = []
 
 reports = {}
 weighted_events_reports = {}
@@ -201,7 +203,7 @@ for cat in selection["categories"]:
             #output_tree_has_been_saved = True
             print("Output tree saved in {}".format(finalTree_outFullPath))
             print("Output csv saved in {}".format(finalCSV_outFullPath))
-            ntuples[dataset_to_process]["final_file_name_list"] = [str(finalTree_outFullPath)]
+            ntuples[dataset_to_process]["final_file_name_list"] += [str(finalTree_outFullPath)]
             with open(config["ntuples_cfg_file_full_path"], "w") as f:
                 json.dump(ntuples,f, indent=4, sort_keys=True)
             print("{} updated".format(config["ntuples_cfg_file_full_path"]))
