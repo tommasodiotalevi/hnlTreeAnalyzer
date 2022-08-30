@@ -47,7 +47,7 @@ def compute_BR_NToPiMu (m_HNL):
 def compute_v2_from_ctau(m_HNL,ctau):
     constants = Constants()
     num = constants.light_speed*constants.hbar
-    den = ((constants.G_f**2)*(m_HNL**5)*ctau)/(96*(math.pi**3))
+    den = ((constants.G_f**2)*(m_HNL**5)*10.95*ctau)/(96*(math.pi**3))
     return num/den
 
 def get_expected_signal_yield(m_HNL,ctau,nDs,fPrompt,effHnl,effDs):
