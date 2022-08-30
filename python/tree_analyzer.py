@@ -184,7 +184,7 @@ for cat in selection["categories"]:
                 for new_ctau in selection["mN"+hnl_mass_label+"_ctau"+old_ctau_label+"mm_rw_points"]:
                   old_ctau = float(old_ctau_label.replace("p","."))
                   w_expr   = "("+str(old_ctau)+"/"+str(new_ctau)+")*"+"exp(C_Hnl_gen_l_prop*("+str(1./old_ctau)+"-"+str(1./new_ctau)+"))"
-                  print("---> weight = {}".format(w_expr))
+                  #print("---> weight = {}".format(w_expr))
                   df = df.Define("ctau_weight_"+old_ctau_label+"TO"+str(new_ctau).replace(".","p"),w_expr)
 
         if args.saveOutputTree and cat["save"]=="yes":
@@ -197,8 +197,9 @@ for cat in selection["categories"]:
             #save output tree
             df.Snapshot(config["tree_output_name"],finalTree_outFullPath,df.GetColumnNames())
             #save output csv
-            a = df.AsNumpy([x for x in df.GetColumnNames() if x.find("C_")==0])
+            a = df.AsNumpy([x for x in df.GetColumnNames() if x.find("C_")==0 or x.find("ctau_weight")==0])
             arr = numpy.array([x for x in a.values()]).transpose()
+            #arr = numpy.array([numpy.nan_to_num(x) for x in a.values()]).transpose()
             numpy.savetxt(finalCSV_outFullPath, arr, delimiter=',', header=",".join([str(x) for x in a.keys()]), comments='')
             #output_tree_has_been_saved = True
             print("Output tree saved in {}".format(finalTree_outFullPath))
