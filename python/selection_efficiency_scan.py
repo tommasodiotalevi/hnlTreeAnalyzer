@@ -50,22 +50,38 @@ for dataset_to_process in datasets_to_process:
     if ntuples[dataset_to_process]["dataset_category"] != dataset_category:
         print("Please provide input samples of the same category (e.g. all background samples)")
         exit(0)
-
-chain = ROOT.TChain(tree_name)
-
-for inputFileName in inputFileName_list:
-    print("Adding {} to the chain...".format(inputFileName))
-    success = chain.Add(inputFileName)
-
-print("\n")
-print("{} total entries ...".format(chain.GetEntries()))
  
 n_cuts = args.nCuts
 reports = {}
 
+
+#build a dictionary that groups all the files
+#of the same catogory togheter
+
+input_file_catOrdered = {}
 for cat in selection["categories"]:
+    file_list = []
+    for inputFileName in inputFileName_list:
+        file_cat_label = inputFileName.split("/")[-1].split(".")[0].split("_")[-1]
+        if file_cat_label == cat["label"]:
+            file_list.append(inputFileName)
+    input_file_catOrdered[cat["label"]] = file_list
+
+print(input_file_catOrdered)
+
+
+for cat in selection["categories"]:
+
+    chain = ROOT.TChain(tree_name)
     
-    outputDirName = os.path.join(config["output_dir_name"],cat["label"])
+    for inputFileName in input_file_catOrdered[cat["label"]]:
+        print("Adding {} to the chain...".format(inputFileName))
+        success = chain.Add(inputFileName)
+
+    print("\n")
+    print("{} total entries ...".format(chain.GetEntries()))
+    
+    outputDirName = os.path.join(config["output_dir_name"])
     subprocess.call(['mkdir','-p',outputDirName])
 
     df = ROOT.RDataFrame(chain)
@@ -75,34 +91,30 @@ for cat in selection["categories"]:
         for sel in selection["gen_matching_cuts"]:
             df = df.Filter(sel["cut"],sel["printout"])
 
-    #apply categorization 
-    df = df.Filter(cat["cut"] ,cat["printout"])
-
     tot_events = df.Count().GetValue()
 
     #build signal selection efficiency csv file 
-    if cat["label"] == "neutralHnl":
-        var_header = "entry"
-        fmt = "%d"
-        df_array = numpy.arange(n_cuts)
-        for var in selection["selection_eff_scan"]:
-            a_cuts   = numpy.array(numpy.linspace(var["low_edge"],var["up_edge"],n_cuts))
-            pass_events = [df.Filter(str(var["name"])+var["logic"]+str(cut)).Count().GetValue() for cut in a_cuts]
-            fail_events = [(tot_events-df.Filter(str(var["name"])+var["logic"]+str(cut)).Count().GetValue()) for cut in a_cuts]
-            a_pass = numpy.array(pass_events)
-            a_fail = numpy.array(fail_events)
-            var_header += ","+var["name"]+"_cut,"+var["name"]+"_pass,"+var["name"]+"_fail"
-            fmt += ", %.2f, %.1f, %.1f"
-            df_array = numpy.column_stack((df_array,a_cuts,a_pass,a_fail))
-        output_path = os.path.join(outputDirName,"sel_eff_tree__"+dataset_category+"_"+cat["label"]+".csv")
-        numpy.savetxt(output_path, df_array, delimiter=',', header=var_header, comments='',fmt=fmt)
-        print("Output saved in {}".format(output_path))
+    var_header = "entry"
+    fmt = "%d"
+    df_array = numpy.arange(n_cuts)
+    for var in selection["selection_eff_scan"]:
+        a_cuts   = numpy.array(numpy.linspace(var["low_edge"],var["up_edge"],n_cuts))
+        pass_events = [df.Filter(str(var["name"])+var["logic"]+str(cut)).Count().GetValue() for cut in a_cuts]
+        fail_events = [(tot_events-df.Filter(str(var["name"])+var["logic"]+str(cut)).Count().GetValue()) for cut in a_cuts]
+        a_pass = numpy.array(pass_events)
+        a_fail = numpy.array(fail_events)
+        var_header += ","+var["name"]+"_cut,"+var["name"]+"_pass,"+var["name"]+"_fail"
+        fmt += ", %.2f, %.1f, %.1f"
+        df_array = numpy.column_stack((df_array,a_cuts,a_pass,a_fail))
+    output_path = os.path.join(outputDirName,"sel_eff_tree_"+dataset_category+"_"+cat["label"]+".csv")
+    numpy.savetxt(output_path, df_array, delimiter=',', header=var_header, comments='',fmt=fmt)
+    print("Output saved in {}".format(output_path))
 
-    reports[cat["label"]] = df.Report()
+    #reports[cat["label"]] = df.Report()
 
-print("+++ FINAL REPORT +++")
-for c in reports:
-    print("--> {} category".format(c))
-    reports[c].Print()
+#print("+++ FINAL REPORT +++")
+#for c in reports:
+#    print("--> {} category".format(c))
+#    reports[c].Print()
 
 print("--- Analysis completed in {} seconds ---".format(time.time() - start_time))
