@@ -55,7 +55,7 @@
     "categories": [
         {
             "cut": "(C_mu_Hnl_charge*C_mu_Ds_charge)>0 && C_Hnl_vertex_2DDist_PV<1.0",
-            "label": "SS_lxy0to1",
+            "label": "SSlxy0to1",
             "printout": "SS L_xy<1 cm category",
             "save": "yes",
             "selection_cuts": [
@@ -79,7 +79,7 @@
         },
         {
             "cut": "(C_mu_Hnl_charge*C_mu_Ds_charge)>0 && C_Hnl_vertex_2DDist_PV>1.0 && C_Hnl_vertex_2DDist_PV<5.0",
-            "label": "SS_lxy1to5",
+            "label": "SSlxy1to5",
             "printout": "SS 1<L_xy<5 cm category",
             "save": "yes",
             "selection_cuts": [
@@ -103,7 +103,7 @@
         },
         {
             "cut": "(C_mu_Hnl_charge*C_mu_Ds_charge)>0 && C_Hnl_vertex_2DDist_PV>5.0",
-            "label": "SS_lxy5toInf",
+            "label": "SSlxy5toInf",
             "printout": "SS L_xy>5 cm category",
             "save": "yes",
             "selection_cuts": [
@@ -127,7 +127,7 @@
         },
         {
             "cut": "(C_mu_Hnl_charge*C_mu_Ds_charge)<0 && C_Hnl_vertex_2DDist_PV<1.0",
-            "label": "OS_lxy0to1",
+            "label": "OSlxy0to1",
             "printout": "OS L_xy<1 cm category",
             "save": "yes",
             "selection_cuts": [
@@ -151,7 +151,7 @@
         },
         {
             "cut": "(C_mu_Hnl_charge*C_mu_Ds_charge)<0 && C_Hnl_vertex_2DDist_PV>1.0 && C_Hnl_vertex_2DDist_PV<5.0",
-            "label": "OS_lxy1to5",
+            "label": "OSlxy1to5",
             "printout": "OS 1<L_xy<5 cm category",
             "save": "yes",
             "selection_cuts": [
@@ -175,7 +175,7 @@
         },
         {
             "cut": "(C_mu_Hnl_charge*C_mu_Ds_charge)<0 && C_Hnl_vertex_2DDist_PV>5.0",
-            "label": "OS_lxy5toInf",
+            "label": "OSlxy5toInf",
             "printout": "OS L_xy>5 cm category",
             "save": "yes",
             "selection_cuts": [
@@ -204,7 +204,7 @@
             "save": "yes",
             "selection_cuts": [
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>-99.0",
+                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
                     "printout": "MU9_IP6 matched with muon from Ds"
                 },
                 {
@@ -221,15 +221,27 @@
     "selection_eff_scan": [
         {
             "logic": ">",
-            "low_edge": -1.0,
-            "name": "C_Hnl_lxy",
-            "up_edge": 30.0
+            "low_edge": -0.0001,
+            "name": "C_Hnl_vertex_2DSig_BS",
+            "up_edge": 100.0
         },
         {
             "logic": ">",
-            "low_edge": -1.0,
-            "name": "C_Ds_pt",
-            "up_edge": 30.0
+            "low_edge": -0.0001,
+            "name": "C_mu_Ds_BS_ip_xy",
+            "up_edge": 0.5
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_mu_Hnl_BS_ip_xy",
+            "up_edge": 0.5
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_pi_BS_ip_xy",
+            "up_edge": 0.5
         }
     ]
 }
