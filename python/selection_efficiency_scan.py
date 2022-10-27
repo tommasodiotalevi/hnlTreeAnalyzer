@@ -12,7 +12,7 @@ start_time = time.time()
 #script input arguments
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("cfg_filename"         ,                                     help="Path to the input configuration file")
-parser.add_argument("--datasetsToProcess"  , nargs='*'          , default=[]   , help="Short name of the input sample to process")
+parser.add_argument("--datasetsToProcess"  , nargs='*'          , default=[]   , help="List of short names of the input sample to process")
 parser.add_argument("--nThreads"           , type=int           , default=1    , help="Number of threads")
 parser.add_argument("--nCuts"              , type=int           , default=20   , help="Number of cuts for the efficiency scan")
 args = parser.parse_args()
@@ -24,7 +24,7 @@ configFileName      = args.cfg_filename
 datasets_to_process = args.datasetsToProcess
 
 # let private function to be avaliable in RDataFrame evn
-header_path = "/afs/cern.ch/work/l/llunerti/private/hnlTreeAnalyzer/interface/df_tools.h"
+header_path = "/home/CMS-T3/lunerti/hnlTreeAnalyzer/interface/df_tools.h"
 ROOT.gInterpreter.Declare('#include "{}"'.format(header_path))
 
 #open analyzer configuration file
@@ -50,6 +50,8 @@ for dataset_to_process in datasets_to_process:
     if ntuples[dataset_to_process]["dataset_category"] != dataset_category:
         print("Please provide input samples of the same category (e.g. all background samples)")
         exit(0)
+
+print("----> {}".format(inputFileName_list))
  
 n_cuts = args.nCuts
 reports = {}
@@ -118,3 +120,4 @@ for cat in selection["categories"]:
 #    reports[c].Print()
 
 print("--- Analysis completed in {} seconds ---".format(time.time() - start_time))
+
