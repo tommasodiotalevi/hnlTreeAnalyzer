@@ -21,14 +21,19 @@ parser.add_argument("--skipSlimCuts"    , action='store_true', default=False, he
 parser.add_argument("--skipSelCuts"     , action='store_true', default=False, help="Do not apply selection cuts")
 parser.add_argument("--skipPUrw"        , action='store_true', default=False, help="Do not apply PU reweighting")
 parser.add_argument("--nThreads"        , type=int           , default=1    , help="Number of threads")
+parser.add_argument("--addTag"          , type=str           , default=""   , help="Tag output files")
 parser.add_argument("--ctauReweighting" , action='store_true', default=False, help="Include ctau reweighting")
 args = parser.parse_args()
 
 ROOT.EnableThreadSafety()
-ROOT.EnableImplicitMT(args.nThreads)
+
+if args.nThreads>1:
+    ROOT.EnableImplicitMT(args.nThreads)
 
 configFileName     = args.cfg_filename
 dataset_to_process = args.dataset_short_name
+
+tag = args.addTag
 
 #open analyzer configuration file
 with open(configFileName, "r") as f:
@@ -56,10 +61,6 @@ tree_name = "wztree"
 if args.skipSlimCuts:
     input_file_list = "slimmed_file_name_list"
     tree_name = "slimmed_tree"
-
-if args.skipSelCuts and args.skipSlimCuts:
-    input_file_list = "final_file_name_list"
-    tree_name = "final_tree"
 
 #get input files
 inputFileName_list = ntuples[dataset_to_process][input_file_list]
@@ -154,6 +155,8 @@ for cat in selection["categories"]:
         # save slimmed tree: only the best candidate is saved for each event
         if args.saveSlimmedTree and not slimmed_tree_has_been_saved:
             slim_outputFileName = "slimmed_"+dataset_name_label+".root"
+            if tag != "":
+                slim_outputFileName = "slimmed_"+tag+"_"+dataset_name_label+".root"
             slim_outputDirName = os.path.join(config["slimmed_tree_output_dir_name"],dataset_name_label)
             subprocess.call(['mkdir','-p',slim_outputDirName])
             slim_outFullPath = os.path.join(slim_outputDirName,slim_outputFileName)
@@ -164,11 +167,13 @@ for cat in selection["categories"]:
             with open(config["ntuples_cfg_file_full_path"], "w") as f:
                 json.dump(ntuples,f, indent=4, sort_keys=True)
             print("{} updated".format(config["ntuples_cfg_file_full_path"])) 
+ 
+    if args.skipSelCuts and args.noHistograms:
+        break
 
-    #apply categorization 
-    df = df.Filter(cat["cut"] ,cat["printout"])
-    
     if not args.skipSelCuts:
+        #apply categorization 
+        df = df.Filter(cat["cut"] ,cat["printout"])
         #apply selection
         for sel in cat["selection_cuts"]:
             df = df.Filter(sel["cut"],sel["printout"])
@@ -191,17 +196,18 @@ for cat in selection["categories"]:
             finalTree_outputFileName = "tree_"+dataset_name_label+"_"+cat["label"]+".root"
             finalCSV_outputFileName  = "tree_"+dataset_name_label+"_"+cat["label"]+".csv"
             finalTree_outputDirName = os.path.join(config["tree_output_dir_name"],dataset_name_label)
+            if tag!="":
+                finalTree_outputFileName = "tree_"+tag+"_"+dataset_name_label+"_"+cat["label"]+".root"
+                finalCSV_outputFileName  = "tree_"+tag+"_"+dataset_name_label+"_"+cat["label"]+".csv"
             subprocess.call(['mkdir','-p',finalTree_outputDirName])
             finalTree_outFullPath = os.path.join(finalTree_outputDirName,finalTree_outputFileName)
             finalCSV_outFullPath = os.path.join(finalTree_outputDirName,finalCSV_outputFileName)
             #save output tree
-            df.Snapshot(config["tree_output_name"],finalTree_outFullPath,df.GetColumnNames())
+            df.Snapshot(config["tree_output_name"],finalTree_outFullPath,list(df.GetColumnNames()))
             #save output csv
             a = df.AsNumpy([x for x in df.GetColumnNames() if x.find("C_")==0 or x.find("ctau_weight")==0])
             arr = numpy.array([x for x in a.values()]).transpose()
-            #arr = numpy.array([numpy.nan_to_num(x) for x in a.values()]).transpose()
             numpy.savetxt(finalCSV_outFullPath, arr, delimiter=',', header=",".join([str(x) for x in a.keys()]), comments='')
-            #output_tree_has_been_saved = True
             print("Output tree saved in {}".format(finalTree_outFullPath))
             print("Output csv saved in {}".format(finalCSV_outFullPath))
             ntuples[dataset_to_process]["final_file_name_list"] += [str(finalTree_outFullPath)]
@@ -224,6 +230,8 @@ for cat in selection["categories"]:
     #save histograms
     if not args.noHistograms:
         histo_outputFileName = "histograms_"+dataset_name_label+"_"+cat["label"]+".root"
+        if tag != "":
+            histo_outputFileName = "histograms_"+tag+"_"+dataset_name_label+"_"+cat["label"]+".root"
         #histo_outputDirName = os.path.join(config["output_dir_name"],cat["label"])        
         histo_outputDirName = config["output_dir_name"]        
         subprocess.call(['mkdir','-p',histo_outputDirName])
