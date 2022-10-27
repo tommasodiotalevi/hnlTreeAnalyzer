@@ -1,0 +1,598 @@
+{
+    "gen_matching_cuts": [
+        {
+            "cut": "C_mu_Hnl_isHnlDaughter>0",
+            "printout": "muon matching HNL mu daughter"
+        },
+        {
+            "cut": "C_mu_Ds_isHnlBrother>0",
+            "printout": "muon matching Ds mu daughter"
+        },
+        {
+            "cut": "C_pi_isHnlDaughter>0",
+            "printout": "pi matching HNL pi daughter"
+        }
+    ],
+    "mN1p0_ctau10p0mm_rw_points": [
+        15.0,
+        30.0,
+        45.0,
+        60.0,
+        75.0,
+        90.0,
+        100.0
+    ],
+    "mN1p5_ctau10p0mm_rw_points": [
+        15.0,
+        30.0,
+        45.0,
+        60.0,
+        75.0,
+        90.0,
+        100.0
+    ],
+    "mN1p0_ctau100p0mm_rw_points": [
+        175.0,
+       	250.0,
+       	325.0,
+       	400.0,
+       	475.0,
+       	550.0,
+       	625.0,
+       	700.0,
+       	775.0,
+       	850.0,
+       	925.0,
+       	1000.0
+    ],
+    "mN1p5_ctau100p0mm_rw_points": [
+        175.0,
+       	250.0,
+       	325.0,
+       	400.0,
+       	475.0,
+       	550.0,
+       	625.0,
+       	700.0,
+       	775.0,
+       	850.0,
+       	925.0,
+       	1000.0
+    ],
+    "new_variables": [
+        {
+            "definition": "sqrt(C_Hnl_px*C_Hnl_px + C_Hnl_py*C_Hnl_py + C_Hnl_pz*C_Hnl_pz)",
+            "name": "C_Hnl_p"
+        },
+        {
+            "definition": "(C_Hnl_vertex_3DDist_PV*C_Hnl_mass)/C_Hnl_p",
+            "name": "C_Hnl_l_prop"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu7_ip4_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU7_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu7_ip4_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU7_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip3_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU8_IP3"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip3_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU8_IP3"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip3p5_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU8_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip3p5_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU8_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip5_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU8_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip5_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU8_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu9_ip4_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU9_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu9_ip4_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU9_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu9_ip5_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU9_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu9_ip5_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU9_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu9_ip6_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU9_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu9_ip6_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU9_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu10p5_ip3p5_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU10p5_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu10p5_ip3p5_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU10p5_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu12_ip6_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU12_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu12_ip6_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU12_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu7_ip4_matched,HLT_mu7_ip4_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU7_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu7_ip4_matched,HLT_mu7_ip4_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU7_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip3_matched,HLT_mu8_ip3_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU8_IP3"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip3_matched,HLT_mu8_ip3_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU8_IP3"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip3p5_matched,HLT_mu8_ip3p5_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU8_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip3p5_matched,HLT_mu8_ip3p5_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU8_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip5_matched,HLT_mu8_ip5_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU8_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip5_matched,HLT_mu8_ip5_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU8_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu9_ip4_matched,HLT_mu9_ip4_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU9_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu9_ip4_matched,HLT_mu9_ip4_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU9_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu9_ip5_matched,HLT_mu9_ip5_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU9_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu9_ip5_matched,HLT_mu9_ip5_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU9_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu9_ip6_matched,HLT_mu9_ip6_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU9_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu9_ip6_matched,HLT_mu9_ip6_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU9_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu10p5_ip3p5_matched,HLT_mu10p5_ip3p5_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU10p5_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu10p5_ip3p5_matched,HLT_mu10p5_ip3p5_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU10p5_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu12_ip6_matched,HLT_mu12_ip6_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU12_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu12_ip6_matched,HLT_mu12_ip6_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU12_IP6"
+        }
+    ],
+    "best_cand_var": {
+        "definition": "get_maxRatio_wPosCond_cand_idx(C_Hnl_vertex_3DDist_PV,C_Ds_vertex_3DDist_PV,C_Hnl_vertex_cos2D)",
+        "name": "best_cand_idx"
+    },
+    "categories": [
+        {
+            "cut": "(C_mu_Hnl_charge*C_mu_Ds_charge)>0 && C_Hnl_vertex_2DDist_PV<1.0",
+            "label": "SSlxy0to1",
+            "printout": "SS L_xy<1 cm category",
+            "save": "yes",
+            "selection_cuts": [
+                {
+                    "cut": "(C_mu_Hnl_charge+C_pi_charge) == 0",
+                    "printout": "MuPi charge is zero"
+                },
+                {
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
+                },
+                {
+                    "cut": "C_mu_Ds_isSoft>0",
+                    "printout": "mu from Ds pass soft ID"
+                },
+                {
+                    "cut": "C_mu_Hnl_isSoft>0",
+                    "printout": "mu from HNL pass soft ID"
+                },
+                {
+                    "cut": "C_Hnl_vertex_2DSig_BS>40.0",
+                    "printout": "C_Hnl_vertex_2DSig_BS>40.0"
+                },
+                {
+                    "cut": "C_mu_Hnl_BS_ip_xy>0.03",
+                    "printout": "C_mu_Hnl_BS_ip_xy>0.03"
+                },
+                {
+                    "cut": "C_mu_Hnl_BS_ips_xy>5.0",
+                    "printout": "C_mu_Hnl_BS_ips_xy>5.0"
+                },
+                {
+                    "cut": "C_pi_BS_ip_xy>0.05",
+                    "printout": "C_pi_BS_ip_xy>0.05"
+                },
+                {
+                    "cut": "C_pi_BS_ips_xy>32.0",
+                    "printout": "C_pi_BS_ips_xy>32.0"
+                }
+            ]
+        },
+        {
+            "cut": "(C_mu_Hnl_charge*C_mu_Ds_charge)>0 && C_Hnl_vertex_2DDist_PV>1.0 && C_Hnl_vertex_2DDist_PV<5.0",
+            "label": "SSlxy1to5",
+            "printout": "SS 1<L_xy<5 cm category",
+            "save": "yes",
+            "selection_cuts": [
+                {
+                    "cut": "(C_mu_Hnl_charge+C_pi_charge) == 0",
+                    "printout": "MuPi charge is zero"
+                },
+                {
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
+                },
+                {
+                    "cut": "C_mu_Ds_isSoft>0",
+                    "printout": "mu from Ds pass soft ID"
+                },
+                {
+                    "cut": "C_mu_Hnl_isSoft>0",
+                    "printout": "mu from HNL pass soft ID"
+                },
+                {
+                    "cut": "C_Hnl_vertex_2DSig_BS>130.0",
+                    "printout": "C_Hnl_vertex_2DSig_BS>130.0"
+                },
+                {
+                    "cut": "C_mu_Hnl_BS_ip_xy>0.03",
+                    "printout": "C_mu_Hnl_BS_ip_xy>0.03"
+                },
+                {
+                    "cut": "C_mu_Hnl_BS_ips_xy>10.0",
+                    "printout": "C_mu_Hnl_BS_ips_xy>10.0"
+                },
+                {
+                    "cut": "C_pi_BS_ip_xy>0.16",
+                    "printout": "C_pi_BS_ip_xy>0.16"
+                },
+                {
+                    "cut": "C_pi_BS_ips_xy>52.0",
+                    "printout": "C_pi_BS_ips_xy>52.0"
+                }
+            ]
+        },
+        {
+            "cut": "(C_mu_Hnl_charge*C_mu_Ds_charge)>0 && C_Hnl_vertex_2DDist_PV>5.0",
+            "label": "SSlxy5toInf",
+            "printout": "SS L_xy>5 cm category",
+            "save": "yes",
+            "selection_cuts": [
+                {
+                    "cut": "(C_mu_Hnl_charge+C_pi_charge) == 0",
+                    "printout": "MuPi charge is zero"
+                },
+                {
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
+                },
+                {
+                    "cut": "C_mu_Ds_isSoft>0",
+                    "printout": "mu from Ds pass soft ID"
+                },
+                {
+                    "cut": "C_mu_Hnl_isSoft>0",
+                    "printout": "mu from HNL pass soft ID"
+                },
+                {
+                    "cut": "C_Hnl_vertex_2DSig_BS>300.0",
+                    "printout": "C_Hnl_vertex_2DSig_BS>300.0"
+                },
+                {
+                    "cut": "C_mu_Hnl_BS_ip_xy>0.05",
+                    "printout": "C_mu_Hnl_BS_ip_xy>0.05"
+                },
+                {
+                    "cut": "C_mu_Hnl_BS_ips_xy>10.0",
+                    "printout": "C_mu_Hnl_BS_ips_xy>10.0"
+                },
+                {
+                    "cut": "C_pi_BS_ip_xy>0.08",
+                    "printout": "C_pi_BS_ip_xy>0.08"
+                },
+                {
+                    "cut": "C_pi_BS_ips_xy>52.0",
+                    "printout": "C_pi_BS_ips_xy>52.0"
+                }
+            ]
+        },
+        {
+            "cut": "(C_mu_Hnl_charge*C_mu_Ds_charge)<0 && C_Hnl_vertex_2DDist_PV<1.0",
+            "label": "OSlxy0to1",
+            "printout": "OS L_xy<1 cm category",
+            "save": "yes",
+            "selection_cuts": [
+                {
+                    "cut": "(C_mu_Hnl_charge+C_pi_charge) == 0",
+                    "printout": "MuPi charge is zero"
+                },
+                {
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
+                },
+                {
+                    "cut": "C_mu_Ds_isSoft>0",
+                    "printout": "mu from Ds pass soft ID"
+                },
+                {
+                    "cut": "C_mu_Hnl_isSoft>0",
+                    "printout": "mu from HNL pass soft ID"
+                },
+                {
+                    "cut": "C_Hnl_vertex_2DSig_BS>40.0",
+                    "printout": "C_Hnl_vertex_2DSig_BS>40.0"
+                },
+                {
+                    "cut": "C_mu_Hnl_BS_ip_xy>0.03",
+                    "printout": "C_mu_Hnl_BS_ip_xy>0.03"
+                },
+                {
+                    "cut": "C_mu_Hnl_BS_ips_xy>5.0",
+                    "printout": "C_mu_Hnl_BS_ips_xy>5.0"
+                },
+                {
+                    "cut": "C_pi_BS_ip_xy>0.05",
+                    "printout": "C_pi_BS_ip_xy>0.05"
+                },
+                {
+                    "cut": "C_pi_BS_ips_xy>32.0",
+                    "printout": "C_pi_BS_ips_xy>32.0"
+                }
+            ]
+        },
+        {
+            "cut": "(C_mu_Hnl_charge*C_mu_Ds_charge)<0 && C_Hnl_vertex_2DDist_PV>1.0 && C_Hnl_vertex_2DDist_PV<5.0",
+            "label": "OSlxy1to5",
+            "printout": "OS 1<L_xy<5 cm category",
+            "save": "yes",
+            "selection_cuts": [
+                {
+                    "cut": "(C_mu_Hnl_charge+C_pi_charge) == 0",
+                    "printout": "MuPi charge is zero"
+                },
+                {
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
+                },
+                {
+                    "cut": "C_mu_Ds_isSoft>0",
+                    "printout": "mu from Ds pass soft ID"
+                },
+                {
+                    "cut": "C_mu_Hnl_isSoft>0",
+                    "printout": "mu from HNL pass soft ID"
+                },
+                {
+                    "cut": "C_Hnl_vertex_2DSig_BS>130.0",
+                    "printout": "C_Hnl_vertex_2DSig_BS>130.0"
+                },
+                {
+                    "cut": "C_mu_Hnl_BS_ip_xy>0.03",
+                    "printout": "C_mu_Hnl_BS_ip_xy>0.03"
+                },
+                {
+                    "cut": "C_mu_Hnl_BS_ips_xy>10.0",
+                    "printout": "C_mu_Hnl_BS_ips_xy>10.0"
+                },
+                {
+                    "cut": "C_pi_BS_ip_xy>0.16",
+                    "printout": "C_pi_BS_ip_xy>0.16"
+                },
+                {
+                    "cut": "C_pi_BS_ips_xy>52.0",
+                    "printout": "C_pi_BS_ips_xy>52.0"
+                }
+            ]
+        },
+        {
+            "cut": "(C_mu_Hnl_charge*C_mu_Ds_charge)<0 && C_Hnl_vertex_2DDist_PV>5.0",
+            "label": "OSlxy5toInf",
+            "printout": "OS L_xy>5 cm category",
+            "save": "yes",
+            "selection_cuts": [
+                {
+                    "cut": "(C_mu_Hnl_charge+C_pi_charge) == 0",
+                    "printout": "MuPi charge is zero"
+                },
+                {
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
+                },
+                {
+                    "cut": "C_mu_Ds_isSoft>0",
+                    "printout": "mu from Ds pass soft ID"
+                },
+                {
+                    "cut": "C_mu_Hnl_isSoft>0",
+                    "printout": "mu from HNL pass soft ID"
+                },
+                {
+                    "cut": "C_Hnl_vertex_2DSig_BS>300.0",
+                    "printout": "C_Hnl_vertex_2DSig_BS>300.0"
+                },
+                {
+                    "cut": "C_mu_Hnl_BS_ip_xy>0.05",
+                    "printout": "C_mu_Hnl_BS_ip_xy>0.05"
+                },
+                {
+                    "cut": "C_mu_Hnl_BS_ips_xy>10.0",
+                    "printout": "C_mu_Hnl_BS_ips_xy>10.0"
+                },
+                {
+                    "cut": "C_pi_BS_ip_xy>0.08",
+                    "printout": "C_pi_BS_ip_xy>0.08"
+                },
+                {
+                    "cut": "C_pi_BS_ips_xy>52.0",
+                    "printout": "C_pi_BS_ips_xy>52.0"
+                }
+            ]
+        },
+        {
+            "cut": "(C_mu_Hnl_charge+C_pi_charge) == 0",
+            "label": "inclusive",
+            "printout": "neutral HNL category",
+            "save": "yes",
+            "selection_cuts": [
+                {
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
+                },
+                {
+                    "cut": "C_mu_Ds_isSoft>0",
+                    "printout": "mu from Ds pass soft ID"
+                },
+                {
+                    "cut": "C_mu_Hnl_isSoft>0",
+                    "printout": "mu from HNL pass soft ID"
+                }
+            ]
+        }
+    ],
+    "selection_eff_scan": [
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_Hnl_vertex_2DDist_BS",
+            "up_edge": 400.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_Hnl_vertex_2DSig_BS",
+            "up_edge": 400.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_Ds_vertex_2DSig_BS",
+            "up_edge": 400.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_mu_Ds_BS_ip_xy",
+            "up_edge": 0.5
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_mu_Hnl_BS_ip_xy",
+            "up_edge": 0.5
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_Hnl_vertex_prob",
+            "up_edge": 1.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -1.001,
+            "name": "C_Ds_vertex_cos2D",
+            "up_edge": 1.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -1.001,
+            "name": "C_Ds_vertex_cos3D",
+            "up_edge": 1.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -1.001,
+            "name": "C_Hnl_vertex_cos2D",
+            "up_edge": 1.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -1.001,
+            "name": "C_Hnl_vertex_cos3D",
+            "up_edge": 1.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_pi_BS_ips_xy",
+            "up_edge": 100.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_pi_BS_ips_z",
+            "up_edge": 100.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_mu_Hnl_BS_ips_xy",
+            "up_edge": 100.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_mu_Ds_BS_ips_xy",
+            "up_edge": 100.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_pi_BS_ip_xy",
+            "up_edge": 0.5
+        }
+    ]
+}
