@@ -13,6 +13,15 @@
             "printout": "pi matching HNL pi daughter"
         }
     ],
+    "mN1p0_ctau10p0mm_rw_points": [
+        15.0,
+        30.0,
+        45.0,
+        60.0,
+        75.0,
+        90.0,
+        100.0
+    ],
     "mN1p5_ctau10p0mm_rw_points": [
         15.0,
         30.0,
@@ -21,6 +30,34 @@
         75.0,
         90.0,
         100.0
+    ],
+    "mN1p0_ctau100p0mm_rw_points": [
+        175.0,
+       	250.0,
+       	325.0,
+       	400.0,
+       	475.0,
+       	550.0,
+       	625.0,
+       	700.0,
+       	775.0,
+       	850.0,
+       	925.0,
+       	1000.0
+    ],
+    "mN1p5_ctau100p0mm_rw_points": [
+        175.0,
+       	250.0,
+       	325.0,
+       	400.0,
+       	475.0,
+       	550.0,
+       	625.0,
+       	700.0,
+       	775.0,
+       	850.0,
+       	925.0,
+       	1000.0
     ],
     "new_variables": [
         {
@@ -32,6 +69,54 @@
             "name": "C_Hnl_l_prop"
         },
         {
+            "definition": "get_mu_trigger_matching(HLT_mu7_ip4_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU7_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu7_ip4_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU7_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip3_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU8_IP3"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip3_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU8_IP3"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip3p5_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU8_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip3p5_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU8_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip5_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU8_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip5_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU8_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu9_ip4_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU9_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu9_ip4_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU9_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu9_ip5_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU9_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu9_ip5_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU9_IP5"
+        },
+        {
             "definition": "get_mu_trigger_matching(HLT_mu9_ip6_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
             "name": "C_mu_Ds_matched_MU9_IP6"
         },
@@ -40,16 +125,96 @@
             "name": "C_mu_Hnl_matched_MU9_IP6"
         },
         {
-            "definition": "get_PxPyPzE_HnlInvariantMass(C_mu_Hnl_fitted_px,C_mu_Hnl_fitted_py,C_mu_Hnl_fitted_pz,C_mu_Hnl_fitted_E,C_pi_fitted_px,C_pi_fitted_py,C_pi_fitted_pz,C_pi_fitted_E)",
-            "name": "C_Hnl_fitted_mass"
+            "definition": "get_mu_trigger_matching(HLT_mu10p5_ip3p5_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU10p5_IP3p5"
         },
         {
-            "definition": "get_PxPyPzE_newM_HnlInvariantMass(C_mu_Hnl_fitted_px,C_mu_Hnl_fitted_py,C_mu_Hnl_fitted_pz,C_mu_Hnl_fitted_E,0.105658,C_pi_fitted_px,C_pi_fitted_py,C_pi_fitted_pz,C_pi_fitted_E,0.493677)",
-            "name": "C_Hnl_fitted_mK_mass"
+            "definition": "get_mu_trigger_matching(HLT_mu10p5_ip3p5_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU10p5_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu12_ip6_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU12_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu12_ip6_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU12_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu7_ip4_matched,HLT_mu7_ip4_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU7_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu7_ip4_matched,HLT_mu7_ip4_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU7_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip3_matched,HLT_mu8_ip3_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU8_IP3"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip3_matched,HLT_mu8_ip3_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU8_IP3"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip3p5_matched,HLT_mu8_ip3p5_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU8_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip3p5_matched,HLT_mu8_ip3p5_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU8_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip5_matched,HLT_mu8_ip5_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU8_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip5_matched,HLT_mu8_ip5_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU8_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu9_ip4_matched,HLT_mu9_ip4_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU9_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu9_ip4_matched,HLT_mu9_ip4_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU9_IP4"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu9_ip5_matched,HLT_mu9_ip5_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU9_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu9_ip5_matched,HLT_mu9_ip5_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU9_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu9_ip6_matched,HLT_mu9_ip6_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU9_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu9_ip6_matched,HLT_mu9_ip6_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU9_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu10p5_ip3p5_matched,HLT_mu10p5_ip3p5_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU10p5_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu10p5_ip3p5_matched,HLT_mu10p5_ip3p5_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU10p5_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu12_ip6_matched,HLT_mu12_ip6_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU12_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu12_ip6_matched,HLT_mu12_ip6_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU12_IP6"
         }
     ],
     "best_cand_var": {
-        "definition": "get_best_cand_idx(C_Ds_vertex_prob,C_Hnl_vertex_prob,C_mu_Ds_idx,C_mu_Hnl_idx,C_pi_idx)",
+        "definition": "get_maxRatio_wPosCond_cand_idx(C_Hnl_vertex_3DDist_PV,C_Ds_vertex_3DDist_PV,C_Hnl_vertex_cos2D)",
         "name": "best_cand_idx"
     },
     "categories": [
@@ -64,8 +229,8 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
-                    "printout": "MU9_IP6 matched with muon from Ds"
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
                 },
                 {
                     "cut": "C_mu_Ds_isSoft>0",
@@ -88,8 +253,8 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
-                    "printout": "MU9_IP6 matched with muon from Ds"
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
                 },
                 {
                     "cut": "C_mu_Ds_isSoft>0",
@@ -112,8 +277,8 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
-                    "printout": "MU9_IP6 matched with muon from Ds"
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
                 },
                 {
                     "cut": "C_mu_Ds_isSoft>0",
@@ -136,8 +301,8 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
-                    "printout": "MU9_IP6 matched with muon from Ds"
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
                 },
                 {
                     "cut": "C_mu_Ds_isSoft>0",
@@ -160,8 +325,8 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
-                    "printout": "MU9_IP6 matched with muon from Ds"
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
                 },
                 {
                     "cut": "C_mu_Ds_isSoft>0",
@@ -184,8 +349,8 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
-                    "printout": "MU9_IP6 matched with muon from Ds"
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
                 },
                 {
                     "cut": "C_mu_Ds_isSoft>0",
@@ -204,8 +369,8 @@
             "save": "yes",
             "selection_cuts": [
                 {
-                    "cut": "C_mu_Ds_matched_MU9_IP6>0",
-                    "printout": "MU9_IP6 matched with muon from Ds"
+                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
+                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
                 },
                 {
                     "cut": "C_mu_Ds_isSoft>0",
@@ -222,8 +387,20 @@
         {
             "logic": ">",
             "low_edge": -0.0001,
+            "name": "C_Hnl_vertex_2DDist_BS",
+            "up_edge": 400.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
             "name": "C_Hnl_vertex_2DSig_BS",
-            "up_edge": 100.0
+            "up_edge": 400.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_Ds_vertex_2DSig_BS",
+            "up_edge": 400.0
         },
         {
             "logic": ">",
@@ -236,6 +413,60 @@
             "low_edge": -0.0001,
             "name": "C_mu_Hnl_BS_ip_xy",
             "up_edge": 0.5
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_Hnl_vertex_prob",
+            "up_edge": 1.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -1.001,
+            "name": "C_Ds_vertex_cos2D",
+            "up_edge": 1.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -1.001,
+            "name": "C_Ds_vertex_cos3D",
+            "up_edge": 1.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -1.001,
+            "name": "C_Hnl_vertex_cos2D",
+            "up_edge": 1.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -1.001,
+            "name": "C_Hnl_vertex_cos3D",
+            "up_edge": 1.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_pi_BS_ips_xy",
+            "up_edge": 100.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_pi_BS_ips_z",
+            "up_edge": 100.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_mu_Hnl_BS_ips_xy",
+            "up_edge": 100.0
+        },
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_mu_Ds_BS_ips_xy",
+            "up_edge": 100.0
         },
         {
             "logic": ">",
