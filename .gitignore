@@ -3,5 +3,8 @@
 *.swp
 *.txt
 *.out
+*.csv
+*.pdf
+*.png
 plots/*
 output/*
