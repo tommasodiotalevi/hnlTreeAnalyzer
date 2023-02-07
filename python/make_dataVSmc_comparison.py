@@ -2,7 +2,15 @@ import subprocess
 import sys
 import os
 import json
-script, configFileName = sys.argv
+import argparse
+
+#script input arguments
+parser = argparse.ArgumentParser(description="")
+parser.add_argument("cfg_filename", help="Path to the input configuration file")
+parser.add_argument("--saveRatioPlot", action='store_true', default=False, help="Save data/MC ratio plots")
+args = parser.parse_args()
+
+configFileName = args.cfg_filename
 
 with open(configFileName, "r") as f:
     config = json.loads(f.read())
@@ -21,7 +29,7 @@ subprocess.call(["hadd","-f",inputDataFileName] + [str(inputDirName + "/" + data
 
 for plotName in config["plotNameList"]:
 
-    print(plotName)
+    #print(plotName)
 
     ROOT.gROOT.SetBatch(ROOT.kTRUE)
 
@@ -39,7 +47,6 @@ for plotName in config["plotNameList"]:
     padLower.Draw()
     
     histoName = str(plotName)
-    colorList = [ROOT.kRed, ROOT.kGreen, ROOT.kBlue, ROOT.kYellow, ROOT.kMagenta, ROOT.kCyan, ROOT.kOrange, ROOT.kSpring, ROOT.kTeal, ROOT.kAzure, ROOT.kViolet, ROOT.kPink]
     iColor = 0
     iLineStyle=0
     leg_dataVSmc = ROOT.TLegend(0.65, 0.65, 0.87, 0.87)
@@ -66,21 +73,46 @@ for plotName in config["plotNameList"]:
     for filename in config["background"]:
         inputFileDic_bkg [filename] = ROOT.TFile.Open(str(os.path.join(inputDirName,filename)))
         inputHistoDic_bkg[filename] = ROOT.TH1D(inputFileDic_bkg[filename].Get(histoName))
+        if filename.find("DsToPhiPi_ToMuMu")>0:
+            BR_BToDs = 0.20509380
+            BR_Ds = 1.3e-5
+            prompt_fraction_in_mc = 0.0928
+            nonprompt_fraction_in_mc = 0.0832
+            if filename.find("_nonprompt.root")>0:
+                weight = BR_Ds*BR_BToDs/nonprompt_fraction_in_mc
+                print("--> nonprompt weight: {}".format(weight))
+                inputHistoDic_bkg[filename].Scale(weight)
+            elif filename.find("_prompt.root")>0:
+                weight = BR_Ds/prompt_fraction_in_mc
+                print("--> prompt weight: {}".format(weight))
+                inputHistoDic_bkg[filename].Scale(weight)
         tot_integral += inputHistoDic_bkg[filename].Integral()
-    
+
     #Stacking background histos
     #for filename in sorted(config["background"]):
     for filename in config["background"]:
-        print("FILE: {}".format(filename))
         inputFileDic_bkg [filename] = ROOT.TFile.Open(str(os.path.join(inputDirName,filename)))
         inputHistoDic_bkg[filename] = ROOT.TH1D(inputFileDic_bkg[filename].Get(histoName))
         #inputHistoDic_bkg[filename].Scale(lumi_data)
         histo_integral = inputHistoDic_bkg[filename].Integral()
-        print("histo_integral = {}".format(histo_integral))
-        print("tot_integral = {}".format(tot_integral))
+
+        if filename.find("DsToPhiPi_ToMuMu")>0:
+            BR_BToDs = 0.20509380
+            BR_Ds = 1.3e-5
+            prompt_fraction_in_mc = 0.0928
+            nonprompt_fraction_in_mc = 0.0832
+            if filename.find("_nonprompt.root")>0:
+                weight = BR_Ds*BR_BToDs/nonprompt_fraction_in_mc
+                print("--> nonprompt weight: {}".format(weight))
+                inputHistoDic_bkg[filename].Scale(weight)
+            elif filename.find("_prompt.root")>0:
+                weight = BR_Ds/prompt_fraction_in_mc
+                print("--> prompt weight: {}".format(weight))
+                inputHistoDic_bkg[filename].Scale(weight)
+
         inputHistoDic_bkg[filename].Scale(1./tot_integral)
         inputHistoDic_bkg[filename].SetLineColor(ROOT.kBlack)
-        inputHistoDic_bkg[filename].SetFillColor(colorList[iColor])
+        inputHistoDic_bkg[filename].SetFillColor(ROOT.kGreen+iColor)
         #overflowBin = inputHistoDic_bkg[filename].GetXaxis().GetLast() + 1
         overflowBin = inputHistoDic_bkg[filename].GetXaxis().GetLast()
         inputHistoDic_bkg[filename].GetXaxis().SetRange(1,overflowBin)
@@ -89,6 +121,7 @@ for plotName in config["plotNameList"]:
         iColor += 1
         bkgLabel = config["background"][filename]["label"]
         leg_dataVSmc.AddEntry(inputHistoDic_bkg[filename],bkgLabel)
+    
 
     #Drawing stacked histos
     padUpper.cd()
@@ -120,13 +153,21 @@ for plotName in config["plotNameList"]:
     inputDataHisto.Draw("ex0p same")
     leg_dataVSmc.Draw("same")
 
-    inputMCFile = ROOT.TFile.Open(str(inputMCFileName))
-    inputMCHisto = ROOT.TH1D(inputMCFile.Get(histoName))
-    #inputMCHisto.Scale(lumi_data)
-    inputMCHisto.Scale(1./tot_integral)
+    #inputMCFile = ROOT.TFile.Open(str(inputMCFileName))
+    #inputMCHisto = ROOT.TH1D(inputMCFile.Get(histoName))
+    #inputMCHisto.Scale(1./tot_integral)
+    #inputMCHisto = histoStacked.GetHistogram()
+
+    inputMCHisto = inputHistoDic_bkg[list(config["background"].keys())[0]].Clone()
+    for i in range(1,len(list(config["background"].keys()))):
+        inputMCHisto.Add(inputHistoDic_bkg[list(config["background"].keys())[i]])
     
     hRatio = inputDataHisto.Clone()
     hRatio.Divide(inputMCHisto)
+
+    if args.saveRatioPlot:
+        hRatio.SaveAs(os.path.join(outDirName,histoName +"_dataMCratio.root"))
+
     padLower.cd()
     hRatio.SetTitle("")
     hRatio.GetYaxis().SetTitle("")
@@ -148,5 +189,6 @@ for plotName in config["plotNameList"]:
     
     subprocess.call(["mkdir","-p",outDirName])
     c.SaveAs(os.path.join(outDirName,histoName +"_dataVSmc.png"))
+    c.SaveAs(os.path.join(outDirName,histoName +"_dataVSmc.pdf"))
     c.SaveAs(os.path.join(outDirName,histoName +"_dataVSmc.root"))
     del c
