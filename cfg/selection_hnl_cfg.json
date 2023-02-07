@@ -59,6 +59,34 @@
        	925.0,
        	1000.0
     ],
+    "mN1p0_ctau1000p0mm_rw_points": [
+        1750.0,
+       	2500.0,
+       	3250.0,
+       	4000.0,
+       	4750.0,
+       	5500.0,
+       	6250.0,
+       	7000.0,
+       	7750.0,
+       	8500.0,
+       	9250.0,
+       	10000.0
+    ],
+    "mN1p5_ctau1000p0mm_rw_points": [
+        1750.0,
+       	2500.0,
+       	3250.0,
+       	4000.0,
+       	4750.0,
+       	5500.0,
+       	6250.0,
+       	7000.0,
+       	7750.0,
+       	8500.0,
+       	9250.0,
+       	10000.0
+    ],
     "new_variables": [
         {
             "definition": "sqrt(C_Hnl_px*C_Hnl_px + C_Hnl_py*C_Hnl_py + C_Hnl_pz*C_Hnl_pz)",
@@ -85,20 +113,20 @@
             "name": "C_mu_Hnl_matched_MU8_IP3"
         },
         {
-            "definition": "get_mu_trigger_matching(HLT_mu8_ip3p5_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
-            "name": "C_mu_Ds_matched_MU8_IP3p5"
-        },
-        {
-            "definition": "get_mu_trigger_matching(HLT_mu8_ip3p5_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
-            "name": "C_mu_Hnl_matched_MU8_IP3p5"
-        },
-        {
             "definition": "get_mu_trigger_matching(HLT_mu8_ip5_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
             "name": "C_mu_Ds_matched_MU8_IP5"
         },
         {
             "definition": "get_mu_trigger_matching(HLT_mu8_ip5_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
             "name": "C_mu_Hnl_matched_MU8_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip6_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU8_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8_ip6_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU8_IP6"
         },
         {
             "definition": "get_mu_trigger_matching(HLT_mu9_ip4_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
@@ -157,20 +185,20 @@
             "name": "C_mu_Hnl_dr_MU8_IP3"
         },
         {
-            "definition": "get_mu_trigger_dr(HLT_mu8_ip3p5_matched,HLT_mu8_ip3p5_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
-            "name": "C_mu_Ds_dr_MU8_IP3p5"
-        },
-        {
-            "definition": "get_mu_trigger_dr(HLT_mu8_ip3p5_matched,HLT_mu8_ip3p5_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
-            "name": "C_mu_Hnl_dr_MU8_IP3p5"
-        },
-        {
             "definition": "get_mu_trigger_dr(HLT_mu8_ip5_matched,HLT_mu8_ip5_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
             "name": "C_mu_Ds_dr_MU8_IP5"
         },
         {
             "definition": "get_mu_trigger_dr(HLT_mu8_ip5_matched,HLT_mu8_ip5_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
             "name": "C_mu_Hnl_dr_MU8_IP5"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip6_matched,HLT_mu8_ip6_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_dr_MU8_IP6"
+        },
+        {
+            "definition": "get_mu_trigger_dr(HLT_mu8_ip6_matched,HLT_mu8_ip6_dr,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_dr_MU8_IP6"
         },
         {
             "definition": "get_mu_trigger_dr(HLT_mu9_ip4_matched,HLT_mu9_ip4_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
@@ -229,8 +257,8 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
-                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
+                    "cut": "(C_mu_Ds_matched_MU7_IP4>0 && C_mu_Ds_dr_MU7_IP4<0.005) || (C_mu_Hnl_matched_MU7_IP4>0 && C_mu_Hnl_dr_MU7_IP4<0.005) || (C_mu_Ds_matched_MU8_IP3>0 && C_mu_Ds_dr_MU8_IP3<0.005) || (C_mu_Hnl_matched_MU8_IP3>0 && C_mu_Hnl_dr_MU8_IP3<0.005) || (C_mu_Ds_matched_MU8_IP5>0 && C_mu_Ds_dr_MU8_IP5<0.005) || (C_mu_Hnl_matched_MU8_IP5>0 && C_mu_Hnl_dr_MU8_IP5<0.005) || (C_mu_Ds_matched_MU8_IP6>0 && C_mu_Ds_dr_MU8_IP6<0.005) || (C_mu_Hnl_matched_MU8_IP6>0 && C_mu_Hnl_dr_MU8_IP6<0.005) || (C_mu_Ds_matched_MU9_IP4>0 && C_mu_Ds_dr_MU9_IP4<0.005) || (C_mu_Hnl_matched_MU9_IP4>0 && C_mu_Hnl_dr_MU9_IP4<0.005) || (C_mu_Ds_matched_MU9_IP5>0 && C_mu_Ds_dr_MU9_IP5<0.005) || (C_mu_Hnl_matched_MU9_IP5>0 && C_mu_Hnl_dr_MU9_IP5<0.005) || (C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005) || (C_mu_Ds_matched_MU10p5_IP3p5>0 && C_mu_Ds_dr_MU10p5_IP3p5<0.005) || (C_mu_Hnl_matched_MU10p5_IP3p5>0 && C_mu_Hnl_dr_MU10p5_IP3p5<0.005) || (C_mu_Ds_matched_MU12_IP6>0 && C_mu_Ds_dr_MU12_IP6<0.005) || (C_mu_Hnl_matched_MU12_IP6>0 && C_mu_Hnl_dr_MU12_IP6<0.005)",
+                    "printout": "any B-Parking HLT path matched with muon from Ds or HNL"
                 },
                 {
                     "cut": "C_mu_Ds_isSoft>0",
@@ -253,8 +281,8 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
-                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
+                    "cut": "(C_mu_Ds_matched_MU7_IP4>0 && C_mu_Ds_dr_MU7_IP4<0.005) || (C_mu_Hnl_matched_MU7_IP4>0 && C_mu_Hnl_dr_MU7_IP4<0.005) || (C_mu_Ds_matched_MU8_IP3>0 && C_mu_Ds_dr_MU8_IP3<0.005) || (C_mu_Hnl_matched_MU8_IP3>0 && C_mu_Hnl_dr_MU8_IP3<0.005) || (C_mu_Ds_matched_MU8_IP5>0 && C_mu_Ds_dr_MU8_IP5<0.005) || (C_mu_Hnl_matched_MU8_IP5>0 && C_mu_Hnl_dr_MU8_IP5<0.005) || (C_mu_Ds_matched_MU8_IP6>0 && C_mu_Ds_dr_MU8_IP6<0.005) || (C_mu_Hnl_matched_MU8_IP6>0 && C_mu_Hnl_dr_MU8_IP6<0.005) || (C_mu_Ds_matched_MU9_IP4>0 && C_mu_Ds_dr_MU9_IP4<0.005) || (C_mu_Hnl_matched_MU9_IP4>0 && C_mu_Hnl_dr_MU9_IP4<0.005) || (C_mu_Ds_matched_MU9_IP5>0 && C_mu_Ds_dr_MU9_IP5<0.005) || (C_mu_Hnl_matched_MU9_IP5>0 && C_mu_Hnl_dr_MU9_IP5<0.005) || (C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005) || (C_mu_Ds_matched_MU10p5_IP3p5>0 && C_mu_Ds_dr_MU10p5_IP3p5<0.005) || (C_mu_Hnl_matched_MU10p5_IP3p5>0 && C_mu_Hnl_dr_MU10p5_IP3p5<0.005) || (C_mu_Ds_matched_MU12_IP6>0 && C_mu_Ds_dr_MU12_IP6<0.005) || (C_mu_Hnl_matched_MU12_IP6>0 && C_mu_Hnl_dr_MU12_IP6<0.005)",
+                    "printout": "any B-Parking HLT path matched with muon from Ds or HNL"
                 },
                 {
                     "cut": "C_mu_Ds_isSoft>0",
@@ -277,8 +305,8 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
-                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
+                    "cut": "(C_mu_Ds_matched_MU7_IP4>0 && C_mu_Ds_dr_MU7_IP4<0.005) || (C_mu_Hnl_matched_MU7_IP4>0 && C_mu_Hnl_dr_MU7_IP4<0.005) || (C_mu_Ds_matched_MU8_IP3>0 && C_mu_Ds_dr_MU8_IP3<0.005) || (C_mu_Hnl_matched_MU8_IP3>0 && C_mu_Hnl_dr_MU8_IP3<0.005) || (C_mu_Ds_matched_MU8_IP5>0 && C_mu_Ds_dr_MU8_IP5<0.005) || (C_mu_Hnl_matched_MU8_IP5>0 && C_mu_Hnl_dr_MU8_IP5<0.005) || (C_mu_Ds_matched_MU8_IP6>0 && C_mu_Ds_dr_MU8_IP6<0.005) || (C_mu_Hnl_matched_MU8_IP6>0 && C_mu_Hnl_dr_MU8_IP6<0.005) || (C_mu_Ds_matched_MU9_IP4>0 && C_mu_Ds_dr_MU9_IP4<0.005) || (C_mu_Hnl_matched_MU9_IP4>0 && C_mu_Hnl_dr_MU9_IP4<0.005) || (C_mu_Ds_matched_MU9_IP5>0 && C_mu_Ds_dr_MU9_IP5<0.005) || (C_mu_Hnl_matched_MU9_IP5>0 && C_mu_Hnl_dr_MU9_IP5<0.005) || (C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005) || (C_mu_Ds_matched_MU10p5_IP3p5>0 && C_mu_Ds_dr_MU10p5_IP3p5<0.005) || (C_mu_Hnl_matched_MU10p5_IP3p5>0 && C_mu_Hnl_dr_MU10p5_IP3p5<0.005) || (C_mu_Ds_matched_MU12_IP6>0 && C_mu_Ds_dr_MU12_IP6<0.005) || (C_mu_Hnl_matched_MU12_IP6>0 && C_mu_Hnl_dr_MU12_IP6<0.005)",
+                    "printout": "any B-Parking HLT path matched with muon from Ds or HNL"
                 },
                 {
                     "cut": "C_mu_Ds_isSoft>0",
@@ -301,8 +329,8 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
-                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
+                    "cut": "(C_mu_Ds_matched_MU7_IP4>0 && C_mu_Ds_dr_MU7_IP4<0.005) || (C_mu_Hnl_matched_MU7_IP4>0 && C_mu_Hnl_dr_MU7_IP4<0.005) || (C_mu_Ds_matched_MU8_IP3>0 && C_mu_Ds_dr_MU8_IP3<0.005) || (C_mu_Hnl_matched_MU8_IP3>0 && C_mu_Hnl_dr_MU8_IP3<0.005) || (C_mu_Ds_matched_MU8_IP5>0 && C_mu_Ds_dr_MU8_IP5<0.005) || (C_mu_Hnl_matched_MU8_IP5>0 && C_mu_Hnl_dr_MU8_IP5<0.005) || (C_mu_Ds_matched_MU8_IP6>0 && C_mu_Ds_dr_MU8_IP6<0.005) || (C_mu_Hnl_matched_MU8_IP6>0 && C_mu_Hnl_dr_MU8_IP6<0.005) || (C_mu_Ds_matched_MU9_IP4>0 && C_mu_Ds_dr_MU9_IP4<0.005) || (C_mu_Hnl_matched_MU9_IP4>0 && C_mu_Hnl_dr_MU9_IP4<0.005) || (C_mu_Ds_matched_MU9_IP5>0 && C_mu_Ds_dr_MU9_IP5<0.005) || (C_mu_Hnl_matched_MU9_IP5>0 && C_mu_Hnl_dr_MU9_IP5<0.005) || (C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005) || (C_mu_Ds_matched_MU10p5_IP3p5>0 && C_mu_Ds_dr_MU10p5_IP3p5<0.005) || (C_mu_Hnl_matched_MU10p5_IP3p5>0 && C_mu_Hnl_dr_MU10p5_IP3p5<0.005) || (C_mu_Ds_matched_MU12_IP6>0 && C_mu_Ds_dr_MU12_IP6<0.005) || (C_mu_Hnl_matched_MU12_IP6>0 && C_mu_Hnl_dr_MU12_IP6<0.005)",
+                    "printout": "any B-Parking HLT path matched with muon from Ds or HNL"
                 },
                 {
                     "cut": "C_mu_Ds_isSoft>0",
@@ -325,8 +353,8 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
-                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
+                    "cut": "(C_mu_Ds_matched_MU7_IP4>0 && C_mu_Ds_dr_MU7_IP4<0.005) || (C_mu_Hnl_matched_MU7_IP4>0 && C_mu_Hnl_dr_MU7_IP4<0.005) || (C_mu_Ds_matched_MU8_IP3>0 && C_mu_Ds_dr_MU8_IP3<0.005) || (C_mu_Hnl_matched_MU8_IP3>0 && C_mu_Hnl_dr_MU8_IP3<0.005) || (C_mu_Ds_matched_MU8_IP5>0 && C_mu_Ds_dr_MU8_IP5<0.005) || (C_mu_Hnl_matched_MU8_IP5>0 && C_mu_Hnl_dr_MU8_IP5<0.005) || (C_mu_Ds_matched_MU8_IP6>0 && C_mu_Ds_dr_MU8_IP6<0.005) || (C_mu_Hnl_matched_MU8_IP6>0 && C_mu_Hnl_dr_MU8_IP6<0.005) || (C_mu_Ds_matched_MU9_IP4>0 && C_mu_Ds_dr_MU9_IP4<0.005) || (C_mu_Hnl_matched_MU9_IP4>0 && C_mu_Hnl_dr_MU9_IP4<0.005) || (C_mu_Ds_matched_MU9_IP5>0 && C_mu_Ds_dr_MU9_IP5<0.005) || (C_mu_Hnl_matched_MU9_IP5>0 && C_mu_Hnl_dr_MU9_IP5<0.005) || (C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005) || (C_mu_Ds_matched_MU10p5_IP3p5>0 && C_mu_Ds_dr_MU10p5_IP3p5<0.005) || (C_mu_Hnl_matched_MU10p5_IP3p5>0 && C_mu_Hnl_dr_MU10p5_IP3p5<0.005) || (C_mu_Ds_matched_MU12_IP6>0 && C_mu_Ds_dr_MU12_IP6<0.005) || (C_mu_Hnl_matched_MU12_IP6>0 && C_mu_Hnl_dr_MU12_IP6<0.005)",
+                    "printout": "any B-Parking HLT path matched with muon from Ds or HNL"
                 },
                 {
                     "cut": "C_mu_Ds_isSoft>0",
@@ -349,8 +377,8 @@
                     "printout": "MuPi charge is zero"
                 },
                 {
-                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
-                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
+                    "cut": "(C_mu_Ds_matched_MU7_IP4>0 && C_mu_Ds_dr_MU7_IP4<0.005) || (C_mu_Hnl_matched_MU7_IP4>0 && C_mu_Hnl_dr_MU7_IP4<0.005) || (C_mu_Ds_matched_MU8_IP3>0 && C_mu_Ds_dr_MU8_IP3<0.005) || (C_mu_Hnl_matched_MU8_IP3>0 && C_mu_Hnl_dr_MU8_IP3<0.005) || (C_mu_Ds_matched_MU8_IP5>0 && C_mu_Ds_dr_MU8_IP5<0.005) || (C_mu_Hnl_matched_MU8_IP5>0 && C_mu_Hnl_dr_MU8_IP5<0.005) || (C_mu_Ds_matched_MU8_IP6>0 && C_mu_Ds_dr_MU8_IP6<0.005) || (C_mu_Hnl_matched_MU8_IP6>0 && C_mu_Hnl_dr_MU8_IP6<0.005) || (C_mu_Ds_matched_MU9_IP4>0 && C_mu_Ds_dr_MU9_IP4<0.005) || (C_mu_Hnl_matched_MU9_IP4>0 && C_mu_Hnl_dr_MU9_IP4<0.005) || (C_mu_Ds_matched_MU9_IP5>0 && C_mu_Ds_dr_MU9_IP5<0.005) || (C_mu_Hnl_matched_MU9_IP5>0 && C_mu_Hnl_dr_MU9_IP5<0.005) || (C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005) || (C_mu_Ds_matched_MU10p5_IP3p5>0 && C_mu_Ds_dr_MU10p5_IP3p5<0.005) || (C_mu_Hnl_matched_MU10p5_IP3p5>0 && C_mu_Hnl_dr_MU10p5_IP3p5<0.005) || (C_mu_Ds_matched_MU12_IP6>0 && C_mu_Ds_dr_MU12_IP6<0.005) || (C_mu_Hnl_matched_MU12_IP6>0 && C_mu_Hnl_dr_MU12_IP6<0.005)",
+                    "printout": "any B-Parking HLT path matched with muon from Ds or HNL"
                 },
                 {
                     "cut": "C_mu_Ds_isSoft>0",
@@ -366,27 +394,27 @@
             "cut": "(C_mu_Hnl_charge+C_pi_charge) == 0",
             "label": "inclusive",
             "printout": "neutral HNL category",
-            "save": "yes",
+            "save": "no",
             "selection_cuts": [
                 {
-                    "cut": "(C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005)",
-                    "printout": "MU9_IP6 matched with muon from Ds or HNL"
-                },
-                {
-                    "cut": "C_mu_Ds_isSoft>0",
-                    "printout": "mu from Ds pass soft ID"
-                },
-                {
-                    "cut": "C_mu_Hnl_isSoft>0",
-                    "printout": "mu from HNL pass soft ID"
-                }
-            ]
-        }
+			"cut": "(C_mu_Ds_matched_MU7_IP4>0 && C_mu_Ds_dr_MU7_IP4<0.005) || (C_mu_Hnl_matched_MU7_IP4>0 && C_mu_Hnl_dr_MU7_IP4<0.005) || (C_mu_Ds_matched_MU8_IP3>0 && C_mu_Ds_dr_MU8_IP3<0.005) || (C_mu_Hnl_matched_MU8_IP3>0 && C_mu_Hnl_dr_MU8_IP3<0.005) || (C_mu_Ds_matched_MU8_IP5>0 && C_mu_Ds_dr_MU8_IP5<0.005) || (C_mu_Hnl_matched_MU8_IP5>0 && C_mu_Hnl_dr_MU8_IP5<0.005) || (C_mu_Ds_matched_MU8_IP6>0 && C_mu_Ds_dr_MU8_IP6<0.005) || (C_mu_Hnl_matched_MU8_IP6>0 && C_mu_Hnl_dr_MU8_IP6<0.005) || (C_mu_Ds_matched_MU9_IP4>0 && C_mu_Ds_dr_MU9_IP4<0.005) || (C_mu_Hnl_matched_MU9_IP4>0 && C_mu_Hnl_dr_MU9_IP4<0.005) || (C_mu_Ds_matched_MU9_IP5>0 && C_mu_Ds_dr_MU9_IP5<0.005) || (C_mu_Hnl_matched_MU9_IP5>0 && C_mu_Hnl_dr_MU9_IP5<0.005) || (C_mu_Ds_matched_MU9_IP6>0 && C_mu_Ds_dr_MU9_IP6<0.005) || (C_mu_Hnl_matched_MU9_IP6>0 && C_mu_Hnl_dr_MU9_IP6<0.005) || (C_mu_Ds_matched_MU10p5_IP3p5>0 && C_mu_Ds_dr_MU10p5_IP3p5<0.005) || (C_mu_Hnl_matched_MU10p5_IP3p5>0 && C_mu_Hnl_dr_MU10p5_IP3p5<0.005) || (C_mu_Ds_matched_MU12_IP6>0 && C_mu_Ds_dr_MU12_IP6<0.005) || (C_mu_Hnl_matched_MU12_IP6>0 && C_mu_Hnl_dr_MU12_IP6<0.005)",
+			"printout": "any B-Parking HLT path matched with muon from Ds or HNL"
+		},
+	    {
+		    "cut": "C_mu_Ds_isSoft>0",
+		    "printout": "mu from Ds pass soft ID"
+	    },
+	    {
+		    "cut": "C_mu_Hnl_isSoft>0",
+		    "printout": "mu from HNL pass soft ID"
+	    }
+	    ]
+	}
     ],
-    "selection_eff_scan": [
-        {
-            "logic": ">",
-            "low_edge": -0.0001,
+	    "selection_eff_scan": [
+	    {
+		    "logic": ">",
+		    "low_edge": -0.0001,
             "name": "C_Hnl_vertex_2DDist_BS",
             "up_edge": 400.0
         },

@@ -2,12 +2,65 @@
 	"categories":[
 		{"printout":"inclusive (dummy cut)",
 		 "label"   :"inclusive",
-		 "cut"     :"C_mu2_Phi_charge!=0",		
+		 "cut"     :"C_mu1_Phi_charge!=0",		
 		 "save"    :"yes",		
-		 "selection_cuts" :[
-	        	{"cut":"C_mu1_Phi_matched_MU8_IP3>0 || C_mu1_Phi_matched_MU9_IP6>0 || C_mu2_Phi_matched_MU8_IP3>0 || C_mu2_Phi_matched_MU9_IP6>0",
-	        	 "printout":"at least one mu matched MU9_IP6 || MU8_IP3"
+                 "selection_cuts" :[
+   	                {
+                            "cut": "(C_mu1_Phi_matched_MU7_IP4>0 && C_mu1_Phi_dr_MU7_IP4<0.005) || (C_mu2_Phi_matched_MU7_IP4>0 && C_mu2_Phi_dr_MU7_IP4<0.005) || (C_mu1_Phi_matched_MU8_IP3>0 && C_mu1_Phi_dr_MU8_IP3<0.005) || (C_mu2_Phi_matched_MU8_IP3>0 && C_mu2_Phi_dr_MU8_IP3<0.005) || (C_mu1_Phi_matched_MU8_IP5>0 && C_mu1_Phi_dr_MU8_IP5<0.005) || (C_mu2_Phi_matched_MU8_IP5>0 && C_mu2_Phi_dr_MU8_IP5<0.005) || (C_mu1_Phi_matched_MU8_IP6>0 && C_mu1_Phi_dr_MU8_IP6<0.005) || (C_mu2_Phi_matched_MU8_IP6>0 && C_mu2_Phi_dr_MU8_IP6<0.005) || (C_mu1_Phi_matched_MU9_IP4>0 && C_mu1_Phi_dr_MU9_IP4<0.005) || (C_mu2_Phi_matched_MU9_IP4>0 && C_mu2_Phi_dr_MU9_IP4<0.005) || (C_mu1_Phi_matched_MU9_IP5>0 && C_mu1_Phi_dr_MU9_IP5<0.005) || (C_mu2_Phi_matched_MU9_IP5>0 && C_mu2_Phi_dr_MU9_IP5<0.005) || (C_mu1_Phi_matched_MU9_IP6>0 && C_mu1_Phi_dr_MU9_IP6<0.005) || (C_mu2_Phi_matched_MU9_IP6>0 && C_mu2_Phi_dr_MU9_IP6<0.005) || (C_mu1_Phi_matched_MU10p5_IP3p5>0 && C_mu1_Phi_dr_MU10p5_IP3p5<0.005) || (C_mu2_Phi_matched_MU10p5_IP3p5>0 && C_mu2_Phi_dr_MU10p5_IP3p5<0.005) || (C_mu1_Phi_matched_MU12_IP6>0 && C_mu1_Phi_dr_MU12_IP6<0.005) || (C_mu2_Phi_matched_MU12_IP6>0 && C_mu2_Phi_dr_MU12_IP6<0.005)",
+                            "printout": "any B-Parking HLT path matched with a muon from Phi"
+                        },
+	        	{"cut":"(fabs(C_mu1_Phi_eta)<1.2 && C_mu1_Phi_pt>3.5) || (fabs(C_mu1_Phi_eta)>1.2 && fabs(C_mu1_Phi_eta)<2.4 && C_mu1_Phi_pt>2.0)",
+	        	 "printout":"mu1 pt/eta cut"
 	        	},
+	        	{"cut":"(fabs(C_mu2_Phi_eta)<1.2 && C_mu2_Phi_pt>3.5) || (fabs(C_mu2_Phi_eta)>1.2 && fabs(C_mu2_Phi_eta)<2.4 && C_mu2_Phi_pt>2.0)",
+	        	 "printout":"mu2 pt/eta cut"
+	        	},
+	        	{"cut":"(C_mu1_Phi_charge+C_mu2_Phi_charge)==0",
+	        	 "printout":"opposite charge muons"
+	        	},
+	        	{"cut":"C_mu1_Phi_isSoft>0",
+	        	 "printout":"leading muon from Phi is soft"
+	        	},
+	        	{"cut":"C_mu2_Phi_isSoft>0",
+	        	 "printout":"sub-leading muon from Phi is soft"
+	        	}
+		]
+		},
+		{"printout":"prompt Ds",
+		 "label"   :"prompt",
+		 "cut"     :"C_mu2_Phi_hasBAncestor<1",		
+		 "save"    :"yes",		
+                 "selection_cuts" :[
+   	                {
+                            "cut": "(C_mu1_Phi_matched_MU7_IP4>0 && C_mu1_Phi_dr_MU7_IP4<0.005) || (C_mu2_Phi_matched_MU7_IP4>0 && C_mu2_Phi_dr_MU7_IP4<0.005) || (C_mu1_Phi_matched_MU8_IP3>0 && C_mu1_Phi_dr_MU8_IP3<0.005) || (C_mu2_Phi_matched_MU8_IP3>0 && C_mu2_Phi_dr_MU8_IP3<0.005) || (C_mu1_Phi_matched_MU8_IP5>0 && C_mu1_Phi_dr_MU8_IP5<0.005) || (C_mu2_Phi_matched_MU8_IP5>0 && C_mu2_Phi_dr_MU8_IP5<0.005) || (C_mu1_Phi_matched_MU8_IP6>0 && C_mu1_Phi_dr_MU8_IP6<0.005) || (C_mu2_Phi_matched_MU8_IP6>0 && C_mu2_Phi_dr_MU8_IP6<0.005) || (C_mu1_Phi_matched_MU9_IP4>0 && C_mu1_Phi_dr_MU9_IP4<0.005) || (C_mu2_Phi_matched_MU9_IP4>0 && C_mu2_Phi_dr_MU9_IP4<0.005) || (C_mu1_Phi_matched_MU9_IP5>0 && C_mu1_Phi_dr_MU9_IP5<0.005) || (C_mu2_Phi_matched_MU9_IP5>0 && C_mu2_Phi_dr_MU9_IP5<0.005) || (C_mu1_Phi_matched_MU9_IP6>0 && C_mu1_Phi_dr_MU9_IP6<0.005) || (C_mu2_Phi_matched_MU9_IP6>0 && C_mu2_Phi_dr_MU9_IP6<0.005) || (C_mu1_Phi_matched_MU10p5_IP3p5>0 && C_mu1_Phi_dr_MU10p5_IP3p5<0.005) || (C_mu2_Phi_matched_MU10p5_IP3p5>0 && C_mu2_Phi_dr_MU10p5_IP3p5<0.005) || (C_mu1_Phi_matched_MU12_IP6>0 && C_mu1_Phi_dr_MU12_IP6<0.005) || (C_mu2_Phi_matched_MU12_IP6>0 && C_mu2_Phi_dr_MU12_IP6<0.005)",
+                            "printout": "any B-Parking HLT path matched with a muon from Phi"
+                        },
+	        	{"cut":"(fabs(C_mu1_Phi_eta)<1.2 && C_mu1_Phi_pt>3.5) || (fabs(C_mu1_Phi_eta)>1.2 && fabs(C_mu1_Phi_eta)<2.4 && C_mu1_Phi_pt>2.0)",
+	        	 "printout":"mu1 pt/eta cut"
+	        	},
+	        	{"cut":"(fabs(C_mu2_Phi_eta)<1.2 && C_mu2_Phi_pt>3.5) || (fabs(C_mu2_Phi_eta)>1.2 && fabs(C_mu2_Phi_eta)<2.4 && C_mu2_Phi_pt>2.0)",
+	        	 "printout":"mu2 pt/eta cut"
+	        	},
+	        	{"cut":"(C_mu1_Phi_charge+C_mu2_Phi_charge)==0",
+	        	 "printout":"opposite charge muons"
+	        	},
+	        	{"cut":"C_mu1_Phi_isSoft>0",
+	        	 "printout":"leading muon from Phi is soft"
+	        	},
+	        	{"cut":"C_mu2_Phi_isSoft>0",
+	        	 "printout":"sub-leading muon from Phi is soft"
+	        	}
+		]
+		},
+		{"printout":"nonprompt Ds",
+		 "label"   :"nonprompt",
+		 "cut"     :"C_mu2_Phi_hasBAncestor>0",		
+		 "save"    :"yes",		
+                 "selection_cuts" :[
+   	                {
+                            "cut": "(C_mu1_Phi_matched_MU7_IP4>0 && C_mu1_Phi_dr_MU7_IP4<0.005) || (C_mu2_Phi_matched_MU7_IP4>0 && C_mu2_Phi_dr_MU7_IP4<0.005) || (C_mu1_Phi_matched_MU8_IP3>0 && C_mu1_Phi_dr_MU8_IP3<0.005) || (C_mu2_Phi_matched_MU8_IP3>0 && C_mu2_Phi_dr_MU8_IP3<0.005) || (C_mu1_Phi_matched_MU8_IP5>0 && C_mu1_Phi_dr_MU8_IP5<0.005) || (C_mu2_Phi_matched_MU8_IP5>0 && C_mu2_Phi_dr_MU8_IP5<0.005) || (C_mu1_Phi_matched_MU8_IP6>0 && C_mu1_Phi_dr_MU8_IP6<0.005) || (C_mu2_Phi_matched_MU8_IP6>0 && C_mu2_Phi_dr_MU8_IP6<0.005) || (C_mu1_Phi_matched_MU9_IP4>0 && C_mu1_Phi_dr_MU9_IP4<0.005) || (C_mu2_Phi_matched_MU9_IP4>0 && C_mu2_Phi_dr_MU9_IP4<0.005) || (C_mu1_Phi_matched_MU9_IP5>0 && C_mu1_Phi_dr_MU9_IP5<0.005) || (C_mu2_Phi_matched_MU9_IP5>0 && C_mu2_Phi_dr_MU9_IP5<0.005) || (C_mu1_Phi_matched_MU9_IP6>0 && C_mu1_Phi_dr_MU9_IP6<0.005) || (C_mu2_Phi_matched_MU9_IP6>0 && C_mu2_Phi_dr_MU9_IP6<0.005) || (C_mu1_Phi_matched_MU10p5_IP3p5>0 && C_mu1_Phi_dr_MU10p5_IP3p5<0.005) || (C_mu2_Phi_matched_MU10p5_IP3p5>0 && C_mu2_Phi_dr_MU10p5_IP3p5<0.005) || (C_mu1_Phi_matched_MU12_IP6>0 && C_mu1_Phi_dr_MU12_IP6<0.005) || (C_mu2_Phi_matched_MU12_IP6>0 && C_mu2_Phi_dr_MU12_IP6<0.005)",
+                            "printout": "any B-Parking HLT path matched with a muon from Phi"
+                        },
 	        	{"cut":"(fabs(C_mu1_Phi_eta)<1.2 && C_mu1_Phi_pt>3.5) || (fabs(C_mu1_Phi_eta)>1.2 && fabs(C_mu1_Phi_eta)<2.4 && C_mu1_Phi_pt>2.0)",
 	        	 "printout":"mu1 pt/eta cut"
 	        	},
@@ -38,45 +91,168 @@
 		 "logic"   : ">"
 		}
 	],
-	"_new_variables" : [
-		{"name"	:"C_mu1_Phi_matched_MU8_IP3",
-		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched, HLT_mu_trig_idx, C_mu1_Phi_idx)"
-		},
-		{"name"	:"C_mu1_Phi_matched_MU9_IP6",
-		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched, HLT_mu_trig_idx, C_mu1_Phi_idx)"
-		},
-		{"name"	:"C_mu2_Phi_matched_MU8_IP3",
-		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched, HLT_mu_trig_idx, C_mu2_Phi_idx)"
-		},
-		{"name"	:"C_mu2_Phi_matched_MU9_IP6",
-		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched, HLT_mu_trig_idx, C_mu2_Phi_idx)"
-		}
-	],
 	"new_variables" : [
-		{"name"	:"C_Ds_p",
+		{
+                 "name"	:"C_Ds_p",
 		 "definition":"sqrt(C_Ds_px*C_Ds_px + C_Ds_py*C_Ds_py + C_Ds_pz*C_Ds_pz)"
 		},
-		{"name"	:"C_Ds_l",
+		{
+                 "name"	:"C_Ds_l",
 		 "definition":"sqrt((C_Ds_vertex_x-PV_x[0])*(C_Ds_vertex_x-PV_x[0]) + (C_Ds_vertex_y-PV_y[0])*(C_Ds_vertex_y-PV_y[0]) +(C_Ds_vertex_z-PV_z[0])*(C_Ds_vertex_z-PV_z[0]))"
 		},
-		{"name"	:"C_Ds_l_prop_old",
+		{
+                 "name"	:"C_Ds_l_prop_old",
 		 "definition":"(C_Ds_l*C_Ds_mass)/C_Ds_p"
 		},
-		{"name"	:"C_Ds_l_prop",
+		{
+                 "name"	:"C_Ds_l_prop",
 		 "definition":"(C_Ds_vertex_3DDist_PV*C_Ds_mass)/C_Ds_p"
 		},
-		{"name"	:"C_mu1_Phi_matched_MU8_IP3",
-		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched, HLT_mu_trig_idx, C_mu1_Phi_idx)"
-		},
-		{"name"	:"C_mu1_Phi_matched_MU9_IP6",
-		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched, HLT_mu_trig_idx, C_mu1_Phi_idx)"
-		},
-		{"name"	:"C_mu2_Phi_matched_MU8_IP3",
-		 "definition":"get_mu_trigger_matching(HLT_mu8_ip3_matched, HLT_mu_trig_idx, C_mu2_Phi_idx)"
-		},
-		{"name"	:"C_mu2_Phi_matched_MU9_IP6",
-		 "definition":"get_mu_trigger_matching(HLT_mu9_ip6_matched, HLT_mu_trig_idx, C_mu2_Phi_idx)"
-		}
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu7_ip4_matched,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_matched_MU7_IP4"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu7_ip4_matched,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_matched_MU7_IP4"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu8_ip3_matched,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_matched_MU8_IP3"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu8_ip3_matched,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_matched_MU8_IP3"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu8_ip5_matched,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_matched_MU8_IP5"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu8_ip5_matched,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_matched_MU8_IP5"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu8_ip6_matched,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_matched_MU8_IP6"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu8_ip6_matched,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_matched_MU8_IP6"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu9_ip4_matched,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_matched_MU9_IP4"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu9_ip4_matched,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_matched_MU9_IP4"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu9_ip5_matched,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_matched_MU9_IP5"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu9_ip5_matched,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_matched_MU9_IP5"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu9_ip6_matched,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_matched_MU9_IP6"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu9_ip6_matched,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_matched_MU9_IP6"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu10p5_ip3p5_matched,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_matched_MU10p5_IP3p5"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu10p5_ip3p5_matched,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_matched_MU10p5_IP3p5"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu12_ip6_matched,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_matched_MU12_IP6"
+                },
+                {
+                    "definition": "get_mu_trigger_matching(HLT_mu12_ip6_matched,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_matched_MU12_IP6"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu7_ip4_matched,HLT_mu7_ip4_dr,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_dr_MU7_IP4"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu7_ip4_matched,HLT_mu7_ip4_dr,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_dr_MU7_IP4"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu8_ip3_matched,HLT_mu8_ip3_dr,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_dr_MU8_IP3"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu8_ip3_matched,HLT_mu8_ip3_dr,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_dr_MU8_IP3"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu8_ip5_matched,HLT_mu8_ip5_dr,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_dr_MU8_IP5"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu8_ip5_matched,HLT_mu8_ip5_dr,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_dr_MU8_IP5"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu8_ip6_matched,HLT_mu8_ip6_dr,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_dr_MU8_IP6"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu8_ip6_matched,HLT_mu8_ip6_dr,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_dr_MU8_IP6"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu9_ip4_matched,HLT_mu9_ip4_dr,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_dr_MU9_IP4"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu9_ip4_matched,HLT_mu9_ip4_dr,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_dr_MU9_IP4"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu9_ip5_matched,HLT_mu9_ip5_dr,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_dr_MU9_IP5"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu9_ip5_matched,HLT_mu9_ip5_dr,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_dr_MU9_IP5"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu9_ip6_matched,HLT_mu9_ip6_dr,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_dr_MU9_IP6"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu9_ip6_matched,HLT_mu9_ip6_dr,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_dr_MU9_IP6"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu10p5_ip3p5_matched,HLT_mu10p5_ip3p5_dr,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_dr_MU10p5_IP3p5"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu10p5_ip3p5_matched,HLT_mu10p5_ip3p5_dr,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_dr_MU10p5_IP3p5"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu12_ip6_matched,HLT_mu12_ip6_dr,HLT_mu_trig_idx, C_mu1_Phi_idx)",
+                    "name": "C_mu1_Phi_dr_MU12_IP6"
+                },
+                {
+                    "definition": "get_mu_trigger_dr(HLT_mu12_ip6_matched,HLT_mu12_ip6_dr,HLT_mu_trig_idx, C_mu2_Phi_idx)",
+                    "name": "C_mu2_Phi_dr_MU12_IP6"
+                }
+
 	],
 	"best_cand_var" :
 		{"name"	:"best_cand_idx",

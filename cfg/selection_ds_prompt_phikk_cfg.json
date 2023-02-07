@@ -1,0 +1,67 @@
+{
+	"categories":[
+		{"printout":"inclusive (dummy cut)",
+		 "label"   :"inclusive",
+		 "cut"     :"C_mu2_Phi_charge!=0",		
+		 "save"    :"yes",		
+		 "selection_cuts" :[
+	        	{"cut":"(fabs(C_mu1_Phi_eta)<1.2 && C_mu1_Phi_pt>3.5) || (fabs(C_mu1_Phi_eta)>1.2 && fabs(C_mu1_Phi_eta)<2.4 && C_mu1_Phi_pt>2.0)",
+	        	 "printout":"mu1 pt/eta cut"
+	        	},
+	        	{"cut":"(fabs(C_mu2_Phi_eta)<1.2 && C_mu2_Phi_pt>3.5) || (fabs(C_mu2_Phi_eta)>1.2 && fabs(C_mu2_Phi_eta)<2.4 && C_mu2_Phi_pt>2.0)",
+	        	 "printout":"mu2 pt/eta cut"
+	        	},
+	        	{"cut":"(C_mu1_Phi_charge+C_mu2_Phi_charge)==0",
+	        	 "printout":"opposite charge muons"
+	        	}
+		]
+		}
+	],
+	"selection_eff_scan": [
+		{"name"    : "C_Ds_lxy",
+		 "low_edge": -1.0,
+		 "up_edge" : 30.0,
+		 "logic"   : ">"
+		},
+		{"name"    : "C_Ds_pt",
+		 "low_edge": -1.0,
+		 "up_edge" : 30.0,
+		 "logic"   : ">"
+		}
+	],
+	"new_variables" : [
+		{"name"	:"C_Ds_p",
+		 "definition":"sqrt(C_Ds_px*C_Ds_px + C_Ds_py*C_Ds_py + C_Ds_pz*C_Ds_pz)"
+		},
+		{"name"	:"C_Ds_l",
+		 "definition":"sqrt((C_Ds_vertex_x-PV_x[0])*(C_Ds_vertex_x-PV_x[0]) + (C_Ds_vertex_y-PV_y[0])*(C_Ds_vertex_y-PV_y[0]) +(C_Ds_vertex_z-PV_z[0])*(C_Ds_vertex_z-PV_z[0]))"
+		},
+		{"name"	:"C_Ds_l_prop_old",
+		 "definition":"(C_Ds_l*C_Ds_mass)/C_Ds_p"
+		},
+		{"name"	:"C_Ds_l_prop",
+		 "definition":"(C_Ds_vertex_3DDist_PV*C_Ds_mass)/C_Ds_p"
+		},
+		{"name"	:"C_Phi_mass_mK",
+		 "definition":"get_PtEtaPhi_newM_2PartInvMass(C_mu1_Phi_pt,C_mu1_Phi_eta,C_mu1_Phi_phi,0.493677,C_mu2_Phi_pt,C_mu2_Phi_eta,C_mu2_Phi_phi,0.493677)"
+		},
+		{"name"	:"C_Ds_mass_mK",
+		 "definition":"get_PtEtaPhi_newM_3PartInvMass(C_mu1_Phi_pt,C_mu1_Phi_eta,C_mu1_Phi_phi,0.493677,C_mu2_Phi_pt,C_mu2_Phi_eta,C_mu2_Phi_phi,0.493677,C_pi_pt,C_pi_eta,C_pi_phi,0.13957039)"
+		}
+	],
+	"best_cand_var" :
+		{"name"	:"best_cand_idx",
+		 "definition":"get_best_cand_idx(C_Ds_pt)"
+		},	
+	"gen_matching_cuts" :[
+		{"cut":"C_mu1_Phi_isPhiDaughter>0",
+		 "printout":"leading muon matching phi"
+		},
+		{"cut":"C_mu2_Phi_isPhiDaughter>0",
+		 "printout":"sub-leading muon matching phi"
+		},
+		{"cut":"C_mu2_Phi_isPhiDaughter>0",
+		 "printout":"pion matching Ds"
+		}
+	]
+}
