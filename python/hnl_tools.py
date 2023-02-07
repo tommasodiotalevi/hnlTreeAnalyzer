@@ -1,5 +1,7 @@
 import math
 import sys
+import ROOT
+import pandas as pd
 
 #dummy class that contains all the physics constants that I need
 class Constants:
@@ -47,7 +49,7 @@ def compute_BR_NToPiMu (m_HNL):
 def compute_v2_from_ctau(m_HNL,ctau):
     constants = Constants()
     num = constants.light_speed*constants.hbar
-    den = ((constants.G_f**2)*(m_HNL**5)*10.95*ctau)/(96*(math.pi**3))
+    den = ((constants.G_f**2)*(m_HNL**5)*ctau)/(96*(math.pi**3))
     return num/den
 
 def get_expected_signal_yield(m_HNL,ctau,nDs,fPrompt,effHnl,effDs):
@@ -60,3 +62,39 @@ def get_expected_signal_yield(m_HNL,ctau,nDs,fPrompt,effHnl,effDs):
     print('\n')
     nHnl = nDs*fPrompt*BR_factor*(effHnl/effDs)
     return nHnl
+
+def get_yield_from_workspace(fileName,wsName,varName):
+    infile = ROOT.TFile.Open(fileName)
+    inws   = infile.Get(str(wsName))
+    var    = inws.var(varName)
+    val    = var.getVal()
+    return val
+
+def get_yield_from_tree(fileName,treeName):
+    infile = ROOT.TFile.Open(fileName)
+    intree = infile.Get(treeName)
+    val    = intree.GetEntries()
+    return val
+    
+def get_yield_from_csv(fileName):
+    t = ROOT.TTree()
+    t.ReadFile(fileName)
+    val = t.GetEntries()
+    return val
+
+def get_weighted_yield_from_csv(fileName,varName):
+    print("filename: {}".format(fileName))
+    df = pd.read_csv(fileName)
+    #print("----> {}".format(list(df.columns)))
+    weighted_yield = df[varName].sum()
+    return weighted_yield
+
+def get_ctauweighted_yield_from_csv(fileName,ctauVarName, varName):
+    print("filename: {}".format(fileName))
+    df = pd.read_csv(fileName)
+    df[varName] = df[varName]*df[ctauVarName]
+    #print("----> {}".format(list(df.columns)))
+    weighted_yield = df[varName].sum()
+    return weighted_yield
+
+
