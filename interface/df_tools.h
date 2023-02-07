@@ -9,132 +9,6 @@
 using namespace ROOT;
 using namespace ROOT::VecOps;
 
-//select the best candidate based on cand_var,
-size_t get_best_cand_idx(RVec<double> cand_var)
-{
-  float var_best = -1;
-  size_t idx_best = 9999;
-  for (unsigned i=0; i<cand_var.size(); ++i)
-  {
-    if(cand_var.at(i)>var_best)
-    {
-      var_best = cand_var.at(i);
-      idx_best = i;
-    }
-  }
-
-  return idx_best;
-}
-
-//select the best candidate based on cand_var,
-//if more than one mu1mu2pi permutation is present
-//then then select the best combination based on mu1mu2_var
-size_t get_best_cand_idx(RVec<double> cand_var, RVec<double> mu1mu2_var, RVec<unsigned> mu1_idx, RVec<unsigned> mu2_idx, RVec<unsigned> pi_idx)
-{
-  float var_best = -9999.;
-  size_t idx_best = 9999;
-
-  //select best candidate based on cand_var
-  for (unsigned i=0; i<cand_var.size(); ++i)
-  {
-    if(cand_var.at(i)>var_best)
-    {
-      var_best = cand_var.at(i);
-      idx_best = i;
-    }
-  }
-
-  //if more than one permutation exists, check mu1m2_var
-  for (unsigned j=0; j<cand_var.size(); ++j)
-  {
-    if (mu1_idx.at(idx_best) == mu2_idx.at(j) && mu2_idx.at(idx_best) == mu1_idx.at(j) && pi_idx.at(idx_best) == pi_idx.at(j))
-    {
-      if(mu1mu2_var.at(j) > mu1mu2_var.at(idx_best))
-      {
-        idx_best = j;
-      }
-    }
-  }
-
-  return idx_best;
-}
-
-//select the best candidate based on difference between two variables,
-RVec<short> and_3vec(RVec<short> var1, RVec<short> var2,RVec<short> var3)
-{
-
-  size_t n_cand = var1.size();
-  RVec<Double_t> and_result(n_cand,0.);
-
-  //select best candidate based on cand_var
-  for (unsigned i=0; i<n_cand; ++i)
-  {
-    short res = var1[i]*var2[i]*var3[i];
-    and_result[i] = res;
-  }
-
-  return and_result;
-}
-
-//select the best candidate based on difference between two variables,
-size_t get_maxDiff_cand_idx(RVec<double> cand_var1, RVec<double> cand_var2)
-{
-  float diff_best = -99999.;
-  size_t idx_best = 9999;
-
-  //select best candidate based on cand_var
-  for (unsigned i=0; i<cand_var1.size(); ++i)
-  {
-    float diff = std::abs(cand_var1.at(i)-cand_var2.at(i));
-    if(diff>diff_best)
-    {
-      diff_best = diff;
-      idx_best = i;
-    }
-  }
-
-  return idx_best;
-}
-
-size_t get_maxRatio_cand_idx(RVec<double> cand_var1, RVec<double> cand_var2)
-{
-  float ratio_best = -99999.;
-  size_t idx_best = 9999;
-
-  //select best candidate based on cand_var
-  for (unsigned i=0; i<cand_var1.size(); ++i)
-  {
-    float ratio = cand_var1.at(i)/cand_var2.at(i);
-    if(ratio>ratio_best)
-    {
-      ratio_best = ratio;
-      idx_best = i;
-    }
-  }
-
-  return idx_best;
-}
-
-size_t get_maxWeightedRatio_wPosCond_cand_idx(RVec<double> cand_var1, RVec<double> cand_var2, RVec<double> cand_var3,RVec<double> weight)
-{
-  float ratio_best = -99999.;
-  size_t idx_best = 9999;
-
-  //select best candidate based on cand_var
-  for (unsigned i=0; i<cand_var1.size(); ++i)
-  {
-    if(cand_var3.at(i)<0) continue;
-    float ratio = (cand_var1.at(i)/cand_var2.at(i))*weight.at(i);
-    if(ratio>ratio_best)
-    {
-      ratio_best = ratio;
-      idx_best = i;
-    }
-  }
-
-  return idx_best;
-}
-
 size_t get_maxRatio_wPosCond_cand_idx(RVec<double> cand_var1, RVec<double> cand_var2, RVec<double> cand_var3)
 {
   float ratio_best = -99999.;
@@ -165,64 +39,6 @@ size_t get_maxRatio_wPosCond_cand_idx(RVec<double> cand_var1, RVec<double> cand_
         ratio_best = ratio;
         idx_best = i;
       }
-    }
-  }
-
-  return idx_best;
-}
-
-size_t get_cand_idx_custom(RVec<double> cand_var1, RVec<double> cand_var2,RVec<double> cand_var3,RVec<double> cond,RVec<double> cand_var4,RVec<double> cand_var5)
-{
-  float sum_best = -99999.;
-  size_t idx_best = 9999;
-
-  //select best candidate based on cand_var
-  for (unsigned i=0; i<cand_var1.size(); ++i)
-  {
-    if (cond.at(i)<0) continue;
-    float sum = (cand_var1.at(i)+cand_var2.at(i)+cand_var3.at(i))*(cand_var4.at(i)/cand_var5.at(i));
-    if(sum>sum_best)
-    {
-      sum_best = sum;
-      idx_best = i;
-    }
-  }
-
-  return idx_best;
-}
-
-size_t get_maxSum_cand_idx(RVec<double> cand_var1, RVec<double> cand_var2,RVec<double> cand_var3)
-{
-  float sum_best = -99999.;
-  size_t idx_best = 9999;
-
-  //select best candidate based on cand_var
-  for (unsigned i=0; i<cand_var1.size(); ++i)
-  {
-    float sum = cand_var1.at(i)+cand_var2.at(i)+cand_var3.at(i);
-    if(sum>sum_best)
-    {
-      sum_best = sum;
-      idx_best = i;
-    }
-  }
-
-  return idx_best;
-}
-
-size_t get_maxSum_cand_idx(RVec<double> cand_var1, RVec<double> cand_var2)
-{
-  float sum_best = -99999.;
-  size_t idx_best = 9999;
-
-  //select best candidate based on cand_var
-  for (unsigned i=0; i<cand_var1.size(); ++i)
-  {
-    float sum = std::abs(cand_var1.at(i)+cand_var2.at(i));
-    if(sum>sum_best)
-    {
-      sum_best = sum;
-      idx_best = i;
     }
   }
 
@@ -279,6 +95,28 @@ RVec<float> get_mu_trigger_dr(RVec<short> trigger_match, RVec<float> trigger_dr,
   }
 
   return muTrig_dr;
+}
+
+float compute_total_sf(float sf_1, short match_1, float sf_2, short match_2)
+{
+  float total_sf = 1.;
+  
+  if (match_1>0 && match_2>0) total_sf=sf_1*sf_2;
+  else if (match_1>0 && match_2<1) total_sf=sf_1;
+  else if (match_1<1 && match_2>0) total_sf=sf_2;
+
+  return total_sf;
+}
+
+float compute_total_sf(float eff_data_1, float eff_mc_1, short match_1, float eff_data_2, float eff_mc_2, short match_2)
+{
+  float total_sf = 1.;
+  
+  if (match_1>0 && match_2>0) total_sf=(eff_data_1*eff_data_2)/(eff_mc_1*eff_mc_2);
+  else if (match_1>0 && match_2<1) total_sf=(eff_data_1*(1.-eff_data_2))/(eff_mc_1*(1.-eff_mc_2));
+  else if (match_1<1 && match_2>0) total_sf=(eff_data_2*(1.-eff_data_1))/(eff_mc_2*(1.-eff_mc_1));
+
+  return total_sf;
 }
 
 //this is to get candidate invariant mass with different 
