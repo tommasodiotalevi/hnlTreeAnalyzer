@@ -236,7 +236,7 @@
 		"title"	:";#mu_{D_{s}} p_{T} [GeV];Events",
 		"xlow"	:0.0,
 		"xhigh"	:30.0,
-		"nbins"	:24,
+		"nbins"	:60,
 		"var"	:"C_mu_Ds_pt"
 	},
     "h_mu_Ds_eta":
