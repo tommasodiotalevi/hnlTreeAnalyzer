@@ -110,11 +110,9 @@ float compute_total_sf(float sf_1, short match_1, float sf_2, short match_2)
 
 float compute_total_sf(float eff_data_1, float eff_mc_1, short match_1, float eff_data_2, float eff_mc_2, short match_2)
 {
-  float total_sf = 1.;
-  
-  if (match_1>0 && match_2>0) total_sf=(eff_data_1*eff_data_2)/(eff_mc_1*eff_mc_2);
-  else if (match_1>0 && match_2<1) total_sf=(eff_data_1*(1.-eff_data_2))/(eff_mc_1*(1.-eff_mc_2));
-  else if (match_1<1 && match_2>0) total_sf=(eff_data_2*(1.-eff_data_1))/(eff_mc_2*(1.-eff_mc_1));
+  float eff_data = eff_data_1+eff_data_2-eff_data_1*eff_data_2;
+  float eff_mc = eff_mc_1+eff_mc_2-eff_mc_1*eff_mc_2;
+  float total_sf = eff_data/eff_mc;
 
   return total_sf;
 }
