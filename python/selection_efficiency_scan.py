@@ -15,6 +15,7 @@ parser.add_argument("cfg_filename"         ,                                    
 parser.add_argument("--datasetsToProcess"  , nargs='*'          , default=[]   , help="Short name of the input sample to process")
 parser.add_argument("--nThreads"           , type=int           , default=1    , help="Number of threads")
 parser.add_argument("--nCuts"              , type=int           , default=20   , help="Number of cuts for the efficiency scan")
+parser.add_argument('--optVariables'       , nargs='*'          , default=[]   , help='List of variables to cut on before running the optimization. The scan will not be performed for these variables')
 args = parser.parse_args()
 
 ROOT.EnableThreadSafety()
@@ -22,6 +23,7 @@ ROOT.EnableImplicitMT(args.nThreads)
 
 configFileName      = args.cfg_filename
 datasets_to_process = args.datasetsToProcess
+opt_var_list = args.optVariables
 
 #open analyzer configuration file
 with open(configFileName, "r") as f:
@@ -67,13 +69,13 @@ input_file_catOrdered = {}
 for cat in selection["categories"]:
     file_list = []
     for inputFileName in inputFileName_list:
-        print("-->{}".format(inputFileName))
         file_cat_label = inputFileName.split("/")[-1].split(".")[0].split("_")[-1]
         if file_cat_label == cat["label"]:
             file_list.append(inputFileName)
     input_file_catOrdered[cat["label"]] = file_list
 
 print(input_file_catOrdered)
+
 
 
 for cat in selection["categories"]:
@@ -106,11 +108,19 @@ for cat in selection["categories"]:
     #tot_events = df.Count().GetValue()
     tot_events = df.Sum("tot_weight").GetValue()
 
+    
+    string_match = lambda list_of_strings, target_string: any(s in target_string for s in list_of_strings)
+    opt_cuts_list = [x["cut"] for x in cat["selection_cuts"] if string_match(opt_var_list,x["cut"])]
+    for opt_cut in opt_cuts_list:
+        df = df.Filter(opt_cut)
+
     #build signal selection efficiency csv file 
     var_header = "entry"
     fmt = "%d"
     df_array = numpy.arange(n_cuts)
     for var in selection["selection_eff_scan"]:
+        if string_match(opt_var_list,var["name"]):
+            continue
         a_cuts   = numpy.array(numpy.linspace(var["low_edge"],var["up_edge"],n_cuts))
         pass_events = [df.Filter(str(var["name"])+var["logic"]+str(cut)).Sum("tot_weight").GetValue() for cut in a_cuts]
         fail_events = [tot_events-float(df.Filter(str(var["name"])+var["logic"]+str(cut)).Sum("tot_weight").GetValue()) for cut in a_cuts]
