@@ -287,12 +287,12 @@
                     "printout": "C_mu_Hnl_BS_ips_xy>4.1"
                 },
                 {
-                    "cut": "C_pi_BS_ip_xy>0.05",
-                    "printout": "C_pi_BS_ip_xy>0.05"
+                    "cut": "abs(C_pi_BS_ip_xy)>0.05",
+                    "printout": "abs(C_pi_BS_ip_xy)>0.05"
                 },
                 {
-                    "cut": "C_pi_BS_ips_xy>9.1",
-                    "printout": "C_pi_BS_ips_xy>9.1"
+                    "cut": "abs(C_pi_BS_ips_xy)>9.1",
+                    "printout": "abs(C_pi_BS_ips_xy)>9.1"
                 }
             ]
         },
@@ -331,12 +331,12 @@
                     "printout": "C_mu_Hnl_BS_ips_xy>4.4"
                 },
                 {
-                    "cut": "C_pi_BS_ip_xy>0.05",
-                    "printout": "C_pi_BS_ip_xy>0.05"
+                    "cut": "abs(C_pi_BS_ip_xy)>0.05",
+                    "printout": "abs(C_pi_BS_ip_xy)>0.05"
                 },
                 {
-                    "cut": "C_pi_BS_ips_xy>9.2",
-                    "printout": "C_pi_BS_ips_xy>9.2"
+                    "cut": "abs(C_pi_BS_ips_xy)>9.2",
+                    "printout": "abs(C_pi_BS_ips_xy)>9.2"
                 }
             ]
         },
@@ -375,12 +375,12 @@
                     "printout": "C_mu_Hnl_BS_ips_xy>5.7"
                 },
                 {
-                    "cut": "C_pi_BS_ip_xy>0.04",
-                    "printout": "C_pi_BS_ip_xy>0.04"
+                    "cut": "abs(C_pi_BS_ip_xy)>0.04",
+                    "printout": "abs(C_pi_BS_ip_xy)>0.04"
                 },
                 {
-                    "cut": "C_pi_BS_ips_xy>7.0",
-                    "printout": "C_pi_BS_ips_xy>7.0"
+                    "cut": "abs(C_pi_BS_ips_xy)>7.0",
+                    "printout": "abs(C_pi_BS_ips_xy)>7.0"
                 }
             ]
         },
@@ -419,12 +419,12 @@
                     "printout": "C_mu_Hnl_BS_ips_xy>4.1"
                 },
                 {
-                    "cut": "C_pi_BS_ip_xy>0.05",
-                    "printout": "C_pi_BS_ip_xy>0.05"
+                    "cut": "abs(C_pi_BS_ip_xy)>0.05",
+                    "printout": "abs(C_pi_BS_ip_xy)>0.05"
                 },
                 {
-                    "cut": "C_pi_BS_ips_xy>9.1",
-                    "printout": "C_pi_BS_ips_xy>9.1"
+                    "cut": "abs(C_pi_BS_ips_xy)>9.1",
+                    "printout": "abs(C_pi_BS_ips_xy)>9.1"
                 }
             ]
         },
@@ -463,12 +463,12 @@
                     "printout": "C_mu_Hnl_BS_ips_xy>4.4"
                 },
                 {
-                    "cut": "C_pi_BS_ip_xy>0.05",
-                    "printout": "C_pi_BS_ip_xy>0.05"
+                    "cut": "abs(C_pi_BS_ip_xy)>0.05",
+                    "printout": "abs(C_pi_BS_ip_xy)>0.05"
                 },
                 {
-                    "cut": "C_pi_BS_ips_xy>9.2",
-                    "printout": "C_pi_BS_ips_xy>9.2"
+                    "cut": "abs(C_pi_BS_ips_xy)>9.2",
+                    "printout": "abs(C_pi_BS_ips_xy)>9.2"
                 }
             ]
         },
@@ -507,12 +507,12 @@
                     "printout": "C_mu_Hnl_BS_ips_xy>5.7"
                 },
                 {
-                    "cut": "C_pi_BS_ip_xy>0.04",
-                    "printout": "C_pi_BS_ip_xy>0.04"
+                    "cut": "abs(C_pi_BS_ip_xy)>0.04",
+                    "printout": "abs(C_pi_BS_ip_xy)>0.04"
                 },
                 {
-                    "cut": "C_pi_BS_ips_xy>7.0",
-                    "printout": "C_pi_BS_ips_xy>7.0"
+                    "cut": "abs(C_pi_BS_ips_xy)>7.0",
+                    "printout": "abs(C_pi_BS_ips_xy)>7.0"
                 }
             ]
         },
@@ -542,36 +542,42 @@
             "logic": ">",
             "low_edge": -0.0001,
             "name": "C_Hnl_vertex_2DDist_BS",
+            "loperand": "C_Hnl_vertex_2DDist_BS",
             "up_edge": 15.0
         },
         {
             "logic": ">",
             "low_edge": -0.0001,
             "name": "C_Hnl_vertex_2DSig_BS",
+            "loperand": "C_Hnl_vertex_2DSig_BS",
             "up_edge": 400.0
         },
         {
             "logic": ">",
             "low_edge": -0.0001,
             "name": "C_mu_Hnl_BS_ip_xy",
+            "loperand": "C_mu_Hnl_BS_ip_xy",
             "up_edge": 0.5
         },
         {
             "logic": ">",
             "low_edge": -0.0001,
             "name": "C_pi_BS_ips_xy",
+            "loperand": "abs(C_pi_BS_ips_xy)",
             "up_edge": 100.0
         },
         {
             "logic": ">",
             "low_edge": -0.0001,
             "name": "C_mu_Hnl_BS_ips_xy",
+            "loperand": "C_mu_Hnl_BS_ips_xy",
             "up_edge": 100.0
         },
         {
             "logic": ">",
             "low_edge": -0.0001,
             "name": "C_pi_BS_ip_xy",
+            "loperand": "abs(C_pi_BS_ip_xy)",
             "up_edge": 0.5
         }
     ]
