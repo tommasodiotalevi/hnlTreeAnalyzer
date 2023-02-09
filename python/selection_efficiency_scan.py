@@ -122,8 +122,8 @@ for cat in selection["categories"]:
         if string_match(opt_var_list,var["name"]):
             continue
         a_cuts   = numpy.array(numpy.linspace(var["low_edge"],var["up_edge"],n_cuts))
-        pass_events = [df.Filter(str(var["name"])+var["logic"]+str(cut)).Sum("tot_weight").GetValue() for cut in a_cuts]
-        fail_events = [tot_events-float(df.Filter(str(var["name"])+var["logic"]+str(cut)).Sum("tot_weight").GetValue()) for cut in a_cuts]
+        pass_events = [df.Filter(str(var["loperand"])+var["logic"]+str(cut)).Sum("tot_weight").GetValue() for cut in a_cuts]
+        fail_events = [tot_events-float(df.Filter(str(var["loperand"])+var["logic"]+str(cut)).Sum("tot_weight").GetValue()) for cut in a_cuts]
         a_pass = numpy.array(pass_events)
         a_fail = numpy.array(fail_events)
         var_header += ","+var["name"]+"_cut,"+var["name"]+"_pass,"+var["name"]+"_fail"
