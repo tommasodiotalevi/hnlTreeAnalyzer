@@ -141,8 +141,6 @@ if dataset_category != "data" and args.applyMuHnlIPSCorr:
 #define unit weights
 mc_weight  = 1.
 pu_weight  = 1.
-trigger_sf_ds = 1.
-trigger_sf_hnl = 1.
 
 # get generator weight for MC
 if dataset_category != "data":
@@ -256,7 +254,7 @@ for cat in selection["categories"]:
             df = df.Redefine("tot_weight","mc_weight")
 
         # define trigger scale factors for MC only
-        if dataset_category != "data" and not args.skipPUrw:
+        if dataset_category != "data" and not args.skipTrigSF:
             trigger_eff_data_ds = "h_trigger_eff_data->GetBinContent(h_trigger_eff_data->FindBin(C_{mu1l}_pt>100.0?99.9:C_{mu1l}_pt,C_{mu1l}_BS_ips_xy>500.0?499.9:C_{mu1l}_BS_ips_xy))".format(mu1l=config["mu1_label"])
             trigger_eff_mc_ds   = "h_trigger_eff_mc->GetBinContent(h_trigger_eff_mc->FindBin(C_{mu1l}_pt>100.0?99.9:C_{mu1l}_pt,C_{mu1l}_BS_ips_xy>500.0?499.9:C_{mu1l}_BS_ips_xy))".format(mu1l=config["mu1_label"])
             trigger_eff_data_hnl = "h_trigger_eff_data->GetBinContent(h_trigger_eff_data->FindBin(C_{mu2l}_pt>100.0?99.9:C_{mu2l}_pt,C_{mu2l}_BS_ips_xy>500.0?499.9:C_{mu2l}_BS_ips_xy))".format(mu2l=config["mu2_label"])
