@@ -1,8 +1,16 @@
 import ROOT
 import sys
+import argparse
 
-inputFileNameData = sys.argv[1]
-inputFileNameMC = sys.argv[2]
+parser = argparse.ArgumentParser()
+
+parser.add_argument("puFileData", help="Path to the input file containing data pu profile", type=str)
+parser.add_argument("puFileMC"  , help="Path to the input file containing MC pu profile", type=str)
+
+args = parser.parse_args()
+
+inputFileNameData = args.puFileData
+inputFileNameMC = args.puFileMC
 
 # open files 
 inputFileData = ROOT.TFile.Open(inputFileNameData)
@@ -24,4 +32,4 @@ weightHisto.SetTitle("pu_weights")
 weightHisto.Divide(inputHistoMC)
 
 # save
-weightHisto.SaveAs("pu_weights_ParkingBPH6_B_HLT_Mu9_IP6.root")
+weightHisto.SaveAs("pu_weights.root")
