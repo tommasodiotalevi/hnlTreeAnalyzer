@@ -19,17 +19,13 @@ import ROOT
 inputDirName = str(config["inputDirName"])
 outDirName = str(os.path.join(config["outDirName"],inputDirName.split("/")[-1])) 
 
-#inputMCFileName = inputDirName + "/" + "hadd_bkg.root"
 inputMCFileName = os.path.join(inputDirName,"hadd_bkg.root")
 subprocess.call(["hadd","-f",inputMCFileName] + [str(inputDirName + "/" + bkgFileName) for bkgFileName in config["background"].keys()])
 
-#inputDataFileName = inputDirName + "/" + "hadd_data.root"
 inputDataFileName = os.path.join(inputDirName,"hadd_data.root")
 subprocess.call(["hadd","-f",inputDataFileName] + [str(inputDirName + "/" + dataFileName) for dataFileName in config["data"].keys()])
 
 for plotName in config["plotNameList"]:
-
-    #print(plotName)
 
     ROOT.gROOT.SetBatch(ROOT.kTRUE)
 
