@@ -261,7 +261,7 @@ for cat in selection["categories"]:
             trigger_eff_mc_hnl   = "h_trigger_eff_mc->GetBinContent(h_trigger_eff_mc->FindBin(C_{mu2l}_pt>100.0?99.9:C_{mu2l}_pt,C_{mu2l}_BS_ips_xy>500.0?499.9:C_{mu2l}_BS_ips_xy))".format(mu2l=config["mu2_label"])
             df = df.Define("trigger_eff_data_ds",str(trigger_eff_data_ds)) 
             df = df.Define("trigger_eff_data_hnl",str(trigger_eff_data_hnl)) 
-            df = df.Define("trigger_eff_mc_ds",str(trigger_eff_mc_ds)) 
+            df = df.Define("trigger_eff_mc_ds",str(trigger_eff_mc_ds))
             df = df.Define("trigger_eff_mc_hnl",str(trigger_eff_mc_hnl)) 
             df = df.Define("C_{mu2l}_matched_HLT".format(mu2l=config["mu2_label"]),"(C_{mu2l}_matched_MU7_IP4>0 && C_{mu2l}_dr_MU7_IP4<0.005) || (C_{mu2l}_matched_MU8_IP3>0 && C_{mu2l}_dr_MU8_IP3<0.005) || (C_{mu2l}_matched_MU8_IP5>0 && C_{mu2l}_dr_MU8_IP5<0.005) || (C_{mu2l}_matched_MU8_IP6>0 && C_{mu2l}_dr_MU8_IP6<0.005) || (C_{mu2l}_matched_MU9_IP4>0 && C_{mu2l}_dr_MU9_IP4<0.005) || (C_{mu2l}_matched_MU9_IP5>0 && C_{mu2l}_dr_MU9_IP5<0.005) || (C_{mu2l}_matched_MU9_IP6>0 && C_{mu2l}_dr_MU9_IP6<0.005) || (C_{mu2l}_matched_MU10p5_IP3p5>0 && C_{mu2l}_dr_MU10p5_IP3p5<0.005) || (C_{mu2l}_matched_MU12_IP6>0 && C_{mu2l}_dr_MU12_IP6<0.005)".format(mu2l=config["mu2_label"])) 
             df = df.Define("C_{mu1l}_matched_HLT".format(mu1l=config["mu1_label"]),"(C_{mu1l}_matched_MU7_IP4>0 && C_{mu1l}_dr_MU7_IP4<0.005) || (C_{mu1l}_matched_MU8_IP3>0 && C_{mu1l}_dr_MU8_IP3<0.005) || (C_{mu1l}_matched_MU8_IP5>0 && C_{mu1l}_dr_MU8_IP5<0.005) || (C_{mu1l}_matched_MU8_IP6>0 && C_{mu1l}_dr_MU8_IP6<0.005) || (C_{mu1l}_matched_MU9_IP4>0 && C_{mu1l}_dr_MU9_IP4<0.005) || (C_{mu1l}_matched_MU9_IP5>0 && C_{mu1l}_dr_MU9_IP5<0.005) || (C_{mu1l}_matched_MU9_IP6>0 && C_{mu1l}_dr_MU9_IP6<0.005) || (C_{mu1l}_matched_MU10p5_IP3p5>0 && C_{mu1l}_dr_MU10p5_IP3p5<0.005) || (C_{mu1l}_matched_MU12_IP6>0 && C_{mu1l}_dr_MU12_IP6<0.005)".format(mu1l=config["mu1_label"])) 
@@ -338,8 +338,6 @@ for cat in selection["categories"]:
             print("{} updated".format(config["ntuples_cfg_file_full_path"]))
 
     if dataset_category=="data" and args.addSPlotWeight:
-        #sdf = ROOT.RDataFrame(config["splot_weight_tree_name"],config["splot_weight_input_file"]) # get tree containing splot weights
-        #asw = sdf.AsNumpy([config["splot_weight_variable"]])[config["splot_weight_variable"]] # get column of splot weights
         print("Input splot weight file: {}".format(ntuples[dataset_to_process]["splot_weight_input_file"]))
         sdf = ROOT.RDataFrame(ntuples[dataset_to_process]["splot_weight_tree_name"],ntuples[dataset_to_process]["splot_weight_input_file"]) # get tree containing splot weights
         asw = sdf.AsNumpy([ntuples[dataset_to_process]["splot_weight_variable"]])[ntuples[dataset_to_process]["splot_weight_variable"]] # get column of splot weights
@@ -357,7 +355,6 @@ for cat in selection["categories"]:
         histo_outputFileName = "histograms_"+dataset_name_label+"_"+cat["label"]+".root"
         if tag != "":
             histo_outputFileName = "histograms_"+tag+"_"+dataset_name_label+"_"+cat["label"]+".root"
-        #histo_outputDirName = os.path.join(config["output_dir_name"],cat["label"])        
         histo_outputDirName = config["output_dir_name"]        
         subprocess.call(['mkdir','-p',histo_outputDirName])
         histo_outFullPath = os.path.join(histo_outputDirName,histo_outputFileName)
@@ -373,7 +370,6 @@ for cat in selection["categories"]:
             histo_model = (histo_name,title,nbins,xlow,xhigh)
 
             var_name = str(histos[histo_name]["var"])
-            #print("---> histo {}, var {}".format(histo_name,histos[histo_name]["var"]))
 
             histo_dict[histo_name]= df.Histo1D(histo_model,var_name,"tot_weight")
 
