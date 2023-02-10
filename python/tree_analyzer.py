@@ -92,18 +92,14 @@ if dataset_category != "data" and not args.skipTrigSF:
     print("eff data histogram from {}, {}".format(config["trigger_eff_data_input_file"],config["trigger_eff_data_histo_name"]))
     print("eff mc histogram from {}, {}".format(config["trigger_eff_mc_input_file"],config["trigger_eff_mc_histo_name"]))
     ROOT.gInterpreter.Declare("""
-    auto trigger_sf_file       = TFile::Open("{sf_file}");
     auto trigger_eff_data_file = TFile::Open("{edata_file}");
     auto trigger_eff_mc_file   = TFile::Open("{emc_file}");
-    auto h_trigger_sf       = trigger_sf_file->Get<TH2D>("{sfhisto_name}");
     auto h_trigger_eff_data = trigger_eff_data_file->Get<TH2D>("{edatahisto_name}");
     auto h_trigger_eff_mc   = trigger_eff_mc_file->Get<TH2D>("{emchisto_name}");
-    """.format(sf_file=config["trigger_sf_input_file"],
-               edata_file=config["trigger_eff_data_input_file"],
+    """.format(edata_file=config["trigger_eff_data_input_file"],
                emc_file=config["trigger_eff_mc_input_file"],
                edatahisto_name=config["trigger_eff_data_histo_name"],
-               emchisto_name=config["trigger_eff_mc_histo_name"],
-               sfhisto_name=config["trigger_sf_histo_name"])
+               emchisto_name=config["trigger_eff_mc_histo_name"])
     )
 
 #get mu_Ds pt shape scale factors histogram
@@ -261,21 +257,16 @@ for cat in selection["categories"]:
 
         # define trigger scale factors for MC only
         if dataset_category != "data" and not args.skipPUrw:
-            trigger_sf_ds  = "h_trigger_sf->GetBinContent(h_trigger_sf->FindBin(C_{mu1l}_pt,C_{mu1l}_BS_ips_xy))".format(mu1l=config["mu1_label"])
-            trigger_sf_hnl = "h_trigger_sf->GetBinContent(h_trigger_sf->FindBin(C_{mu2l}_pt,C_{mu2l}_BS_ips_xy))".format(mu2l=config["mu2_label"])
             trigger_eff_data_ds = "h_trigger_eff_data->GetBinContent(h_trigger_eff_data->FindBin(C_{mu1l}_pt>100.0?99.9:C_{mu1l}_pt,C_{mu1l}_BS_ips_xy>500.0?499.9:C_{mu1l}_BS_ips_xy))".format(mu1l=config["mu1_label"])
             trigger_eff_mc_ds   = "h_trigger_eff_mc->GetBinContent(h_trigger_eff_mc->FindBin(C_{mu1l}_pt>100.0?99.9:C_{mu1l}_pt,C_{mu1l}_BS_ips_xy>500.0?499.9:C_{mu1l}_BS_ips_xy))".format(mu1l=config["mu1_label"])
             trigger_eff_data_hnl = "h_trigger_eff_data->GetBinContent(h_trigger_eff_data->FindBin(C_{mu2l}_pt>100.0?99.9:C_{mu2l}_pt,C_{mu2l}_BS_ips_xy>500.0?499.9:C_{mu2l}_BS_ips_xy))".format(mu2l=config["mu2_label"])
             trigger_eff_mc_hnl   = "h_trigger_eff_mc->GetBinContent(h_trigger_eff_mc->FindBin(C_{mu2l}_pt>100.0?99.9:C_{mu2l}_pt,C_{mu2l}_BS_ips_xy>500.0?499.9:C_{mu2l}_BS_ips_xy))".format(mu2l=config["mu2_label"])
-            df = df.Define("trigger_sf_ds",str(trigger_sf_ds)) 
-            df = df.Define("trigger_sf_hnl",str(trigger_sf_hnl)) 
             df = df.Define("trigger_eff_data_ds",str(trigger_eff_data_ds)) 
             df = df.Define("trigger_eff_data_hnl",str(trigger_eff_data_hnl)) 
             df = df.Define("trigger_eff_mc_ds",str(trigger_eff_mc_ds)) 
             df = df.Define("trigger_eff_mc_hnl",str(trigger_eff_mc_hnl)) 
             df = df.Define("C_{mu2l}_matched_HLT".format(mu2l=config["mu2_label"]),"(C_{mu2l}_matched_MU7_IP4>0 && C_{mu2l}_dr_MU7_IP4<0.005) || (C_{mu2l}_matched_MU8_IP3>0 && C_{mu2l}_dr_MU8_IP3<0.005) || (C_{mu2l}_matched_MU8_IP5>0 && C_{mu2l}_dr_MU8_IP5<0.005) || (C_{mu2l}_matched_MU8_IP6>0 && C_{mu2l}_dr_MU8_IP6<0.005) || (C_{mu2l}_matched_MU9_IP4>0 && C_{mu2l}_dr_MU9_IP4<0.005) || (C_{mu2l}_matched_MU9_IP5>0 && C_{mu2l}_dr_MU9_IP5<0.005) || (C_{mu2l}_matched_MU9_IP6>0 && C_{mu2l}_dr_MU9_IP6<0.005) || (C_{mu2l}_matched_MU10p5_IP3p5>0 && C_{mu2l}_dr_MU10p5_IP3p5<0.005) || (C_{mu2l}_matched_MU12_IP6>0 && C_{mu2l}_dr_MU12_IP6<0.005)".format(mu2l=config["mu2_label"])) 
             df = df.Define("C_{mu1l}_matched_HLT".format(mu1l=config["mu1_label"]),"(C_{mu1l}_matched_MU7_IP4>0 && C_{mu1l}_dr_MU7_IP4<0.005) || (C_{mu1l}_matched_MU8_IP3>0 && C_{mu1l}_dr_MU8_IP3<0.005) || (C_{mu1l}_matched_MU8_IP5>0 && C_{mu1l}_dr_MU8_IP5<0.005) || (C_{mu1l}_matched_MU8_IP6>0 && C_{mu1l}_dr_MU8_IP6<0.005) || (C_{mu1l}_matched_MU9_IP4>0 && C_{mu1l}_dr_MU9_IP4<0.005) || (C_{mu1l}_matched_MU9_IP5>0 && C_{mu1l}_dr_MU9_IP5<0.005) || (C_{mu1l}_matched_MU9_IP6>0 && C_{mu1l}_dr_MU9_IP6<0.005) || (C_{mu1l}_matched_MU10p5_IP3p5>0 && C_{mu1l}_dr_MU10p5_IP3p5<0.005) || (C_{mu1l}_matched_MU12_IP6>0 && C_{mu1l}_dr_MU12_IP6<0.005)".format(mu1l=config["mu1_label"])) 
-            #df = df.Define("trigger_sf","compute_total_sf(trigger_sf_ds,C_{mu1l}_matched_HLT,trigger_sf_hnl,C_{mu2l}_matched_HLT)".format(mu1l=config["mu1_label"],mu2l=config["mu2_label"]))
             df = df.Define("trigger_sf","compute_total_sf(trigger_eff_data_ds,trigger_eff_mc_ds,C_{mu1l}_matched_HLT,trigger_eff_data_hnl,trigger_eff_mc_hnl,C_{mu2l}_matched_HLT)".format(mu1l=config["mu1_label"],mu2l=config["mu2_label"]))
             df = df.Redefine("tot_weight","tot_weight*trigger_sf")
 
