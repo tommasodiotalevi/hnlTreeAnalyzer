@@ -207,18 +207,6 @@ for cat in selection["categories"]:
                 idx = str(selection["best_cand_var"]["name"])
                 df = df.Redefine(col_name,col_name+"["+idx+"]")
                 continue
-        
-
-        #define cross section normalization mc_weight
-        df = df.Define("mc_weight",str(mc_weight))    
-    
-        # define pu weight for MC only
-        if dataset_category != "data" and not args.skipPUrw:
-            pu_weight = "h_pu_weights->GetBinContent(h_pu_weights->FindBin(nPU_trueInt))"
-        df = df.Define("pu_weight",str(pu_weight)) 
-
-    
-        df = df.Define("tot_weight","mc_weight*pu_weight")
 
         # save slimmed tree: only the best candidate is saved for each event
         if args.saveSlimmedTree and not slimmed_tree_has_been_saved:
@@ -249,9 +237,15 @@ for cat in selection["categories"]:
         for sel in cat["selection_cuts"]:
             df = df.Filter(sel["cut"],sel["printout"])
 
-        # IMPLEMENT THIS OPTION IN A MORE CLEVER WAY!!
-        if args.skipPUrw:
-            df = df.Redefine("tot_weight","mc_weight")
+        #define cross section normalization mc_weight
+        df = df.Define("mc_weight",str(mc_weight))    
+    
+        # define pu weight for MC only
+        if dataset_category != "data" and not args.skipPUrw:
+            pu_weight = "h_pu_weights->GetBinContent(h_pu_weights->FindBin(nPU_trueInt))"
+        df = df.Define("pu_weight",str(pu_weight)) 
+    
+        df = df.Define("tot_weight","mc_weight*pu_weight")
 
         # define trigger scale factors for MC only
         if dataset_category != "data" and not args.skipTrigSF:
