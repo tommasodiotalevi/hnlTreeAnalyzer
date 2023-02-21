@@ -8,6 +8,7 @@ import argparse
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("cfg_filename", help="Path to the input configuration file")
 parser.add_argument("--saveRatioPlot", action='store_true', default=False, help="Save data/MC ratio plots")
+parser.add_argument("--tag",default="",type=str,help="add tag to output file name")
 args = parser.parse_args()
 
 configFileName = args.cfg_filename
@@ -20,10 +21,10 @@ inputDirName = str(config["inputDirName"])
 outDirName = str(os.path.join(config["outDirName"],inputDirName.split("/")[-1])) 
 
 inputMCFileName = os.path.join(inputDirName,"hadd_bkg.root")
-subprocess.call(["hadd","-f",inputMCFileName] + [str(inputDirName + "/" + bkgFileName) for bkgFileName in config["background"].keys()])
+subprocess.call(["hadd","-f",inputMCFileName] + [os.path.join(inputDirName,bkgFileName) for bkgFileName in config["background"].keys()])
 
 inputDataFileName = os.path.join(inputDirName,"hadd_data.root")
-subprocess.call(["hadd","-f",inputDataFileName] + [str(inputDirName + "/" + dataFileName) for dataFileName in config["data"].keys()])
+subprocess.call(["hadd","-f",inputDataFileName] + [os.path.join(inputDirName,dataFileName) for dataFileName in config["data"].keys()])
 
 for plotName in config["plotNameList"]:
 
@@ -184,7 +185,11 @@ for plotName in config["plotNameList"]:
     hRatio.Draw()
     
     subprocess.call(["mkdir","-p",outDirName])
-    c.SaveAs(os.path.join(outDirName,histoName +"_dataVSmc.png"))
-    c.SaveAs(os.path.join(outDirName,histoName +"_dataVSmc.pdf"))
-    c.SaveAs(os.path.join(outDirName,histoName +"_dataVSmc.root"))
+
+    outputfilename = histoName +"_dataVSmc"
+    if not args.tag == "":
+        outputfilename = histoName +"_"+args.tag+"_dataVSmc"
+    c.SaveAs(os.path.join(outDirName,outputfilename +".png"))
+    c.SaveAs(os.path.join(outDirName,outputfilename +".pdf"))
+    c.SaveAs(os.path.join(outDirName,outputfilename +".root"))
     del c
