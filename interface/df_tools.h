@@ -9,6 +9,25 @@
 using namespace ROOT;
 using namespace ROOT::VecOps;
 
+size_t get_best_cand_idx(RVec<double> var)
+{
+  float x_best = -99999.;
+  size_t idx_best = 9999;
+
+  //select best candidate based on cand_var
+  for (unsigned i=0; i<var.size(); ++i)
+  {
+    float x = var.at(i);
+    if(x>x_best)
+    {
+      x_best = x;
+      idx_best = i;
+    }
+  }
+
+  return idx_best;
+}
+
 size_t get_maxRatio_wPosCond_cand_idx(RVec<double> cand_var1, RVec<double> cand_var2, RVec<double> cand_var3)
 {
   float ratio_best = -99999.;
