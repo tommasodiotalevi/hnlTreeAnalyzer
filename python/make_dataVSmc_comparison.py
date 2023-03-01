@@ -124,7 +124,7 @@ for plotName in config["plotNameList"]:
     padUpper.cd()
     histoStacked.Draw("hist")
     histoStacked.SetTitle("")
-    histoStacked.GetYaxis().SetTitle("Events")
+    histoStacked.GetYaxis().SetTitle("Normalized to unit")
     histoStacked.GetYaxis().SetLabelSize(0.05)
     histoStacked.GetYaxis().SetTitleSize(0.06)
     histoStacked.GetYaxis().SetTitleOffset(0.8)
