@@ -9,6 +9,15 @@
 using namespace ROOT;
 using namespace ROOT::VecOps;
 
+size_t get_cand_multiplicity(RVec<double> cand_var)
+{
+  size_t multiplicity = cand_var.size();
+
+  return multiplicity
+  
+  ;
+}
+
 size_t get_best_cand_idx(RVec<double> var)
 {
   float x_best = -99999.;
