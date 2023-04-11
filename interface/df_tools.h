@@ -1,13 +1,17 @@
-#include "ROOT/RDataFrame.hxx"
-#include "ROOT/RVec.hxx"
-#include "TCanvas.h"
-#include "TH1D.h"
-#include "TLatex.h"
-#include "TStyle.h"
-#include "TLorentzVector.h"
+#include <ROOT/RDataFrame.hxx>
+#include <ROOT/RVec.hxx>
+#include <TCanvas.h>
+#include <TH1D.h>
+#include <TLatex.h>
+#include <TStyle.h>
+#include <TLorentzVector.h>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
 
 using namespace ROOT;
 using namespace ROOT::VecOps;
+namespace pt = boost::property_tree;
+typedef pt::ptree::path_type path;
 
 size_t get_cand_multiplicity(RVec<double> cand_var)
 {
@@ -134,6 +138,42 @@ float compute_total_sf(float sf_1, short match_1, float sf_2, short match_2)
   else if (match_1<1 && match_2>0) total_sf=sf_2;
 
   return total_sf;
+}
+
+float get_mu_id_sf(pt::ptree cfg, double pt, double eta, double mult=0.)
+{
+  std::string key = "NUM_SoftID_DEN_TrackerMuons|abseta_pt";
+  float sf = 1.;
+  //std::cout<<"*** muon id sf ***"<<std::endl;
+  //std::cout<<"mu pt: "<<pt<<std::endl;
+  //std::cout<<"mu eta: "<<eta<<std::endl;
+  for(auto veta : cfg.get_child(path(key,'|')))
+  {
+    std::string e = veta.first.data();
+    std::string el = e.substr(e.find("[")+1,e.find(",")-e.find("[")-1);
+    std::string eh = e.substr(e.find(",")+1,e.find("]")-e.find(",")-1);
+    float eta_low  = std::stof(el);
+    float eta_high = std::stof(eh);
+    if (std::abs(eta)<eta_low || std::abs(eta)>eta_high) continue;
+    key = key+"|"+e;
+    for(auto vpt : cfg.get_child(path(key,'|')))
+    {
+      std::string p = vpt.first.data();
+      std::string pl = p.substr(p.find("[")+1,p.find(",")-p.find("[")-1);
+      std::string ph = p.substr(p.find(",")+1,p.find("]")-p.find(",")-1);
+      float pt_low  = std::stof(pl);
+      float pt_high = std::stof(ph);
+      if (pt<pt_low || pt>pt_high) continue;
+      key = key+"|"+p;
+      //std::cout<<"corresponing key: "<<key<<std::endl;
+      sf = cfg.get<float>(path(key+"|value",'|'));
+      float err = cfg.get<float>(path(key+"|error",'|'));
+      sf = sf + mult*err;
+      //std::cout<<"sf: "<<sf<<std::endl;
+    }
+
+  }
+  return sf;
 }
 
 float compute_total_sf(float eff_data_1, float eff_mc_1, short match_1, float eff_data_2, float eff_mc_2, short match_2)
