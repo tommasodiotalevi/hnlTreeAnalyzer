@@ -23,6 +23,7 @@ parser.add_argument("--skipSlimCuts"      , action='store_true', default=False, 
 parser.add_argument("--skipSelCuts"       , action='store_true', default=False, help="Do not apply selection cuts")
 parser.add_argument("--skipPUrw"          , action='store_true', default=False, help="Do not apply PU reweighting")
 parser.add_argument("--skipTrigSF"        , action='store_true', default=False, help="Do not apply trigger scale factors")
+parser.add_argument("--skipMuIDsf"        , action='store_true', default=False, help="Do not apply muon id/reco scale factors")
 parser.add_argument("--nThreads"          , type=int           , default=1    , help="Number of threads")
 parser.add_argument("--addTag"            , type=str           , default=""   , help="Tag output files")
 parser.add_argument("--ctauReweighting"   , action='store_true', default=False, help="Include ctau reweighting")
@@ -30,6 +31,7 @@ parser.add_argument("--applyMuDsPtCorr"   , action='store_true', default=False, 
 parser.add_argument("--applyMuHnlPtCorr"  , action='store_true', default=False, help="Apply reweighting to mu from Hnl to correct data/MC pt discrepancies")
 parser.add_argument("--applyMuDsIPSCorr"  , action='store_true', default=False, help="Apply reweighting to mu from Ds to correct data/MC IPS discrepancies")
 parser.add_argument("--applyMuHnlIPSCorr" , action='store_true', default=False, help="Apply reweighting to mu from Hnl to correct data/MC IPS discrepancies")
+parser.add_argument("--varyMuIDSf"        , type=float         , default=0.0  , help="Muon ID/reco sf w/ variations: sf = sf+variation*error")
 parser.add_argument("--keep"              , nargs="*"          , default=[]   , help="Select which branches to keep in the final output tree")
 args = parser.parse_args()
 
@@ -88,7 +90,6 @@ if dataset_category != "data" and not args.skipPUrw:
 
 #get trigger scale factors histogram
 if dataset_category != "data" and not args.skipTrigSF:
-    print("sf histogram from {}, {}".format(config["trigger_sf_input_file"],config["trigger_sf_histo_name"]))
     print("eff data histogram from {}, {}".format(config["trigger_eff_data_input_file"],config["trigger_eff_data_histo_name"]))
     print("eff mc histogram from {}, {}".format(config["trigger_eff_mc_input_file"],config["trigger_eff_mc_histo_name"]))
     ROOT.gInterpreter.Declare("""
@@ -100,6 +101,19 @@ if dataset_category != "data" and not args.skipTrigSF:
                emc_file=config["trigger_eff_mc_input_file"],
                edatahisto_name=config["trigger_eff_data_histo_name"],
                emchisto_name=config["trigger_eff_mc_histo_name"])
+    )
+
+#get pu weights histogram
+if dataset_category != "data" and not args.skipMuIDsf:
+    ROOT.gInterpreter.Declare("""
+    #include <boost/property_tree/ptree.hpp>
+    #include <boost/property_tree/json_parser.hpp>
+    boost::property_tree::ptree mu_id_sf_cfg;
+    """
+    )
+    ROOT.gInterpreter.ProcessLine("""
+    boost::property_tree::read_json("{infile}",mu_id_sf_cfg);
+    """.format(infile=config["mu_id_reco_sf_input_file"])
     )
 
 #get mu_Ds pt shape scale factors histogram
@@ -262,13 +276,22 @@ for cat in selection["categories"]:
             df = df.Define("trigger_sf","compute_total_sf(trigger_eff_data_ds,trigger_eff_mc_ds,C_{mu1l}_matched_HLT,trigger_eff_data_hnl,trigger_eff_mc_hnl,C_{mu2l}_matched_HLT)".format(mu1l=config["mu1_label"],mu2l=config["mu2_label"]))
             df = df.Redefine("tot_weight","tot_weight*trigger_sf")
 
+        # define mu id factors for MC only
+        if dataset_category != "data" and not args.skipMuIDsf:
+            variation = args.varyMuIDSf
+            mu1_id_sf = "get_mu_id_sf(mu_id_sf_cfg,C_{mu1l}_pt,C_{mu1l}_eta,{variation})".format(mu1l=config["mu1_label"],variation=variation)
+            mu2_id_sf = "get_mu_id_sf(mu_id_sf_cfg,C_{mu2l}_pt,C_{mu2l}_eta,{variation})".format(mu2l=config["mu2_label"],variation=variation)
+            df = df.Define("mu1_id_sf",mu1_id_sf) 
+            df = df.Define("mu2_id_sf",mu2_id_sf) 
+            df = df.Redefine("tot_weight","tot_weight*mu1_id_sf*mu2_id_sf")
+
         # define mu_Ds pt shape scale factors for MC only
         if dataset_category != "data" and args.applyMuDsPtCorr:
             ds_pt_shape_sf  = "h_ds_pt_shape_sf->GetBinContent(h_ds_pt_shape_sf->FindBin(C_{}_pt))".format(config["mu1_label"])
             df = df.Define("ds_pt_shape_sf",str(ds_pt_shape_sf)) 
             df = df.Redefine("tot_weight","tot_weight*ds_pt_shape_sf")
 
-        # define mu_Ds pt shape scale factors for MC only
+        # define mu_Hnl pt shape scale factors for MC only
         if dataset_category != "data" and args.applyMuHnlPtCorr:
             hnl_pt_shape_sf  = "h_hnl_pt_shape_sf->GetBinContent(h_hnl_pt_shape_sf->FindBin(C_{}_pt))".format(config["mu2_label"])
             df = df.Define("hnl_pt_shape_sf",str(hnl_pt_shape_sf)) 
