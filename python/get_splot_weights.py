@@ -70,7 +70,7 @@ if not args.gausSig and not args.voigSig and not args.johnSig:
 
     sigpdf="dcb"
 
-    m0_D      = ROOT.RooRealVar("m0_D"   ,"m0_D",1.8,1.9)    
+    m0_D      = ROOT.RooRealVar("m0_D","m0_D",1.8,1.9)    
     if args.fixMass:
         m0_D.setVal(1.8695)
         m0_D.setConstant(ROOT.kTRUE)
@@ -79,7 +79,7 @@ if not args.gausSig and not args.voigSig and not args.johnSig:
     alpha_D   = ROOT.RooRealVar("alpha_D","alpha_D",0.,10.)
     N_D       = ROOT.RooRealVar("N_D"    ,"N_D",0.,50.)
     
-    m0_Ds     = ROOT.RooRealVar("m0_Ds"   ,"m0_Ds",1.9,2.0)
+    m0_Ds     = ROOT.RooRealVar("m0_Ds","m0_Ds",1.9,2.0)
     if args.fixMass:
         m0_Ds.setVal(1.96835)
         m0_Ds.setConstant(ROOT.kTRUE)
@@ -111,12 +111,12 @@ elif args.gausSig:
     if args.fixMass:
         mean_D.setVal(1.8695)
         mean_D.setConstant(ROOT.kTRUE)
-    sigma_D   = ROOT.RooRealVar("sigma_D","sigma_D",0.001,0.1)
+    sigma_D   = ROOT.RooRealVar("sigma_D","sigma_D",0.001,0.05)
     mean_Ds   = ROOT.RooRealVar("mean_Ds","mean_Ds",1.9,2.0) 
     if args.fixMass:
         mean_Ds.setVal(1.96835)
         mean_Ds.setConstant(ROOT.kTRUE)
-    sigma_Ds  = ROOT.RooRealVar("sigma_Ds","sigma_Ds",0.001,0.1)
+    sigma_Ds  = ROOT.RooRealVar("sigma_Ds","sigma_Ds",0.001,0.05)
 
     Dpeak = ROOT.RooGaussian("Dpeak","Dpeak",C_Ds_mass, mean_D, sigma_D)
     Dspeak = ROOT.RooGaussian("Dspeak","Dspeak",C_Ds_mass, mean_Ds, sigma_Ds)
@@ -163,21 +163,21 @@ elif args.johnSig:
     print("Using Johnson function to fit the signal peaks")
     sigpdf="joh"
 
-    mu_D   = ROOT.RooRealVar("mu_D","mu_D",1.82,1.88)   
+    mu_D   = ROOT.RooRealVar("mu_D","mu_D",1.85,1.89)#1.8,1.9)   
     if args.fixMass:
         mu_D.setVal(1.8695)
         mu_D.setConstant(ROOT.kTRUE)    
-    lambda_D  = ROOT.RooRealVar("lambda_D","lambda_D",0.01,3.)
-    gamma_D  = ROOT.RooRealVar("gamma_D","gamma_D",-10.,10.)
-    delta_D  = ROOT.RooRealVar("delta_D","delta_D",1.,3.)
+    lambda_D  = ROOT.RooRealVar("lambda_D","lambda_D",0.01,0.2)#,0.078)
+    gamma_D  = ROOT.RooRealVar("gamma_D","gamma_D",0.,1.)#0.002)
+    delta_D  = ROOT.RooRealVar("delta_D","delta_D",6.,11.)#10)
 
-    mu_Ds  = ROOT.RooRealVar("mu_Ds","mu_Ds",1.9,2.0)   
+    mu_Ds  = ROOT.RooRealVar("mu_Ds","mu_Ds",1.95,1.99)#1.9,2.0)   
     if args.fixMass:
         mu_Ds.setVal(1.96835)
         mu_Ds.setConstant(ROOT.kTRUE)
-    lambda_Ds  = ROOT.RooRealVar("lambda_Ds","lambda_Ds",0.01,3.)
-    gamma_Ds  = ROOT.RooRealVar("gamma_Ds","gamma_Ds",-10.,10.)
-    delta_Ds  = ROOT.RooRealVar("delta_Ds","delta_Ds",1.,3.)
+    lambda_Ds  = ROOT.RooRealVar("lambda_Ds","lambda_Ds",0.01,0.2)#0.078)
+    gamma_Ds  = ROOT.RooRealVar("gamma_Ds","gamma_Ds",0.,1.)#0.002)
+    delta_Ds  = ROOT.RooRealVar("delta_Ds","delta_Ds",6.,11.)#10)
 
     if not args.fixMass:
         var_to_display.append(mu_D)
@@ -189,11 +189,11 @@ elif args.johnSig:
     var_to_display.append(gamma_Ds)
     var_to_display.append(delta_Ds)
 
-    Dpeak = ROOT.RooJohnson("Dpeak","Dpeak",C_Ds_mass,mu_D,lambda_D,gamma_D,delta_D)
-    Dspeak = ROOT.RooJohnson("Dspeak","Dspeak",C_Ds_mass, mu_Ds,lambda_Ds,gamma_Ds,delta_Ds)
+    Dpeak  = ROOT.RooJohnson("Dpeak" ,"Dpeak" ,C_Ds_mass,mu_D,lambda_D,gamma_D,delta_D)
+    Dspeak = ROOT.RooJohnson("Dspeak","Dspeak",C_Ds_mass,mu_Ds,lambda_Ds,gamma_Ds,delta_Ds)
 
 
-c_exp     = ROOT.RooRealVar("c_exp","c_exp",-5,1.5)
+c_exp     = ROOT.RooRealVar("c_exp","c_exp",-10,-0.001)
 bkg      = ROOT.RooExponential("bkg","bkg",C_Ds_mass,c_exp)
 
 n_D       = ROOT.RooRealVar("n_D","n_D",0,100000)
@@ -267,7 +267,7 @@ if args.doPlot:
     padLower.cd()
     pullframe = C_Ds_mass.frame()
     pullframe.SetTitle("")
-    pullframe.GetXaxis().SetTitle("m(#mu#mu#pi) [GeV]")
+    pullframe.GetXaxis().SetTitle("m(#mu #mu #pi) [GeV]")
     pullframe.GetYaxis().SetTitle("Pull")
     pullframe.GetYaxis().SetTitleOffset(0.5)
     pullframe.GetYaxis().CenterTitle(True)  

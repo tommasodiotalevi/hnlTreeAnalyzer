@@ -21,9 +21,13 @@ inputDirName = str(config["inputDirName"])
 outDirName = str(os.path.join(config["outDirName"],inputDirName.split("/")[-1])) 
 
 inputMCFileName = os.path.join(inputDirName,"hadd_bkg.root")
+if args.tag != "":
+    inputMCFileName = os.path.join(inputDirName,"hadd_bkg_{}.root".format(args.tag))    
 subprocess.call(["hadd","-f",inputMCFileName] + [os.path.join(inputDirName,bkgFileName) for bkgFileName in config["background"].keys()])
 
 inputDataFileName = os.path.join(inputDirName,"hadd_data.root")
+if args.tag != "":
+    inputDataFileName = os.path.join(inputDirName,"hadd_data_{}.root".format(args.tag)) 
 subprocess.call(["hadd","-f",inputDataFileName] + [os.path.join(inputDirName,dataFileName) for dataFileName in config["data"].keys()])
 
 for plotName in config["plotNameList"]:

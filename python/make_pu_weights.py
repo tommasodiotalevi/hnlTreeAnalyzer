@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("puFileData", help="Path to the input file containing data pu profile", type=str)
 parser.add_argument("puFileMC"  , help="Path to the input file containing MC pu profile", type=str)
-
+parser.add_argument("--tag"  , type=str, default="", help="tag the output file")
 args = parser.parse_args()
 
 inputFileNameData = args.puFileData
@@ -32,4 +32,7 @@ weightHisto.SetTitle("pu_weights")
 weightHisto.Divide(inputHistoMC)
 
 # save
-weightHisto.SaveAs("pu_weights.root")
+outputname = "pu_weights.root"
+if not args.tag == "":
+    outputname = "pu_weights_{}.root".format(args.tag)
+weightHisto.SaveAs(outputname)

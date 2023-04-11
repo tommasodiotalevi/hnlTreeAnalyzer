@@ -1,17 +1,17 @@
 {
 	"inputDirName"	:"/home/CMS-T3/lunerti/hnlTreeAnalyzer/output/ds_to_hnl/crab/",
 	"outDirName"	:"/home/CMS-T3/lunerti/hnlTreeAnalyzer/output/ds_to_hnl/",
-	"background"	:{"histograms_nopurw_HnlToMuPi_prompt_QCD_Pt-20To30_MuEnrichedPt5_TuneCP5_13TeV-pythia8_inclusive.root" :
+	"background"	:{"histograms_HnlToMuPi_prompt_QCD_Pt-20To30_MuEnrichedPt5_TuneCP5_13TeV-pythia8_inclusive.root" :
                   {"label": "QCD Pt20-30"},
-                  "histograms_nopurw_HnlToMuPi_prompt_QCD_Pt-30To50_MuEnrichedPt5_TuneCP5_13TeV-pythia8_inclusive.root" :
+                  "histograms_HnlToMuPi_prompt_QCD_Pt-30To50_MuEnrichedPt5_TuneCP5_13TeV-pythia8_inclusive.root" :
                   {"label": "QCD Pt30-50"},
-                  "histograms_nopurw_HnlToMuPi_prompt_QCD_Pt-50To80_MuEnrichedPt5_TuneCP5_13TeV-pythia8_inclusive.root" :
+                  "histograms_HnlToMuPi_prompt_QCD_Pt-50To80_MuEnrichedPt5_TuneCP5_13TeV-pythia8_inclusive.root" :
                   {"label": "QCD Pt50-80"},
-                  "histograms_nopurw_HnlToMuPi_prompt_QCD_Pt-80To120_MuEnrichedPt5_TuneCP5_13TeV-pythia8_inclusive.root" :
+                  "histograms_HnlToMuPi_prompt_QCD_Pt-80To120_MuEnrichedPt5_TuneCP5_13TeV-pythia8_inclusive.root" :
                   {"label": "QCD Pt80-120"},
-                  "histograms_nopurw_HnlToMuPi_prompt_QCD_Pt-120To170_MuEnrichedPt5_TuneCP5_13TeV-pythia8_inclusive.root" :
+                  "histograms_HnlToMuPi_prompt_QCD_Pt-120To170_MuEnrichedPt5_TuneCP5_13TeV-pythia8_inclusive.root" :
                   {"label": "QCD Pt120-170"},
-                  "histograms_nopurw_HnlToMuPi_prompt_QCD_Pt-170To300_MuEnrichedPt5_TuneCP5_13TeV-pythia8_inclusive.root" :
+                  "histograms_HnlToMuPi_prompt_QCD_Pt-170To300_MuEnrichedPt5_TuneCP5_13TeV-pythia8_inclusive.root" :
                   {"label": "QCD Pt170-300"}
                   },
 
@@ -35,13 +35,13 @@
                           "histograms_HnlToMuPi_prompt_DsToNMu_NToMuPi_SoftQCDnonD_noQuarkFilter_mN1p0_ctau1000p0mm_TuneCP5_13TeV-pythia8-evtgen_inclusive.root" : 
                            {"label": "m_{N}=1.0 GeV, c#tau=1000.0 mm"}
                          },
-  "_data"		:
+  "data"		:
                         {
                         "histograms_HnlToMuPi_prompt_ParkingBPH1_Run2018D-UL2018_MiniAODv2-v1_inclusive.root" :
                          {"label": "Data",
                           "integrated_lumi": 1.0}
                        },
-	"data"		:{"histograms_HnlToMuPi_prompt_ParkingBPH1_Run2018A-UL2018_MiniAODv2-v1_inclusive.root" :
+	"_data"		:{"histograms_HnlToMuPi_prompt_ParkingBPH1_Run2018A-UL2018_MiniAODv2-v1_inclusive.root" :
                            {"label": "Data",
                             "integrated_lumi": 1.0},
                           "histograms_HnlToMuPi_prompt_ParkingBPH1_Run2018B-UL2018_MiniAODv2-v1_inclusive.root" :
@@ -151,8 +151,7 @@
         "h_pi_BS_ips_z",
         "h_pi_BS_ips_xy",
         "h_mu1mu2_mass",
-        "h_pv",
-        "nPU_trueInt"]
+        "h_pv"]
 }
 
 

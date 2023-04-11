@@ -6,7 +6,7 @@
 		 "save"    :"yes",		
                  "selection_cuts" :[
    	                {
-                            "cut": "(C_mu1_Phi_matched_MU7_IP4>0 && C_mu1_Phi_dr_MU7_IP4<0.005) || (C_mu2_Phi_matched_MU7_IP4>0 && C_mu2_Phi_dr_MU7_IP4<0.005) || (C_mu1_Phi_matched_MU8_IP3>0 && C_mu1_Phi_dr_MU8_IP3<0.005) || (C_mu2_Phi_matched_MU8_IP3>0 && C_mu2_Phi_dr_MU8_IP3<0.005) || (C_mu1_Phi_matched_MU8_IP5>0 && C_mu1_Phi_dr_MU8_IP5<0.005) || (C_mu2_Phi_matched_MU8_IP5>0 && C_mu2_Phi_dr_MU8_IP5<0.005) || (C_mu1_Phi_matched_MU8_IP6>0 && C_mu1_Phi_dr_MU8_IP6<0.005) || (C_mu2_Phi_matched_MU8_IP6>0 && C_mu2_Phi_dr_MU8_IP6<0.005) || (C_mu1_Phi_matched_MU9_IP4>0 && C_mu1_Phi_dr_MU9_IP4<0.005) || (C_mu2_Phi_matched_MU9_IP4>0 && C_mu2_Phi_dr_MU9_IP4<0.005) || (C_mu1_Phi_matched_MU9_IP5>0 && C_mu1_Phi_dr_MU9_IP5<0.005) || (C_mu2_Phi_matched_MU9_IP5>0 && C_mu2_Phi_dr_MU9_IP5<0.005) || (C_mu1_Phi_matched_MU9_IP6>0 && C_mu1_Phi_dr_MU9_IP6<0.005) || (C_mu2_Phi_matched_MU9_IP6>0 && C_mu2_Phi_dr_MU9_IP6<0.005) || (C_mu1_Phi_matched_MU10p5_IP3p5>0 && C_mu1_Phi_dr_MU10p5_IP3p5<0.005) || (C_mu2_Phi_matched_MU10p5_IP3p5>0 && C_mu2_Phi_dr_MU10p5_IP3p5<0.005) || (C_mu1_Phi_matched_MU12_IP6>0 && C_mu1_Phi_dr_MU12_IP6<0.005) || (C_mu2_Phi_matched_MU12_IP6>0 && C_mu2_Phi_dr_MU12_IP6<0.005)",
+                        "cut": "(C_mu1_Phi_matched_MU7_IP4>0 && C_mu1_Phi_dr_MU7_IP4<0.005) || (C_mu2_Phi_matched_MU7_IP4>0 && C_mu2_Phi_dr_MU7_IP4<0.005) || (C_mu1_Phi_matched_MU8_IP3>0 && C_mu1_Phi_dr_MU8_IP3<0.005) || (C_mu2_Phi_matched_MU8_IP3>0 && C_mu2_Phi_dr_MU8_IP3<0.005) || (C_mu1_Phi_matched_MU8_IP5>0 && C_mu1_Phi_dr_MU8_IP5<0.005) || (C_mu2_Phi_matched_MU8_IP5>0 && C_mu2_Phi_dr_MU8_IP5<0.005) || (C_mu1_Phi_matched_MU8_IP6>0 && C_mu1_Phi_dr_MU8_IP6<0.005) || (C_mu2_Phi_matched_MU8_IP6>0 && C_mu2_Phi_dr_MU8_IP6<0.005) || (C_mu1_Phi_matched_MU9_IP4>0 && C_mu1_Phi_dr_MU9_IP4<0.005) || (C_mu2_Phi_matched_MU9_IP4>0 && C_mu2_Phi_dr_MU9_IP4<0.005) || (C_mu1_Phi_matched_MU9_IP5>0 && C_mu1_Phi_dr_MU9_IP5<0.005) || (C_mu2_Phi_matched_MU9_IP5>0 && C_mu2_Phi_dr_MU9_IP5<0.005) || (C_mu1_Phi_matched_MU9_IP6>0 && C_mu1_Phi_dr_MU9_IP6<0.005) || (C_mu2_Phi_matched_MU9_IP6>0 && C_mu2_Phi_dr_MU9_IP6<0.005) || (C_mu1_Phi_matched_MU10p5_IP3p5>0 && C_mu1_Phi_dr_MU10p5_IP3p5<0.005) || (C_mu2_Phi_matched_MU10p5_IP3p5>0 && C_mu2_Phi_dr_MU10p5_IP3p5<0.005) || (C_mu1_Phi_matched_MU12_IP6>0 && C_mu1_Phi_dr_MU12_IP6<0.005) || (C_mu2_Phi_matched_MU12_IP6>0 && C_mu2_Phi_dr_MU12_IP6<0.005)",
                             "printout": "any B-Parking HLT path matched with a muon from Phi"
                         },
 	        	{"cut":"(fabs(C_mu1_Phi_eta)<1.2 && C_mu1_Phi_pt>3.5) || (fabs(C_mu1_Phi_eta)>1.2 && fabs(C_mu1_Phi_eta)<2.4 && C_mu1_Phi_pt>2.0)",
@@ -28,7 +28,7 @@
 		},
 		{"printout":"prompt Ds",
 		 "label"   :"prompt",
-		 "cut"     :"C_mu2_Phi_hasBAncestor<1",		
+		 "cut"     :"!(C_mu1_Phi_isBGGDaughter>0 && C_mu2_Phi_isBGGDaughter>0 && C_pi_isBGDaughter>0)",		
 		 "save"    :"yes",		
                  "selection_cuts" :[
    	                {
@@ -54,7 +54,7 @@
 		},
 		{"printout":"nonprompt Ds",
 		 "label"   :"nonprompt",
-		 "cut"     :"C_mu2_Phi_hasBAncestor>0",		
+		 "cut"     :"C_mu1_Phi_isBGGDaughter>0 && C_mu2_Phi_isBGGDaughter>0 && C_pi_isBGDaughter>0",		
 		 "save"    :"yes",		
                  "selection_cuts" :[
    	                {

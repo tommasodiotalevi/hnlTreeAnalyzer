@@ -105,7 +105,7 @@ for cat in selection["categories"]:
         for sel in selection["gen_matching_cuts"]:
             df = df.Filter(sel["cut"],sel["printout"])
 
-    #tot_events = df.Count().GetValue()
+    df = df.Redefine("tot_weight","tot_weight/mc_weight")
     tot_events = df.Sum("tot_weight").GetValue()
 
     
@@ -129,9 +129,9 @@ for cat in selection["categories"]:
         var_header += ","+var["name"]+"_cut,"+var["name"]+"_pass,"+var["name"]+"_fail"
         fmt += ", %.2f, %.1f, %.1f"
         df_array = numpy.column_stack((df_array,a_cuts,a_pass,a_fail))
-    output_path = os.path.join(outputDirName,"sel_eff_tree_"+dataset_category+"_"+cat["label"]+".csv")
+    output_path = os.path.join(outputDirName,"sel_eff_tree_"+dataset_category+"_"+"-".join(opt_var_list)+"_"+cat["label"]+".csv")
     if isasignalsample:
-        output_path = os.path.join(outputDirName,"sel_eff_tree_"+dataset_category+"_mN{}_ctau{}_".format(mass_label,ctau_label)+cat["label"]+".csv")
+        output_path = os.path.join(outputDirName,"sel_eff_tree_"+dataset_category+"_mN{}_ctau{}_{}".format(mass_label,ctau_label,"-".join(opt_var_list))+"_"+cat["label"]+".csv")
     numpy.savetxt(output_path, df_array, delimiter=',', header=var_header, comments='',fmt=fmt)
     print("Output saved in {}".format(output_path))
 
