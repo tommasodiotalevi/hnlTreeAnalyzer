@@ -183,6 +183,14 @@
             "name": "C_mu_Hnl_dr_MU7_IP4"
         },
         {
+            "definition": "get_mu_trigger_matching(HLT_mu8p5_ip3p5_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU8p5_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8p5_ip3p5_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU8p5_IP3p5"
+        },
+        {
             "definition": "get_mu_trigger_dr(HLT_mu8_ip3_matched,HLT_mu8_ip3_dr,HLT_mu_trig_idx, C_mu_Ds_idx)",
             "name": "C_mu_Ds_dr_MU8_IP3"
         },

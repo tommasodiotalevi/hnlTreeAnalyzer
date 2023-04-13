@@ -113,6 +113,14 @@
             "name": "C_mu_Hnl_matched_MU8_IP3"
         },
         {
+            "definition": "get_mu_trigger_matching(HLT_mu8p5_ip3p5_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
+            "name": "C_mu_Ds_matched_MU8p5_IP3p5"
+        },
+        {
+            "definition": "get_mu_trigger_matching(HLT_mu8p5_ip3p5_matched,HLT_mu_trig_idx, C_mu_Hnl_idx)",
+            "name": "C_mu_Hnl_matched_MU8p5_IP3p5"
+        },
+        {
             "definition": "get_mu_trigger_matching(HLT_mu8_ip5_matched,HLT_mu_trig_idx, C_mu_Ds_idx)",
             "name": "C_mu_Ds_matched_MU8_IP5"
         },
