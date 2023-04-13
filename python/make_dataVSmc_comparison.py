@@ -68,19 +68,19 @@ for plotName in config["plotNameList"]:
     for filename in config["background"]:
         inputFileDic_bkg [filename] = ROOT.TFile.Open(str(os.path.join(inputDirName,filename)))
         inputHistoDic_bkg[filename] = ROOT.TH1D(inputFileDic_bkg[filename].Get(histoName))
-        if filename.find("DsToPhiPi_ToMuMu")>0:
-            BR_BToDs = 0.20509380
-            BR_Ds = 1.3e-5
-            prompt_fraction_in_mc = 0.0928
-            nonprompt_fraction_in_mc = 0.0832
-            if filename.find("_nonprompt.root")>0:
-                weight = BR_Ds*BR_BToDs/nonprompt_fraction_in_mc
-                print("--> nonprompt weight: {}".format(weight))
-                inputHistoDic_bkg[filename].Scale(weight)
-            elif filename.find("_prompt.root")>0:
-                weight = BR_Ds/prompt_fraction_in_mc
-                print("--> prompt weight: {}".format(weight))
-                inputHistoDic_bkg[filename].Scale(weight)
+        #if filename.find("DsToPhiPi_ToMuMu")>0:
+        #    BR_BToDs = 0.20509380
+        #    BR_Ds = 1.3e-5
+        #    prompt_fraction_in_mc = 0.0928
+        #    nonprompt_fraction_in_mc = 0.0832
+        #    if filename.find("_nonprompt.root")>0:
+        #        weight = BR_Ds*BR_BToDs/nonprompt_fraction_in_mc
+        #        print("--> nonprompt weight: {}".format(weight))
+        #        inputHistoDic_bkg[filename].Scale(weight)
+        #    elif filename.find("_prompt.root")>0:
+        #        weight = BR_Ds/prompt_fraction_in_mc
+        #        print("--> prompt weight: {}".format(weight))
+        #        inputHistoDic_bkg[filename].Scale(weight)
         tot_integral += inputHistoDic_bkg[filename].Integral()
 
     #Stacking background histos
@@ -91,19 +91,19 @@ for plotName in config["plotNameList"]:
         #inputHistoDic_bkg[filename].Scale(lumi_data)
         histo_integral = inputHistoDic_bkg[filename].Integral()
 
-        if filename.find("DsToPhiPi_ToMuMu")>0:
-            BR_BToDs = 0.20509380
-            BR_Ds = 1.3e-5
-            prompt_fraction_in_mc = 0.0928
-            nonprompt_fraction_in_mc = 0.0832
-            if filename.find("_nonprompt.root")>0:
-                weight = BR_Ds*BR_BToDs/nonprompt_fraction_in_mc
-                print("--> nonprompt weight: {}".format(weight))
-                inputHistoDic_bkg[filename].Scale(weight)
-            elif filename.find("_prompt.root")>0:
-                weight = BR_Ds/prompt_fraction_in_mc
-                print("--> prompt weight: {}".format(weight))
-                inputHistoDic_bkg[filename].Scale(weight)
+        #if filename.find("DsToPhiPi_ToMuMu")>0:
+        #    BR_BToDs = 0.20509380
+        #    BR_Ds = 1.3e-5
+        #    prompt_fraction_in_mc = 0.0928
+        #    nonprompt_fraction_in_mc = 0.0832
+        #    if filename.find("_nonprompt.root")>0:
+        #        weight = BR_Ds*BR_BToDs/nonprompt_fraction_in_mc
+        #        print("--> nonprompt weight: {}".format(weight))
+        #        inputHistoDic_bkg[filename].Scale(weight)
+        #    elif filename.find("_prompt.root")>0:
+        #        weight = BR_Ds/prompt_fraction_in_mc
+        #        print("--> prompt weight: {}".format(weight))
+        #        inputHistoDic_bkg[filename].Scale(weight)
 
         inputHistoDic_bkg[filename].Scale(1./tot_integral)
         inputHistoDic_bkg[filename].SetLineColor(ROOT.kBlack)

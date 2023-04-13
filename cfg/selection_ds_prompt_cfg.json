@@ -28,7 +28,7 @@
 		},
 		{"printout":"prompt Ds",
 		 "label"   :"prompt",
-		 "cut"     :"!(C_mu1_Phi_isBGGDaughter>0 && C_mu2_Phi_isBGGDaughter>0 && C_pi_isBGDaughter>0)",		
+		 "cut"     :"C_mu2_Phi_hasBAncestor<1",		
 		 "save"    :"yes",		
                  "selection_cuts" :[
    	                {
@@ -54,7 +54,7 @@
 		},
 		{"printout":"nonprompt Ds",
 		 "label"   :"nonprompt",
-		 "cut"     :"C_mu1_Phi_isBGGDaughter>0 && C_mu2_Phi_isBGGDaughter>0 && C_pi_isBGDaughter>0",		
+		 "cut"     :"C_mu2_Phi_hasBAncestor>0",		
 		 "save"    :"yes",		
                  "selection_cuts" :[
    	                {
