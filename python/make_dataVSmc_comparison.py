@@ -59,12 +59,6 @@ for plotName in config["plotNameList"]:
     inputFileList_bkg = [ROOT.TFile() for key in config["background"]]
     inputHistoDic_bkg = dict(zip(keyList_bkg,inputHistoList_bkg))
     inputFileDic_bkg  = dict(zip(keyList_bkg,inputFileList_bkg))
-    
-    keyList_sig = [key for key in config["signal"]]
-    inputHistoList_sig = [ROOT.TH1D() for key in config["signal"]]
-    inputFileList_sig = [ROOT.TFile() for key in config["signal"]]
-    inputHistoDic_sig = dict(zip(keyList_sig,inputHistoList_sig))
-    inputFileDic_sig  = dict(zip(keyList_sig,inputFileList_sig))
 
     xaxis_label = str()
     data_filename = list(config["data"].keys())[0]
