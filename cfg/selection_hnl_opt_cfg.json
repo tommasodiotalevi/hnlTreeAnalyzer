@@ -275,24 +275,16 @@
                     "printout": "mu from HNL pass soft ID"
                 },
                 {
-                    "cut": "C_Hnl_vertex_2DSig_BS>24.4",
-                    "printout": "C_Hnl_vertex_2DSig_BS>24.4"
+                    "cut": "C_Hnl_vertex_2DSig_BS>33.5",
+                    "printout": "C_Hnl_vertex_2DSig_BS>33.5"
                 },
                 {
-                    "cut": "C_mu_Hnl_BS_ip_xy>0.0",
-                    "printout": "C_mu_Hnl_BS_ip_xy>0.0"
+                    "cut": "C_pi_BS_ip_xy>0.04",
+                    "printout": "C_pi_BS_ip_xy>0.04"
                 },
                 {
-                    "cut": "C_mu_Hnl_BS_ips_xy>4.6",
-                    "printout": "C_mu_Hnl_BS_ips_xy>4.6"
-                },
-                {
-                    "cut": "C_pi_BS_ip_xy>0.06",
-                    "printout": "C_pi_BS_ip_xy>0.06"
-                },
-                {
-                    "cut": "C_pi_BS_ips_xy>11.8",
-                    "printout": "C_pi_BS_ips_xy>11.8"
+                    "cut": "C_mu_Hnl_BS_ips_xy>2.8",
+                    "printout": "C_mu_Hnl_BS_ips_xy>2.8"
                 }
             ]
         },
@@ -319,24 +311,16 @@
                     "printout": "mu from HNL pass soft ID"
                 },
                 {
-                    "cut": "C_Hnl_vertex_2DSig_BS>80.7",
-                    "printout": "C_Hnl_vertex_2DSig_BS>80.7"
+                    "cut": "C_Hnl_vertex_2DSig_BS>114.5",
+                    "printout": "C_Hnl_vertex_2DSig_BS>114.5"
                 },
                 {
-                    "cut": "C_mu_Hnl_BS_ip_xy>0.0",
-                    "printout": "C_mu_Hnl_BS_ip_xy>0.0"
+                    "cut": "C_pi_BS_ip_xy>0.03",
+                    "printout": "C_pi_BS_ip_xy>0.03"
                 },
                 {
-                    "cut": "C_mu_Hnl_BS_ips_xy>4.5",
-                    "printout": "C_mu_Hnl_BS_ips_xy>4.5"
-                },
-                {
-                    "cut": "C_pi_BS_ip_xy>0.06",
-                    "printout": "C_pi_BS_ip_xy>0.06"
-                },
-                {
-                    "cut": "C_pi_BS_ips_xy>7.2",
-                    "printout": "C_pi_BS_ips_xy>7.2"
+                    "cut": "C_mu_Hnl_BS_ips_xy>2.5",
+                    "printout": "C_mu_Hnl_BS_ips_xy>2.5"
                 }
             ]
         },
@@ -363,24 +347,16 @@
                     "printout": "mu from HNL pass soft ID"
                 },
                 {
-                    "cut": "C_Hnl_vertex_2DSig_BS>188.8",
-                    "printout": "C_Hnl_vertex_2DSig_BS>188.8"
+                    "cut": "C_Hnl_vertex_2DSig_BS>192.3",
+                    "printout": "C_Hnl_vertex_2DSig_BS>192.3"
                 },
                 {
-                    "cut": "C_mu_Hnl_BS_ip_xy>0.03",
-                    "printout": "C_mu_Hnl_BS_ip_xy>0.03"
+                    "cut": "C_pi_BS_ip_xy>0.03",
+                    "printout": "C_pi_BS_ip_xy>0.03"
                 },
                 {
-                    "cut": "C_mu_Hnl_BS_ips_xy>6.8",
-                    "printout": "C_mu_Hnl_BS_ips_xy>6.8"
-                },
-                {
-                    "cut": "C_pi_BS_ip_xy>0.04",
-                    "printout": "C_pi_BS_ip_xy>0.04"
-                },
-                {
-                    "cut": "C_pi_BS_ips_xy>6.7",
-                    "printout": "C_pi_BS_ips_xy>6.7"
+                    "cut": "C_mu_Hnl_BS_ips_xy>3.3",
+                    "printout": "C_mu_Hnl_BS_ips_xy>3.3"
                 }
             ]
         },
@@ -407,24 +383,16 @@
                     "printout": "mu from HNL pass soft ID"
                 },
                 {
-                    "cut": "C_Hnl_vertex_2DSig_BS>24.4",
-                    "printout": "C_Hnl_vertex_2DSig_BS>24.4"
+                    "cut": "C_Hnl_vertex_2DSig_BS>38.7",
+                    "printout": "C_Hnl_vertex_2DSig_BS>38.7"
                 },
                 {
-                    "cut": "C_mu_Hnl_BS_ip_xy>0.0",
-                    "printout": "C_mu_Hnl_BS_ip_xy>0.0"
+                    "cut": "C_pi_BS_ip_xy>0.05",
+                    "printout": "C_pi_BS_ip_xy>0.05"
                 },
                 {
-                    "cut": "C_mu_Hnl_BS_ips_xy>4.6",
-                    "printout": "C_mu_Hnl_BS_ips_xy>4.6"
-                },
-                {
-                    "cut": "C_pi_BS_ip_xy>0.06",
-                    "printout": "C_pi_BS_ip_xy>0.06"
-                },
-                {
-                    "cut": "C_pi_BS_ips_xy>11.8",
-                    "printout": "C_pi_BS_ips_xy>11.8"
+                    "cut": "C_mu_Hnl_BS_ips_xy>3.4",
+                    "printout": "C_mu_Hnl_BS_ips_xy>3.4"
                 }
             ]
         },
@@ -451,24 +419,16 @@
                     "printout": "mu from HNL pass soft ID"
                 },
                 {
-                    "cut": "C_Hnl_vertex_2DSig_BS>80.7",
-                    "printout": "C_Hnl_vertex_2DSig_BS>80.7"
+                    "cut": "C_Hnl_vertex_2DSig_BS>123.8",
+                    "printout": "C_Hnl_vertex_2DSig_BS>123.8"
                 },
                 {
-                    "cut": "C_mu_Hnl_BS_ip_xy>0.0",
-                    "printout": "C_mu_Hnl_BS_ip_xy>0.0"
+                    "cut": "C_pi_BS_ip_xy>0.05",
+                    "printout": "C_pi_BS_ip_xy>0.05"
                 },
                 {
-                    "cut": "C_mu_Hnl_BS_ips_xy>4.5",
-                    "printout": "C_mu_Hnl_BS_ips_xy>4.5"
-                },
-                {
-                    "cut": "C_pi_BS_ip_xy>0.06",
-                    "printout": "C_pi_BS_ip_xy>0.06"
-                },
-                {
-                    "cut": "C_pi_BS_ips_xy>7.2",
-                    "printout": "C_pi_BS_ips_xy>7.2"
+                    "cut": "C_mu_Hnl_BS_ips_xy>3.7",
+                    "printout": "C_mu_Hnl_BS_ips_xy>3.7"
                 }
             ]
         },
@@ -495,24 +455,16 @@
                     "printout": "mu from HNL pass soft ID"
                 },
                 {
-                    "cut": "C_Hnl_vertex_2DSig_BS>188.8",
-                    "printout": "C_Hnl_vertex_2DSig_BS>188.8"
+                    "cut": "C_Hnl_vertex_2DSig_BS>255.5",
+                    "printout": "C_Hnl_vertex_2DSig_BS>255.5"
                 },
                 {
-                    "cut": "C_mu_Hnl_BS_ip_xy>0.03",
-                    "printout": "C_mu_Hnl_BS_ip_xy>0.03"
+                    "cut": "C_pi_BS_ip_xy>0.05",
+                    "printout": "C_pi_BS_ip_xy>0.05"
                 },
                 {
-                    "cut": "C_mu_Hnl_BS_ips_xy>6.8",
-                    "printout": "C_mu_Hnl_BS_ips_xy>6.8"
-                },
-                {
-                    "cut": "C_pi_BS_ip_xy>0.04",
-                    "printout": "C_pi_BS_ip_xy>0.04"
-                },
-                {
-                    "cut": "C_pi_BS_ips_xy>6.7",
-                    "printout": "C_pi_BS_ips_xy>6.7"
+                    "cut": "C_mu_Hnl_BS_ips_xy>3.8",
+                    "printout": "C_mu_Hnl_BS_ips_xy>3.8"
                 }
             ]
         },
@@ -537,36 +489,48 @@
 	    ]
 	}
     ],
-	    "selection_eff_scan": [
+    "selection_eff_scan": [
+        {
+            "logic": ">",
+            "low_edge": -0.0001,
+            "name": "C_Hnl_vertex_2DDist_BS",
+            "loperand": "C_Hnl_vertex_2DDist_BS",
+            "up_edge": 15.0
+        },
         {
             "logic": ">",
             "low_edge": -0.0001,
             "name": "C_Hnl_vertex_2DSig_BS",
+            "loperand": "C_Hnl_vertex_2DSig_BS",
             "up_edge": 400.0
         },
         {
             "logic": ">",
             "low_edge": -0.0001,
             "name": "C_mu_Hnl_BS_ip_xy",
+            "loperand": "C_mu_Hnl_BS_ip_xy",
             "up_edge": 0.5
         },
         {
             "logic": ">",
             "low_edge": -0.0001,
             "name": "C_pi_BS_ips_xy",
+            "loperand": "abs(C_pi_BS_ips_xy)",
             "up_edge": 100.0
         },
         {
             "logic": ">",
             "low_edge": -0.0001,
             "name": "C_mu_Hnl_BS_ips_xy",
+            "loperand": "C_mu_Hnl_BS_ips_xy",
             "up_edge": 100.0
         },
         {
             "logic": ">",
             "low_edge": -0.0001,
             "name": "C_pi_BS_ip_xy",
+            "loperand": "abs(C_pi_BS_ip_xy)",
             "up_edge": 0.5
         }
-    ]
+    ]	    
 }
