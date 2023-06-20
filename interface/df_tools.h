@@ -144,9 +144,6 @@ float get_mu_id_sf(pt::ptree cfg, double pt, double eta, double mult=0.)
 {
   std::string key = "NUM_SoftID_DEN_TrackerMuons|abseta_pt";
   float sf = 1.;
-  //std::cout<<"*** muon id sf ***"<<std::endl;
-  //std::cout<<"mu pt: "<<pt<<std::endl;
-  //std::cout<<"mu eta: "<<eta<<std::endl;
   for(auto veta : cfg.get_child(path(key,'|')))
   {
     std::string e = veta.first.data();
@@ -165,11 +162,40 @@ float get_mu_id_sf(pt::ptree cfg, double pt, double eta, double mult=0.)
       float pt_high = std::stof(ph);
       if (pt<pt_low || pt>pt_high) continue;
       key = key+"|"+p;
-      //std::cout<<"corresponing key: "<<key<<std::endl;
       sf = cfg.get<float>(path(key+"|value",'|'));
       float err = cfg.get<float>(path(key+"|error",'|'));
       sf = sf + mult*err;
-      //std::cout<<"sf: "<<sf<<std::endl;
+    }
+
+  }
+  return sf;
+}
+
+float get_mu_reco_sf(pt::ptree cfg, double pt, double eta, double mult=0.)
+{
+  std::string key = "NUM_TrackerMuons_DEN_genTracks|abseta_pt";
+  float sf = 1.;
+  for(auto veta : cfg.get_child(path(key,'|')))
+  {
+    std::string e = veta.first.data();
+    std::string el = e.substr(e.find("[")+1,e.find(",")-e.find("[")-1);
+    std::string eh = e.substr(e.find(",")+1,e.find("]")-e.find(",")-1);
+    float eta_low  = std::stof(el);
+    float eta_high = std::stof(eh);
+    if (std::abs(eta)<eta_low || std::abs(eta)>eta_high) continue;
+    key = key+"|"+e;
+    for(auto vpt : cfg.get_child(path(key,'|')))
+    {
+      std::string p = vpt.first.data();
+      std::string pl = p.substr(p.find("[")+1,p.find(",")-p.find("[")-1);
+      std::string ph = p.substr(p.find(",")+1,p.find("]")-p.find(",")-1);
+      float pt_low  = std::stof(pl);
+      float pt_high = std::stof(ph);
+      if (pt<pt_low || pt>pt_high) continue;
+      key = key+"|"+p;
+      sf = cfg.get<float>(path(key+"|value",'|'));
+      float err = cfg.get<float>(path(key+"|error",'|'));
+      sf = sf + mult*err;
     }
 
   }
