@@ -5,7 +5,9 @@ df_ds_ref = pd.read_csv("ds_noCorr.csv")
 
 masses = [1.0,1.5]
 ctaus = [10.0,100.0,1000.0]
-tags = ["muDsPtCorr","muDsIPSCorr","muHnlIPSCorr","muHnlPtCorr"]
+#tags = ["muDsPtCorr","muDsIPSCorr","muHnlIPSCorr","muHnlPtCorr"]
+tags = ["idsfup","idsfdown","recosfup","recosfdown"]
+
 
 for tag in tags:
     
