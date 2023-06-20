@@ -3,12 +3,15 @@ import sys
 import os
 import json
 import argparse
+from paramiko import SSHClient
+from scp import SCPClient
 
 #script input arguments
 parser = argparse.ArgumentParser(description="")
-parser.add_argument("cfg_filename", help="Path to the input configuration file")
+parser.add_argument("cfg_filename"   , help="Path to the input configuration file")
 parser.add_argument("--saveRatioPlot", action='store_true', default=False, help="Save data/MC ratio plots")
-parser.add_argument("--tag",default="",type=str,help="add tag to output file name")
+parser.add_argument("--tag"          , default="",type=str,help="add tag to output file name")
+parser.add_argument("--intLumi"      , default="",type=str,help="Print integrated luminosity (1/fb)")
 args = parser.parse_args()
 
 configFileName = args.cfg_filename
@@ -148,6 +151,18 @@ for plotName in config["plotNameList"]:
     inputDataHisto.Draw("ex0p same")
     leg_dataVSmc.Draw("same")
 
+
+    if not args.intLumi =="":
+        latex = ROOT.TLatex()
+        latex.SetTextAlign(12)
+        latex.SetTextSize(0.04)
+        latex.DrawLatexNDC(0.70,0.91,str(args.intLumi)+" fb^{-1} (13 TeV)")
+    
+    #latexpv = ROOT.TLatex()
+    #latexpv.SetTextAlign(12)
+    #latexpv.SetTextSize(0.04)
+    #latexpv.DrawLatexNDC(0.1,0.91,"CMS Private Work")
+
     #inputMCFile = ROOT.TFile.Open(str(inputMCFileName))
     #inputMCHisto = ROOT.TH1D(inputMCFile.Get(histoName))
     #inputMCHisto.Scale(1./tot_integral)
@@ -176,6 +191,12 @@ for plotName in config["plotNameList"]:
     hRatio.GetYaxis().SetTitleSize(0.12)
     hRatio.GetYaxis().SetLabelSize(0.12)
     hRatio.GetXaxis().SetLabelSize(0.12)
+
+    xtitle = inputMCHisto.GetXaxis().GetTitle()
+    if xtitle.find("IPS")>0:
+        xtitle = xtitle.replace("[cm] ","")
+        hRatio.GetXaxis().SetTitle(xtitle)
+
     hRatio.GetXaxis().SetRange(1,overflowBin)
     hRatio.GetYaxis().SetTitleOffset(0.4)
     hRatio.GetYaxis().SetNdivisions(5)
@@ -191,3 +212,4 @@ for plotName in config["plotNameList"]:
     c.SaveAs(os.path.join(outDirName,outputfilename +".pdf"))
     c.SaveAs(os.path.join(outDirName,outputfilename +".root"))
     del c
+
