@@ -52,46 +52,28 @@ with open(dsToPhiPi_ntuples_cfg_path, "r") as f:
 
 for cat in categories:
     
-    sig_short_name = "DsToNMu_NToMuPi_mN{mass}_ctau{ctau}mm".format(mass=str(m).replace(".","p"),ctau=str(ct).replace(".","p"))
-    #sig_short_name = "DsToNMu_NToMuPi_mN{mass}_ctau{ctau}mm_incl".format(mass=str(m).replace(".","p"),ctau=str(ct).replace(".","p"))
+    #sig_short_name = "DsToNMu_NToMuPi_mN{mass}_ctau{ctau}mm".format(mass=str(m).replace(".","p"),ctau=str(ct).replace(".","p"))
+    sig_short_name = "DsToNMu_NToMuPi_mN{mass}_ctau{ctau}mm_incl".format(mass=str(m).replace(".","p"),ctau=str(ct).replace(".","p"))
    
 
-    i_norm_cat = -1 # always the inclusive category
-    i_sig_cat  = -1
-    final_file_name_list = "final_file_name_list"
-    if tag != "":
-        final_file_name_list = "final_file_name_list_{}".format(tag)
-
-    for i in range(0,len(dsToPhiPi_ntuples["DsToPhiPi_ToMuMu"][final_file_name_list])):
-        s = dsToPhiPi_ntuples["DsToPhiPi_ToMuMu"][final_file_name_list][i]
-        if "inclusive" in s:
-            i_norm_cat = i
-    if i_norm_cat<0:
-        print("CATEGORY {} NOT FOUND IN {} CFG FILE".format(cat,dsToPhiPi_ntuples_cfg_path))
-        sys.exit(0)
-
-    for i in range(0,len(dsToHnlMu_ntuples[sig_short_name][final_file_name_list])):
-        s = dsToHnlMu_ntuples[sig_short_name][final_file_name_list][i]
-        if cat in s:
-            #print("------> {}".format(s))
-            i_sig_cat = i
-    if i_sig_cat<0:
-        print("CATEGORY {} NOT FOUND IN {} CFG FILE".format(cat,dsToHnlMu_ntuples_cfg_path))
-        sys.exit(0)
+    input_DsPhiPi_ntuple_path = "/gpfs_data/local/cms/lunerti/dsphipi_ntuples/output_tree/PhiToMuMu_prompt_DsToPhiPi_ToMuMu_MuFilter_TuneCP5_13TeV-pythia8-evtgen/tree_{tag}_PhiToMuMu_prompt_DsToPhiPi_ToMuMu_MuFilter_TuneCP5_13TeV-pythia8-evtgen_inclusive.csv".format(tag=tag)
+    input_DsHnlMu_ntuple_path = "/gpfs_data/local/cms/lunerti/hnl_ntuples/output_tree/HnlToMuPi_prompt_DsToNMu_NToMuPi_SoftQCDnonD_noQuarkFilter_mN{mass}_ctau{ctau}mm_TuneCP5_13TeV-pythia8-evtgen/tree_{tag}_HnlToMuPi_prompt_DsToNMu_NToMuPi_SoftQCDnonD_noQuarkFilter_mN{mass}_ctau{ctau}mm_TuneCP5_13TeV-pythia8-evtgen_{cat}.csv".format(tag=tag,cat=cat,mass=str(m).replace(".","p"),ctau=str(ct).replace(".","p"))
+    if tag == "":
+        input_DsPhiPi_ntuple_path = "/gpfs_data/local/cms/lunerti/dsphipi_ntuples/output_tree/PhiToMuMu_prompt_DsToPhiPi_ToMuMu_MuFilter_TuneCP5_13TeV-pythia8-evtgen/tree_PhiToMuMu_prompt_DsToPhiPi_ToMuMu_MuFilter_TuneCP5_13TeV-pythia8-evtgen_inclusive.csv"
+        input_DsHnlMu_ntuple_path = "/gpfs_data/local/cms/lunerti/hnl_ntuples/output_tree/HnlToMuPi_prompt_DsToNMu_NToMuPi_SoftQCDnonD_noQuarkFilter_mN{mass}_ctau{ctau}mm_TuneCP5_13TeV-pythia8-evtgen/tree_HnlToMuPi_prompt_DsToNMu_NToMuPi_SoftQCDnonD_noQuarkFilter_mN{mass}_ctau{ctau}mm_TuneCP5_13TeV-pythia8-evtgen_{cat}.csv".format(cat=cat,mass=str(m).replace(".","p"),ctau=str(ct).replace(".","p"))
+    
+    print("Ds->PhiPi input: {}".format(input_DsPhiPi_ntuple_path))
+    print("Ds->HNL input: {}".format(input_DsHnlMu_ntuple_path))
 
     #sometimes values are set to nan in csv and then they get skipped
     #to temporarily prevent this I set all 'nan' values to '0.0' so that
     #they don't get skipped
     if args.nansToZeros:
-        for fn in [dsToPhiPi_ntuples["DsToPhiPi_ToMuMu"][final_file_name_list][i_norm_cat].replace("root","csv"),dsToHnlMu_ntuples[sig_short_name][final_file_name_list][i_sig_cat].replace("root","csv")]:
+        #for fn in [dsToPhiPi_ntuples["DsToPhiPi_ToMuMu"][final_file_name_list][i_norm_cat].replace("root","csv"),dsToHnlMu_ntuples[sig_short_name][final_file_name_list][i_sig_cat].replace("root","csv")]:
+        for fn in [input_DsPhiPi_ntuple_path,input_DsHnlMu_ntuple_path]:
             command = "sed -i 's/nan/0.0/g' {}".format(fn)
             print("Running {}".format(command))
             subprocess.call(command,shell=True)
-
-    input_DsPhiPi_ntuple_path = dsToPhiPi_ntuples["DsToPhiPi_ToMuMu"][final_file_name_list][i_norm_cat].replace("root","csv")
-    input_DsHnlMu_ntuple_path = dsToHnlMu_ntuples[sig_short_name][final_file_name_list][i_sig_cat].replace("root","csv")
-    print("Ds->PhiPi input: {}".format(input_DsPhiPi_ntuple_path))
-    print("Ds->HNL input: {}".format(input_DsHnlMu_ntuple_path))
 
     n_DsToPhiPi_gen = float(dsToPhiPi_ntuples["DsToPhiPi_ToMuMu"]["processed_events"])
     n_DsToPhiPi_sel = float(hnl_tools.get_weighted_yield_from_csv(input_DsPhiPi_ntuple_path,"tot_weight"))
@@ -99,7 +81,7 @@ for cat in categories:
     n_DsToHnlMu_sel = float(hnl_tools.get_weighted_yield_from_csv(input_DsHnlMu_ntuple_path,"tot_weight"))
     if new_ct>0.:
         ctauwvar = "ctau_weight_{old_ctau}TO{new_ctau}".format(old_ctau=str(ct).replace(".","p"),new_ctau=str(new_ct).replace(".","p"))
-        n_DsToHnlMu_sel = float(hnl_tools.get_ctauweighted_yield_from_csv(dsToHnlMu_ntuples[sig_short_name][final_file_name_list][i_sig_cat].replace("root","csv"),ctauwvar,"tot_weight"))
+        n_DsToHnlMu_sel = float(hnl_tools.get_ctauweighted_yield_from_csv(input_DsHnlMu_ntuple_path,ctauwvar,"tot_weight"))
     
     eff_Ds   = n_DsToPhiPi_sel/n_DsToPhiPi_gen
     eff_Hnl  = n_DsToHnlMu_sel/n_DsToHnlMu_gen
