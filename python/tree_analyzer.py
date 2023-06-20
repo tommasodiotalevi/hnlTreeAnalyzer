@@ -254,6 +254,8 @@ for cat in selection["categories"]:
         break
 
     if not args.skipSelCuts:
+
+        print("test")
                 
         #get mc truth in case of signal sample
         if dataset_category == "signal":
