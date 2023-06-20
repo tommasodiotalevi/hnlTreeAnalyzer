@@ -90,6 +90,9 @@ for plotName in config["plotNameList"]:
     histoStacked.GetYaxis().SetTitle("Normalized to unit")
     #histoStacked.SetMinimum(0.001)
     histoStacked.GetXaxis().SetTitle(xaxis_label)
+    if xaxis_label.find("IPS")>0:
+        xaxis_label = xaxis_label.replace("[cm] ","")
+        histoStacked.GetXaxis().SetTitle(xaxis_label)
     hmax = float(histoStacked.GetMaximum())
 
     #Superimposing signal
@@ -155,8 +158,13 @@ for plotName in config["plotNameList"]:
         l.SetLineStyle(ROOT.kDashed)
         l.DrawLine(1.,0.,1.,yedge)
         l.DrawLine(5.,0.,5.,yedge)
-        leg_sigVSbkg.Draw("same")
+    leg_sigVSbkg.Draw("same")
     c.Update()
+  
+    #latexpv = ROOT.TLatex()
+    #latexpv.SetTextAlign(12)
+    #latexpv.SetTextSize(0.04)
+    #latexpv.DrawLatexNDC(0.1,0.91,"CMS Private Work")
 
     outputFullPath = os.path.join(outDirName,"sigVSbkg")
     subprocess.call(["mkdir","-p",outputFullPath])

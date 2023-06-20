@@ -23,7 +23,8 @@ parser.add_argument("--skipSlimCuts"      , action='store_true', default=False, 
 parser.add_argument("--skipSelCuts"       , action='store_true', default=False, help="Do not apply selection cuts")
 parser.add_argument("--skipPUrw"          , action='store_true', default=False, help="Do not apply PU reweighting")
 parser.add_argument("--skipTrigSF"        , action='store_true', default=False, help="Do not apply trigger scale factors")
-parser.add_argument("--skipMuIDsf"        , action='store_true', default=False, help="Do not apply muon id/reco scale factors")
+parser.add_argument("--skipMuIDsf"        , action='store_true', default=False, help="Do not apply muon id scale factors")
+parser.add_argument("--skipMuRecosf"      , action='store_true', default=False, help="Do not apply muon reco scale factors")
 parser.add_argument("--nThreads"          , type=int           , default=1    , help="Number of threads")
 parser.add_argument("--addTag"            , type=str           , default=""   , help="Tag output files")
 parser.add_argument("--ctauReweighting"   , action='store_true', default=False, help="Include ctau reweighting")
@@ -31,7 +32,8 @@ parser.add_argument("--applyMuDsPtCorr"   , action='store_true', default=False, 
 parser.add_argument("--applyMuHnlPtCorr"  , action='store_true', default=False, help="Apply reweighting to mu from Hnl to correct data/MC pt discrepancies")
 parser.add_argument("--applyMuDsIPSCorr"  , action='store_true', default=False, help="Apply reweighting to mu from Ds to correct data/MC IPS discrepancies")
 parser.add_argument("--applyMuHnlIPSCorr" , action='store_true', default=False, help="Apply reweighting to mu from Hnl to correct data/MC IPS discrepancies")
-parser.add_argument("--varyMuIDSf"        , type=float         , default=0.0  , help="Muon ID/reco sf w/ variations: sf = sf+variation*error")
+parser.add_argument("--varyMuIDSf"        , type=float         , default=0.0  , help="Muon ID sf w/ variations: sf = sf+variation*error")
+parser.add_argument("--varyMuRecoSf"      , type=float         , default=0.0  , help="Muon reco sf w/ variations: sf = sf+variation*error")
 parser.add_argument("--keep"              , nargs="*"          , default=[]   , help="Select which branches to keep in the final output tree")
 args = parser.parse_args()
 
@@ -104,17 +106,24 @@ if dataset_category != "data" and not args.skipTrigSF:
     )
 
 #get pu weights histogram
-if dataset_category != "data" and not args.skipMuIDsf:
+if dataset_category != "data" and (not args.skipMuIDsf or not args.skipMuRecosf):
     ROOT.gInterpreter.Declare("""
     #include <boost/property_tree/ptree.hpp>
     #include <boost/property_tree/json_parser.hpp>
-    boost::property_tree::ptree mu_id_sf_cfg;
     """
     )
-    ROOT.gInterpreter.ProcessLine("""
-    boost::property_tree::read_json("{infile}",mu_id_sf_cfg);
-    """.format(infile=config["mu_id_reco_sf_input_file"])
-    )
+    if not args.skipMuIDsf:
+        ROOT.gInterpreter.Declare("boost::property_tree::ptree mu_id_sf_cfg;")
+        ROOT.gInterpreter.ProcessLine("""
+        boost::property_tree::read_json("{infile}",mu_id_sf_cfg);
+        """.format(infile=config["mu_id_sf_input_file"])
+        )
+    if not args.skipMuRecosf:
+        ROOT.gInterpreter.Declare("boost::property_tree::ptree mu_reco_sf_cfg;")
+        ROOT.gInterpreter.ProcessLine("""
+        boost::property_tree::read_json("{infile}",mu_reco_sf_cfg);
+        """.format(infile=config["mu_reco_sf_input_file"])
+        )
 
 #get mu_Ds pt shape scale factors histogram
 if dataset_category != "data" and args.applyMuDsPtCorr:
@@ -245,6 +254,19 @@ for cat in selection["categories"]:
         break
 
     if not args.skipSelCuts:
+                
+        #get mc truth in case of signal sample
+        if dataset_category == "signal":
+            for sel in selection["gen_matching_cuts"]:
+                df = df.Filter(sel["cut"],sel["printout"])
+            if args.ctauReweighting and dataset_category == "signal":
+                old_ctau_label = dataset_name_label[dataset_name_label.find("ctau")+4:dataset_name_label.find("mm")]
+                hnl_mass_label = dataset_name_label[dataset_name_label.find("mN")+2:dataset_name_label.find("mN")+5]
+                for new_ctau in selection["mN"+hnl_mass_label+"_ctau"+old_ctau_label+"mm_rw_points"]:
+                  old_ctau = float(old_ctau_label.replace("p","."))
+                  w_expr   = "("+str(old_ctau)+"/"+str(new_ctau)+")*"+"exp(C_Hnl_gen_l_prop*("+str(1./old_ctau)+"-"+str(1./new_ctau)+"))"
+                  df = df.Define("ctau_weight_"+old_ctau_label+"TO"+str(new_ctau).replace(".","p"),w_expr)
+                  
         #apply categorization 
         df = df.Filter(cat["cut"] ,cat["printout"])
         #apply selection
@@ -284,6 +306,15 @@ for cat in selection["categories"]:
             df = df.Define("mu1_id_sf",mu1_id_sf) 
             df = df.Define("mu2_id_sf",mu2_id_sf) 
             df = df.Redefine("tot_weight","tot_weight*mu1_id_sf*mu2_id_sf")
+        
+        # define mu id factors for MC only
+        if dataset_category != "data" and not args.skipMuRecosf:
+            variation = args.varyMuRecoSf
+            mu1_reco_sf = "get_mu_reco_sf(mu_reco_sf_cfg,C_{mu1l}_pt,C_{mu1l}_eta,{variation})".format(mu1l=config["mu1_label"],variation=variation)
+            mu2_reco_sf = "get_mu_reco_sf(mu_reco_sf_cfg,C_{mu2l}_pt,C_{mu2l}_eta,{variation})".format(mu2l=config["mu2_label"],variation=variation)
+            df = df.Define("mu1_reco_sf",mu1_reco_sf) 
+            df = df.Define("mu2_reco_sf",mu2_reco_sf) 
+            df = df.Redefine("tot_weight","tot_weight*mu1_reco_sf*mu2_reco_sf")
 
         # define mu_Ds pt shape scale factors for MC only
         if dataset_category != "data" and args.applyMuDsPtCorr:
@@ -308,19 +339,6 @@ for cat in selection["categories"]:
             hnl_ips_shape_sf  = "h_hnl_ips_shape_sf->GetBinContent(h_hnl_ips_shape_sf->FindBin(C_{}_BS_ips_xy))".format(config["mu2_label"])
             df = df.Define("hnl_ips_shape_sf",str(hnl_ips_shape_sf)) 
             df = df.Redefine("tot_weight","tot_weight*hnl_ips_shape_sf")
-        
-        #get mc truth in case of signal sample
-        if dataset_category == "signal":
-            for sel in selection["gen_matching_cuts"]:
-                df = df.Filter(sel["cut"],sel["printout"])
-            if args.ctauReweighting and dataset_category == "signal":
-                old_ctau_label = dataset_name_label[dataset_name_label.find("ctau")+4:dataset_name_label.find("mm")]
-                hnl_mass_label = dataset_name_label[dataset_name_label.find("mN")+2:dataset_name_label.find("mN")+5]
-                for new_ctau in selection["mN"+hnl_mass_label+"_ctau"+old_ctau_label+"mm_rw_points"]:
-                  old_ctau = float(old_ctau_label.replace("p","."))
-                  w_expr   = "("+str(old_ctau)+"/"+str(new_ctau)+")*"+"exp(C_Hnl_gen_l_prop*("+str(1./old_ctau)+"-"+str(1./new_ctau)+"))"
-                  #print("---> weight = {}".format(w_expr))
-                  df = df.Define("ctau_weight_"+old_ctau_label+"TO"+str(new_ctau).replace(".","p"),w_expr)
 
         if args.saveOutputTree and cat["save"]=="yes":
             finalTree_outputFileName = "tree_"+dataset_name_label+"_"+cat["label"]+".root"
