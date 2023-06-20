@@ -86,12 +86,14 @@ def get_weighted_yield_from_csv(fileName,varName):
     print("filename: {}".format(fileName))
     df = pd.read_csv(fileName)
     #print("----> {}".format(list(df.columns)))
+    df[varName]=df[varName]/df["mc_weight"]
     weighted_yield = df[varName].sum()
     return weighted_yield
 
 def get_ctauweighted_yield_from_csv(fileName,ctauVarName, varName):
     print("filename: {}".format(fileName))
     df = pd.read_csv(fileName)
+    df[varName]=df[varName]/df["mc_weight"]
     df[varName] = df[varName]*df[ctauVarName]
     #print("----> {}".format(list(df.columns)))
     weighted_yield = df[varName].sum()
