@@ -138,14 +138,14 @@ elif args.voigSig:
         mean_D.setVal(1.8695)
         mean_D.setConstant(ROOT.kTRUE)
     sigma_D  = ROOT.RooRealVar("sigma_D","sigma_D",0.001,0.01)
-    width_D  = ROOT.RooRealVar("width_D","width_D",0.001,0.01)
+    width_D  = ROOT.RooRealVar("width_D","width_D",0.0005,0.01)
 
     mean_Ds  = ROOT.RooRealVar("mean_Ds","mean_Ds",1.9,2.0)   
     if args.fixMass:
         mean_Ds.setVal(1.96835)
         mean_Ds.setConstant(ROOT.kTRUE)
     sigma_Ds = ROOT.RooRealVar("sigma_Ds","sigma_Ds",0.001,0.1)
-    width_Ds = ROOT.RooRealVar("width_Ds","width_Ds",0.001,0.1)
+    width_Ds = ROOT.RooRealVar("width_Ds","width_Ds",0.0005,0.1)
 
     if not args.fixMass:
         var_to_display.append(mean_D)
@@ -205,12 +205,15 @@ n_bkg     = ROOT.RooRealVar("n_bkg","n_bkg",0,100000000)
 model      = ROOT.RooAddPdf("model","model", ROOT.RooArgList(Dpeak,Dspeak, bkg), ROOT.RooArgList(n_D,n_Ds,n_bkg))
 
 #Fitting the data with the model
-result = model.fitTo(inputDataSet,ROOT.RooFit.Save(),ROOT.RooFit.Extended(),ROOT.RooFit.SumW2Error(ROOT.kTRUE))
+result = model.fitTo(inputDataSet,ROOT.RooFit.Save(ROOT.kTRUE),ROOT.RooFit.Extended(ROOT.kTRUE),ROOT.RooFit.SumW2Error(ROOT.kTRUE))
 
 sData = ROOT.RooStats.SPlot("sData", "An SPlot", inputDataSet, model, ROOT.RooArgList(n_D,n_Ds,n_bkg))
 
 inputDataSet.convertToTreeStore()
 
+print("***")
+result.Print()
+print("***")
 
 if args.doPlot:
     
