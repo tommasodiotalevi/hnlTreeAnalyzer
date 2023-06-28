@@ -1,9 +1,5 @@
 #include <ROOT/RDataFrame.hxx>
 #include <ROOT/RVec.hxx>
-#include <TCanvas.h>
-#include <TH1D.h>
-#include <TLatex.h>
-#include <TStyle.h>
 #include <TLorentzVector.h>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -12,15 +8,6 @@ using namespace ROOT;
 using namespace ROOT::VecOps;
 namespace pt = boost::property_tree;
 typedef pt::ptree::path_type path;
-
-size_t get_cand_multiplicity(RVec<double> cand_var)
-{
-  size_t multiplicity = cand_var.size();
-
-  return multiplicity
-  
-  ;
-}
 
 size_t get_best_cand_idx(RVec<double> var)
 {
@@ -127,6 +114,27 @@ RVec<float> get_mu_trigger_dr(RVec<short> trigger_match, RVec<float> trigger_dr,
   }
 
   return muTrig_dr;
+}
+
+RVec<float> get_mu_trigger_dptopt(RVec<short> trigger_match, RVec<float> trigger_pt, RVec<unsigned> trig_mu_idx, RVec<float> mu_pt, RVec<unsigned> mu_idx)
+{
+  RVec<float> muTrig_dptopt(mu_idx.size(),9999.);
+
+  for(unsigned i_trigMatch=0; i_trigMatch<trigger_match.size(); ++i_trigMatch){
+
+    if (!(trigger_match.at(i_trigMatch)>0)) continue;
+
+    for(unsigned i_mu=0; i_mu<mu_idx.size(); ++i_mu){
+      if (mu_idx[i_mu] == trig_mu_idx[i_trigMatch])
+      {
+        float dpt = std::abs(trigger_pt[i_trigMatch] - mu_pt[i_mu]);
+        float pt = mu_pt[i_mu];
+        muTrig_dptopt[i_mu] = dpt/pt;
+      }
+    }
+  }
+
+  return muTrig_dptopt;
 }
 
 float compute_total_sf(float sf_1, short match_1, float sf_2, short match_2)
@@ -324,6 +332,54 @@ RVec<Double_t> get_PxPyPzE_HnlInvariantMass(RVec<Double_t> px_1, RVec<Double_t> 
 
 }
 
+//Custom filter
+RVec<short> CustomFilter(RVec<unsigned> mu1_idx, RVec<unsigned> mu2_idx, RVec<unsigned> pi_idx)
+{
+  RVec<short> cand_has_multiple_permutations(mu1_idx.size(),0);
+
+  for (unsigned i=0; i<mu1_idx.size(); ++i)
+  {
+    for (unsigned j=+1; j<mu1_idx.size(); ++j)
+    {
+      if (mu1_idx.at(i) == mu2_idx.at(j) && mu2_idx.at(i) == mu1_idx.at(j) && pi_idx.at(i) == pi_idx.at(j))
+      {
+        cand_has_multiple_permutations[i] = 1;
+        cand_has_multiple_permutations[j] = 1;
+      }
+    }
+  }
+
+  return cand_has_multiple_permutations;
+
+}
+
+RVec<std::string> get_lxy_categories(RVec<float> hnl_lxy, RVec<float> mu_hnl_charge, RVec<float> mu_ds_charge)
+{
+  RVec<std::string> categories(hnl_lxy.size());
+
+  for(unsigned i=0; i<categories.size(); ++i){
+    float lxy = hnl_lxy.at(i);
+    float q1  = mu_hnl_charge.at(i);
+    float q2  = mu_ds_charge.at(i);
+
+    std::string cat;
+
+    if (q1*q2>0){
+      if(lxy<1) cat = "SSlxy0to1";
+      else if(lxy>1 && lxy<5) cat = "SSlxy1to5";
+      else if(lxy>5) cat = "SSlxy5toInf";
+    }
+    else if (q1*q2<0){
+      if(lxy<1) cat = "OSlxy0to1";
+      else if(lxy>1 && lxy<5) cat = "OSlxy1to5";
+      else if(lxy>5) cat = "OSlxy5toInf";
+    }
+    categories[i] = cat;
+  }
+
+  return categories;
+}
+
 //for debugging
 RVec<short> get_multiple_permutations(RVec<unsigned> mu1_idx, RVec<unsigned> mu2_idx, RVec<unsigned> pi_idx)
 {
@@ -343,4 +399,10 @@ RVec<short> get_multiple_permutations(RVec<unsigned> mu1_idx, RVec<unsigned> mu2
 
   return cand_has_multiple_permutations;
 
+}
+
+int get_cand_multiplicity(RVec<float> var){
+  int mult;
+  mult = var.size();
+  return mult;
 }

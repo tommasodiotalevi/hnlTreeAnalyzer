@@ -99,4 +99,8 @@ def get_ctauweighted_yield_from_csv(fileName,ctauVarName, varName):
     weighted_yield = df[varName].sum()
     return weighted_yield
 
-
+def is_good_cand_var(varname):
+    good = False
+    if varname.find("C_")==0 and varname!="C_mu_Hnl_BS_ips" and varname!="C_mu_Hnl_BS_ip" and varname!="C_mu_Ds_BS_ips" and varname!="C_mu_Ds_BS_ip" and varname!="C_mu_Hnl_PV_ips" and varname!="C_mu_Hnl_PV_ip" and varname!="C_mu_Ds_PV_ips" and varname!="C_mu_Ds_PV_ip":
+        good = True
+    return good
