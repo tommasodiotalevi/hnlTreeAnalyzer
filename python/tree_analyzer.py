@@ -384,7 +384,7 @@ for c in df.GetColumnNames():
         df = df.Redefine(col_name,col_name+"["+idx+"]")
         continue
 
-df.Filter("C_pass_gen_matching","best-candidate-selected events have at least a GEN-matched candidate").Report().Print()
+df = df.Filter("C_pass_gen_matching","best-candidate-selected events have at least a GEN-matched candidate")
 
 #################
 #### WEIGHTS ####
