@@ -31,7 +31,6 @@ parser.add_argument("--applyMuDsPtCorr"     , action='store_true', default=False
 parser.add_argument("--applyMuHnlPtCorr"    , action='store_true', default=False, help="Apply reweighting to mu from Hnl to correct data/MC pt discrepancies")
 parser.add_argument("--applyMuDsIPSCorr"    , action='store_true', default=False, help="Apply reweighting to mu from Ds to correct data/MC IPS discrepancies")
 parser.add_argument("--applyMuHnlIPSCorr"   , action='store_true', default=False, help="Apply reweighting to mu from Hnl to correct data/MC IPS discrepancies")
-parser.add_argument("--bestCandChecks"      , action='store_true', default=False, help="Make checks for best candidate selection")
 parser.add_argument("--varyMuIDSf"          , type=float         , default=0.0  , help="Muon ID sf w/ variations: sf = sf+variation*error")
 parser.add_argument("--varyMuRecoSf"        , type=float         , default=0.0  , help="Muon reco sf w/ variations: sf = sf+variation*error")
 parser.add_argument("--keep"                , nargs="*"          , default=[]   , help="Select which branches to keep in the final output tree")
@@ -195,8 +194,6 @@ df = ROOT.RDataFrame(chain)
 #define new variables
 for var in selection["new_variables"]:
     df = df.Define(var["name"],var["definition"])
-#define categories
-df = df.Define("C_cat","get_lxy_categories(C_Hnl_vertex_2DDist_BS,C_mu_Hnl_charge,C_mu_Ds_charge)")
 
 # operations on signal samples
 if dataset_category == "signal":
@@ -208,16 +205,6 @@ if dataset_category == "signal":
     df = df.Define(mask_var," && ".join(gen_matching_cuts))
     df = df.Filter("ROOT::VecOps::Any("+mask_var+")","pass GEN matching cuts")
 
-    ## skim vectors to retain only GEN matghing candidates
-    #for c in df.GetColumnNames():
-    #    col_name = str(c)
-    #    col_type = df.GetColumnType(col_name)
-    #    # choose candidate branches (beginning with 'C_')
-    #    if(hnl_tools.is_good_cand_var(col_name) and (not col_type.find("ROOT::VecOps")<0)): 
-    #        #print("---> {}".format(col_name))
-    #        df = df.Redefine(col_name,col_name+"["+mask_var+"]")
-    #        continue
-
     # define ctau weights
     if args.ctauReweighting and dataset_category == "signal":
         old_ctau_label = dataset_name_label[dataset_name_label.find("ctau")+4:dataset_name_label.find("mm")]
@@ -226,27 +213,6 @@ if dataset_category == "signal":
           old_ctau = float(old_ctau_label.replace("p","."))
           w_expr   = "("+str(old_ctau)+"/"+str(new_ctau)+")*"+"exp(C_Hnl_gen_l_prop*("+str(1./old_ctau)+"-"+str(1./new_ctau)+"))"
           df = df.Define("ctau_weight_"+old_ctau_label+"TO"+str(new_ctau).replace(".","p"),w_expr)
-
-if args.bestCandChecks:
-    hmodel = ("h_mult_input",";Candidate multiplicity;Normalized to unit",20,1.,21.)
-    df_check = df.Define("mult_input","get_cand_multiplicity(C_Hnl_mass)")
-    df_check.Histo1D(hmodel,"mult_input").SaveAs("h_cand_mult_input_{}.root".format(dataset_to_process))
-    df_check = df_check.Filter("mult_input>1","fraction of input events with more than 1 candidate")
-    # define a index selecting best candidate in the event
-    df_check = df_check.Define(selection["best_cand_var"]["name"],selection["best_cand_var"]["definition"])
-    
-    # redefine variables so that only best candidate is saved
-    for c in df_check.GetColumnNames():
-        col_name = str(c)
-        col_type = df_check.GetColumnType(col_name)
-        # choose candidate branches (beginning with 'C_')
-        if (not col_name.find("C_")<0) and (not col_type.find("ROOT::VecOps")<0):
-            idx = str(selection["best_cand_var"]["name"])
-            df_check = df_check.Redefine(col_name,col_name+"["+idx+"]")
-            continue
-    
-    df_check = df_check.Filter("C_pass_gen_matching","best-cand-input events have a GEN-matched candidate")
-    df_check.Report().Print()
 
 ######################
 #### PRESELECTION ####
@@ -272,28 +238,6 @@ for c in df.GetColumnNames():
         df = df.Redefine(col_name,col_name+"["+presel_cuts_AND+"]")
         continue
 
-# count how many preselected events have at least a GEN-matched candidate
-if args.bestCandChecks:
-    hmodel = ("h_mult_presel",";Candidate multiplicity;Normalized to unit",20,1.,21.)
-    df_check = df.Define("mult_presel","get_cand_multiplicity(C_Hnl_mass)")
-    df_check.Histo1D(hmodel,"mult_presel").SaveAs("h_cand_mult_presel_{}.root".format(dataset_to_process))
-    df_check = df_check.Filter("mult_presel>1","fraction of preselected events with more than 1 candidate")
-    # define a index selecting best candidate in the event
-    df_check = df_check.Define(selection["best_cand_var"]["name"],selection["best_cand_var"]["definition"])
-    
-    # redefine variables so that only best candidate is saved
-    for c in df_check.GetColumnNames():
-        col_name = str(c)
-        col_type = df_check.GetColumnType(col_name)
-        # choose candidate branches (beginning with 'C_')
-        if (not col_name.find("C_")<0) and (not col_type.find("ROOT::VecOps")<0):
-            idx = str(selection["best_cand_var"]["name"])
-            df_check = df_check.Redefine(col_name,col_name+"["+idx+"]")
-            continue
-    
-    df_check = df_check.Filter("C_pass_gen_matching","best-cand-preselected events have at least a GEN-matched candidate")
-    df_check.Report().Print()
-
 #save preselected tree
 if args.savePreselectedTree:
     finalTree_outputFileName = "tree_"+dataset_name_label+".root"
@@ -310,64 +254,6 @@ if args.savePreselectedTree:
     print("Preselected tree saved in {}".format(finalTree_outFullPath))
 
 ###################
-#### SELECTION ####
-###################
-
-#apply optimized selection for each category
-sel_cuts = dict()
-for cat in selection["categories"]:
-    l = list()
-    sel_i = 0
-    for cut in cat["selection_cuts"]:
-        mask_var = "pass_sel_"+cat["label"]+"_"+str(sel_i)
-        l.append(mask_var)
-        df = df.Define(mask_var,cut["cut"]+' && C_cat=="'+cat["label"]+'"')
-        sel_i+=1
-    sel_cuts[cat["label"]] = l
-
-# build AND of each category's selection cuts
-sel_cuts_AND = list()
-for cat in sel_cuts:
-    s = "&&".join(sel_cuts[cat])
-    sel_cuts_AND.append(s)
-
-# filter events which do not pass any of the categories' selection cuts
-# if the best candidate has already been selected then it should be enough to replace it with df = df.Filter("||".join(sel_cuts_AND),"selection_cuts")
-df = df.Filter("ROOT::VecOps::Any("+"||".join(sel_cuts_AND)+")","selection cuts") 
-
-# skim vectors to retain only candidates passing selection cuts
-for c in df.GetColumnNames():
-    col_name = str(c)
-    col_type = df.GetColumnType(col_name)
-    # choose candidate branches (beginning with 'C_')
-    if(hnl_tools.is_good_cand_var(col_name) and (not col_type.find("ROOT::VecOps")<0)): 
-        df = df.Redefine(col_name,col_name+"["+"||".join(sel_cuts_AND)+"]")
-
-# count how many selected events have at least a GEN-matched candidate
-if args.bestCandChecks:
-    hmodel = ("h_mult_sel",";Candidate multiplicity;Normalized to unit",20,1.,21.)
-    df_check = df.Define("mult_sel","get_cand_multiplicity(C_Hnl_mass)")
-    df_check.Histo1D(hmodel,"mult_sel").SaveAs("h_cand_mult_sel_{}.root".format(dataset_to_process))
-    df_check = df_check.Filter("mult_sel>1","fraction of selected events with more than 1 candidate")
-    # define a index selecting best candidate in the event
-    df_check = df_check.Define(selection["best_cand_var"]["name"],selection["best_cand_var"]["definition"])
-    
-    # redefine variables so that only best candidate is saved
-    for c in df_check.GetColumnNames():
-        col_name = str(c)
-        col_type = df_check.GetColumnType(col_name)
-        # choose candidate branches (beginning with 'C_')
-        if (not col_name.find("C_")<0) and (not col_type.find("ROOT::VecOps")<0):
-            idx = str(selection["best_cand_var"]["name"])
-            df_check = df_check.Redefine(col_name,col_name+"["+idx+"]")
-            continue
-    
-    df_check = df_check.Filter("C_pass_gen_matching","best-cand-selected events have at least a GEN-matched candidate")
-    df_check.Report().Print()
-
-
-
-###################
 #### BEST CAND ####
 ###################
 
@@ -379,12 +265,44 @@ for c in df.GetColumnNames():
     col_name = str(c)
     col_type = df.GetColumnType(col_name)
     # choose candidate branches (beginning with 'C_')
-    if (not col_name.find("C_")<0) and (not col_type.find("ROOT::VecOps")<0):
+    if(hnl_tools.is_good_cand_var(col_name) and (not col_type.find("ROOT::VecOps")<0)): 
         idx = str(selection["best_cand_var"]["name"])
         df = df.Redefine(col_name,col_name+"["+idx+"]")
         continue
 
-df.Filter("C_pass_gen_matching","best-candidate-selected events have at least a GEN-matched candidate").Report().Print()
+###################
+#### SELECTION ####
+###################
+
+#apply optimized selection for each category
+sel_cuts = dict()
+for cat in selection["categories"]:
+    l = list()
+    sel_i = 0
+    for cut in cat["selection_cuts"]:
+        mask_var = "pass_sel_"+cat["label"]+"_"+str(sel_i)
+        l.append(mask_var)
+        #df = df.Define(mask_var,cut["cut"]+' && C_cat=="'+cat["label"]+'"')
+        df = df.Define(mask_var,cut["cut"]+' && '+cat["cut"])
+        sel_i+=1
+    sel_cuts[cat["label"]] = l
+
+# build AND of each category's selection cuts
+sel_cuts_AND = list()
+for cat in sel_cuts:
+    s = "&&".join(sel_cuts[cat])
+    sel_cuts_AND.append(s)
+
+# filter events which do not pass any of the categories' selection cuts
+df = df.Filter("||".join(sel_cuts_AND),"selection cuts") 
+
+
+# keep only GEN-matching events
+if dataset_category == "signal":
+    df = df.Filter("C_pass_gen_matching","final selected events with a GEN-matched candidate")
+
+#define categories (appartently it's problematic if defined before the best-candidate selection, not sure why)
+df = df.Define("C_cat","get_lxy_categories(C_Hnl_vertex_2DDist_BS,C_mu_Hnl_charge,C_mu_Ds_charge)")
 
 #################
 #### WEIGHTS ####
@@ -473,7 +391,7 @@ if args.saveOutputTree:
 
     #save output tree
     var_list = df.GetColumnNames()
-    csv_var_list = [x for x in df.GetColumnNames() if hnl_tools.is_good_cand_var(x) or x.find("ctau_weight")==0 or x.find("tot_weight")==0 or x.find("mc_weight")==0]
+    csv_var_list = [x for x in var_list if hnl_tools.is_good_cand_var(x) or x.find("ctau_weight")==0 or x.find("tot_weight")==0 or x.find("mc_weight")==0]
     var_keep_list = args.keep
     if len(var_keep_list)>0:
         var_list = var_keep_list
