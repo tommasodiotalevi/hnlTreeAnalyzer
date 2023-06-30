@@ -195,8 +195,6 @@ df = ROOT.RDataFrame(chain)
 #define new variables
 for var in selection["new_variables"]:
     df = df.Define(var["name"],var["definition"])
-#define categories
-df = df.Define("C_cat","get_lxy_categories(C_Hnl_vertex_2DDist_BS,C_mu_Hnl_charge,C_mu_Ds_charge)")
 
 # operations on signal samples
 if dataset_category == "signal":
@@ -207,16 +205,6 @@ if dataset_category == "signal":
         gen_matching_cuts.append(sel["cut"])
     df = df.Define(mask_var," && ".join(gen_matching_cuts))
     df = df.Filter("ROOT::VecOps::Any("+mask_var+")","pass GEN matching cuts")
-
-    ## skim vectors to retain only GEN matghing candidates
-    #for c in df.GetColumnNames():
-    #    col_name = str(c)
-    #    col_type = df.GetColumnType(col_name)
-    #    # choose candidate branches (beginning with 'C_')
-    #    if(hnl_tools.is_good_cand_var(col_name) and (not col_type.find("ROOT::VecOps")<0)): 
-    #        #print("---> {}".format(col_name))
-    #        df = df.Redefine(col_name,col_name+"["+mask_var+"]")
-    #        continue
 
     # define ctau weights
     if args.ctauReweighting and dataset_category == "signal":
@@ -321,7 +309,7 @@ for cat in selection["categories"]:
     for cut in cat["selection_cuts"]:
         mask_var = "pass_sel_"+cat["label"]+"_"+str(sel_i)
         l.append(mask_var)
-        df = df.Define(mask_var,cut["cut"]+' && C_cat=="'+cat["label"]+'"')
+        df = df.Define(mask_var,cut["cut"]+' && '+cat["cut"])
         sel_i+=1
     sel_cuts[cat["label"]] = l
 
@@ -332,7 +320,6 @@ for cat in sel_cuts:
     sel_cuts_AND.append(s)
 
 # filter events which do not pass any of the categories' selection cuts
-# if the best candidate has already been selected then it should be enough to replace it with df = df.Filter("||".join(sel_cuts_AND),"selection_cuts")
 df = df.Filter("ROOT::VecOps::Any("+"||".join(sel_cuts_AND)+")","selection cuts") 
 
 # skim vectors to retain only candidates passing selection cuts
@@ -386,6 +373,9 @@ for c in df.GetColumnNames():
 
 if dataset_category == "signal":
     df = df.Filter("C_pass_gen_matching","best-candidate-selected events have at least a GEN-matched candidate")
+
+#define categories
+df = df.Define("C_cat","get_lxy_categories(C_Hnl_vertex_2DDist_BS,C_mu_Hnl_charge,C_mu_Ds_charge)")
 
 #################
 #### WEIGHTS ####

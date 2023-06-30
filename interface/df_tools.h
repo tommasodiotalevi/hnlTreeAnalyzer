@@ -353,14 +353,14 @@ RVec<short> CustomFilter(RVec<unsigned> mu1_idx, RVec<unsigned> mu2_idx, RVec<un
 
 }
 
-RVec<std::string> get_lxy_categories(RVec<float> hnl_lxy, RVec<float> mu_hnl_charge, RVec<float> mu_ds_charge)
+RVec<std::string> get_lxy_categories(RVec<float> hnl_lxy, RVec<int> mu_hnl_charge, RVec<int> mu_ds_charge)
 {
   RVec<std::string> categories(hnl_lxy.size());
 
   for(unsigned i=0; i<categories.size(); ++i){
     float lxy = hnl_lxy.at(i);
-    float q1  = mu_hnl_charge.at(i);
-    float q2  = mu_ds_charge.at(i);
+    int q1  = mu_hnl_charge.at(i);
+    int q2  = mu_ds_charge.at(i);
 
     std::string cat;
 
@@ -378,6 +378,27 @@ RVec<std::string> get_lxy_categories(RVec<float> hnl_lxy, RVec<float> mu_hnl_cha
   }
 
   return categories;
+}
+
+std::string get_lxy_categories(float hnl_lxy, int mu_hnl_charge, int mu_ds_charge)
+{
+  std::string cat;
+  float lxy = hnl_lxy;
+  float q1  = mu_hnl_charge;
+  float q2  = mu_ds_charge;
+
+  if (q1*q2>0){
+    if(lxy<1) cat = "SSlxy0to1";
+    else if(lxy>1 && lxy<5) cat = "SSlxy1to5";
+    else if(lxy>5) cat = "SSlxy5toInf";
+  }
+  else if (q1*q2<0){
+    if(lxy<1) cat = "OSlxy0to1";
+    else if(lxy>1 && lxy<5) cat = "OSlxy1to5";
+    else if(lxy>5) cat = "OSlxy5toInf";
+  }
+
+  return cat;
 }
 
 //for debugging
