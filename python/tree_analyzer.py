@@ -244,8 +244,8 @@ if args.bestCandChecks:
             idx = str(selection["best_cand_var"]["name"])
             df_check = df_check.Redefine(col_name,col_name+"["+idx+"]")
             continue
-    
-    df_check = df_check.Filter("C_pass_gen_matching","best-cand-input events have a GEN-matched candidate")
+    if dataset_category == "signal":
+        df_check = df_check.Filter("C_pass_gen_matching","best-cand-input events have a GEN-matched candidate")
     df_check.Report().Print()
 
 ######################
@@ -290,8 +290,8 @@ if args.bestCandChecks:
             idx = str(selection["best_cand_var"]["name"])
             df_check = df_check.Redefine(col_name,col_name+"["+idx+"]")
             continue
-    
-    df_check = df_check.Filter("C_pass_gen_matching","best-cand-preselected events have at least a GEN-matched candidate")
+    if dataset_category == "signal":
+        df_check = df_check.Filter("C_pass_gen_matching","best-cand-preselected events have at least a GEN-matched candidate")
     df_check.Report().Print()
 
 #save preselected tree
@@ -361,8 +361,8 @@ if args.bestCandChecks:
             idx = str(selection["best_cand_var"]["name"])
             df_check = df_check.Redefine(col_name,col_name+"["+idx+"]")
             continue
-    
-    df_check = df_check.Filter("C_pass_gen_matching","best-cand-selected events have at least a GEN-matched candidate")
+    if dataset_category == "signal":
+        df_check = df_check.Filter("C_pass_gen_matching","best-cand-selected events have at least a GEN-matched candidate")
     df_check.Report().Print()
 
 
@@ -384,7 +384,8 @@ for c in df.GetColumnNames():
         df = df.Redefine(col_name,col_name+"["+idx+"]")
         continue
 
-df = df.Filter("C_pass_gen_matching","best-candidate-selected events have at least a GEN-matched candidate")
+if dataset_category == "signal":
+    df = df.Filter("C_pass_gen_matching","best-candidate-selected events have at least a GEN-matched candidate")
 
 #################
 #### WEIGHTS ####
