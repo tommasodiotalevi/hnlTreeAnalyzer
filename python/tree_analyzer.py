@@ -327,7 +327,7 @@ for c in df.GetColumnNames():
     col_name = str(c)
     col_type = df.GetColumnType(col_name)
     # choose candidate branches (beginning with 'C_')
-    if(hnl_tools.is_good_cand_var(col_name) and (not col_type.find("ROOT::VecOps")<0)): 
+    if hnl_tools.is_good_cand_var(col_name) and col_type.find("ROOT::VecOps")==0: 
         df = df.Redefine(col_name,col_name+"["+"||".join(sel_cuts_AND)+"]")
 
 # count how many selected events have at least a GEN-matched candidate
@@ -352,8 +352,6 @@ if args.bestCandChecks:
         df_check = df_check.Filter("C_pass_gen_matching","best-cand-selected events have at least a GEN-matched candidate")
     df_check.Report().Print()
 
-
-
 ###################
 #### BEST CAND ####
 ###################
@@ -366,7 +364,7 @@ for c in df.GetColumnNames():
     col_name = str(c)
     col_type = df.GetColumnType(col_name)
     # choose candidate branches (beginning with 'C_')
-    if (not col_name.find("C_")<0) and (not col_type.find("ROOT::VecOps")<0):
+    if col_name.find("C_")==0 and col_type.find("ROOT::VecOps")==0:
         idx = str(selection["best_cand_var"]["name"])
         df = df.Redefine(col_name,col_name+"["+idx+"]")
         continue
