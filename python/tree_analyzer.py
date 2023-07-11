@@ -336,6 +336,8 @@ if args.bestCandChecks:
     df_check = df.Define("mult_sel","get_cand_multiplicity(C_Hnl_mass)")
     df_check.Histo1D(hmodel,"mult_sel").SaveAs("h_cand_mult_sel_{}.root".format(dataset_to_process))
     df_check = df_check.Filter("mult_sel>1","fraction of selected events with more than 1 candidate")
+    #vl = df.GetColumnNames()
+    #df_check.Snapshot("test","test.root",vl)
     # define a index selecting best candidate in the event
     df_check = df_check.Define(selection["best_cand_var"]["name"],selection["best_cand_var"]["definition"])
     
