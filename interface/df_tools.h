@@ -64,6 +64,46 @@ size_t get_maxRatio_wPosCond_cand_idx(RVec<double> cand_var1, RVec<double> cand_
   return idx_best;
 }
 
+size_t get_maxProd_cand_idx(RVec<double> cand_var1, RVec<double> cand_var2)
+{
+  float prod_best = -99999.;
+  size_t idx_best = 9999;
+  //size_t idx_best = 0;
+
+  //select best candidate based on cand_var
+  for (unsigned i=0; i<cand_var1.size(); ++i)
+  {
+    float prod = cand_var1.at(i)*cand_var2.at(i);
+    if(prod>prod_best)
+    {
+      prod_best = prod;
+      idx_best = i;
+    }
+  }
+
+  return idx_best;
+}
+
+size_t get_DsCompatible_cand_idx(RVec<double> mass)
+{
+  float res_best = 99999.;
+  size_t idx_best = 9999;
+  //size_t idx_best = 0;
+
+  //select best candidate based on cand_var
+  for (unsigned i=0; i<mass.size(); ++i)
+  {
+    float res = std::abs(mass.at(i)-1.96835);
+    if(res<res_best)
+    {
+      res_best = res;
+      idx_best = i;
+    }
+  }
+
+  return idx_best;
+}
+
 RVec<short> get_mu_trigger_matching(RVec<short> trigger_match, RVec<unsigned> trig_mu_idx, RVec<unsigned> mu_idx)
 {
   RVec<short> mu_has_matched_trigger(mu_idx.size());
