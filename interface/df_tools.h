@@ -177,15 +177,31 @@ RVec<float> get_mu_trigger_dptopt(RVec<short> trigger_match, RVec<float> trigger
   return muTrig_dptopt;
 }
 
-float compute_total_sf(float sf_1, short match_1, float sf_2, short match_2)
+RVec<float> get_2D_binContent(TH2D* h, RVec<float> xv, RVec<float> yv)
 {
-  float total_sf = 1.;
-  
-  if (match_1>0 && match_2>0) total_sf=sf_1*sf_2;
-  else if (match_1>0 && match_2<1) total_sf=sf_1;
-  else if (match_1<1 && match_2>0) total_sf=sf_2;
+  RVec<float> bin_content(xv.size());
 
-  return total_sf;
+  for(unsigned i=0; i<xv.size(); ++i){
+    float x = xv[i];
+    float y = yv[i];
+    float bc = h->GetBinContent(h->FindBin(x,y));
+    bin_content[i] = bc;
+  }
+
+  return bin_content;
+}
+
+RVec<float> get_1D_binContent(TH1D* h, RVec<float> xv)
+{
+  RVec<float> bin_content(xv.size());
+
+  for(unsigned i=0; i<xv.size(); ++i){
+    float x = xv[i];
+    float bc = h->GetBinContent(h->FindBin(x));
+    bin_content[i] = bc;
+  }
+
+  return bin_content;
 }
 
 float get_mu_id_sf(pt::ptree cfg, double pt, double eta, double mult=0.)
@@ -250,12 +266,46 @@ float get_mu_reco_sf(pt::ptree cfg, double pt, double eta, double mult=0.)
   return sf;
 }
 
+RVec<float> vget_mu_reco_sf(pt::ptree cfg, RVec<float> vpt, RVec<float> veta, float mult=0.){
+  RVec<float> sf(vpt.size());
+  for(unsigned i=0; i<vpt.size(); ++i){
+    float pt = vpt[i];
+    float eta = veta[i];
+    sf[i] = get_mu_reco_sf(cfg,pt,eta,mult);
+  }
+  return sf;
+}
+
+RVec<float> vget_mu_id_sf(pt::ptree cfg, RVec<float> vpt, RVec<float> veta, float mult=0.){
+  RVec<float> sf(vpt.size());
+  for(unsigned i=0; i<vpt.size(); ++i){
+    float pt = vpt[i];
+    float eta = veta[i];
+    sf[i] = get_mu_id_sf(cfg,pt,eta,mult);
+  }
+  return sf;
+}
+
 float compute_total_sf(float eff_data_1, float eff_mc_1, short match_1, float eff_data_2, float eff_mc_2, short match_2)
 {
   float eff_data = eff_data_1+eff_data_2-eff_data_1*eff_data_2;
   float eff_mc = eff_mc_1+eff_mc_2-eff_mc_1*eff_mc_2;
   float total_sf = eff_data/eff_mc;
 
+  return total_sf;
+}
+
+RVec<float> vcompute_total_sf(RVec<float> eff_data_1, RVec<float> eff_mc_1, RVec<short> match_1, RVec<float> eff_data_2, RVec<float> eff_mc_2, RVec<short> match_2){
+  RVec<float> total_sf(eff_data_1.size());
+  for(unsigned i=0; i<eff_data_1.size(); ++i){
+    float ed1 = eff_data_1[i];
+    float emc1 = eff_mc_1[i];
+    short m1 = match_1[i];
+    float ed2 = eff_data_2[i];
+    float emc2 = eff_mc_2[i];
+    short m2 = match_2[i];
+    total_sf[i] = compute_total_sf(ed1,emc1,m1,ed2,emc2,m2);
+  }
   return total_sf;
 }
 

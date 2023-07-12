@@ -215,6 +215,71 @@ if dataset_category == "signal":
           w_expr   = "("+str(old_ctau)+"/"+str(new_ctau)+")*"+"exp(C_Hnl_gen_l_prop*("+str(1./old_ctau)+"-"+str(1./new_ctau)+"))"
           df = df.Define("ctau_weight_"+old_ctau_label+"TO"+str(new_ctau).replace(".","p"),w_expr)
 
+
+#################
+#### WEIGHTS ####
+#################
+
+#define cross section normalization mc_weight
+df = df.Define("mc_weight",str(mc_weight))    
+
+# define pu weight for MC only
+if dataset_category != "data" and not args.skipPUrw:
+    pu_weight = "h_pu_weights->GetBinContent(h_pu_weights->FindBin(nPU_trueInt))"
+df = df.Define("pu_weight",str(pu_weight)) 
+df = df.Define("tot_weight","mc_weight*pu_weight")
+
+# define trigger scale factors for MC only
+if dataset_category != "data" and not args.skipTrigSF:
+    trigger_eff_data_ds = "get_2D_binContent(h_trigger_eff_data,C_{mu1l}_pt,C_{mu1l}_BS_ips_xy)".format(mu1l=config["mu1_label"])
+    trigger_eff_mc_ds = "get_2D_binContent(h_trigger_eff_mc,C_{mu1l}_pt,C_{mu1l}_BS_ips_xy)".format(mu1l=config["mu1_label"])
+    trigger_eff_data_hnl = "get_2D_binContent(h_trigger_eff_data,C_{mu2l}_pt,C_{mu2l}_BS_ips_xy)".format(mu2l=config["mu2_label"])
+    trigger_eff_mc_hnl = "get_2D_binContent(h_trigger_eff_mc,C_{mu2l}_pt,C_{mu2l}_BS_ips_xy)".format(mu2l=config["mu2_label"])
+
+    df = df.Define("C_trigger_eff_data_ds",str(trigger_eff_data_ds)) 
+    df = df.Define("C_trigger_eff_data_hnl",str(trigger_eff_data_hnl)) 
+    df = df.Define("C_trigger_eff_mc_ds",str(trigger_eff_mc_ds))
+    df = df.Define("C_trigger_eff_mc_hnl",str(trigger_eff_mc_hnl)) 
+    df = df.Define("C_{mu2l}_matched_HLT".format(mu2l=config["mu2_label"]),"(C_{mu2l}_matched_MU7_IP4>0 && C_{mu2l}_dr_MU7_IP4<0.05 && C_{mu2l}_dptopt_MU7_IP4<0.1 && C_{mu2l}_pt >7.5 && C_{mu2l}_eta>-1.45 && C_{mu2l}_eta<1.45) || (C_{mu2l}_matched_MU8_IP3>0 && C_{mu2l}_dr_MU8_IP3<0.05 && C_{mu2l}_dptopt_MU8_IP3<0.1 && C_{mu2l}_pt >7.5 && C_{mu2l}_eta>-1.45 && C_{mu2l}_eta<1.45) || (C_{mu2l}_matched_MU8_IP5>0 && C_{mu2l}_dr_MU8_IP5<0.05 && C_{mu2l}_dptopt_MU8_IP5<0.1 && C_{mu2l}_pt >7.5 && C_{mu2l}_eta>-1.45 && C_{mu2l}_eta<1.45) || (C_{mu2l}_matched_MU8_IP6>0 && C_{mu2l}_dr_MU8_IP6<0.05 && C_{mu2l}_dptopt_MU8_IP6<0.1 && C_{mu2l}_pt >7.5 && C_{mu2l}_eta>-1.45 && C_{mu2l}_eta<1.45) || (C_{mu2l}_matched_MU9_IP4>0 && C_{mu2l}_dr_MU9_IP4<0.05 && C_{mu2l}_dptopt_MU9_IP4<0.1 && C_{mu2l}_pt >7.5 && C_{mu2l}_eta>-1.45 && C_{mu2l}_eta<1.45) || (C_{mu2l}_matched_MU9_IP5>0 && C_{mu2l}_dr_MU9_IP5<0.05 && C_{mu2l}_dptopt_MU9_IP5<0.1 && C_{mu2l}_pt >7.5 && C_{mu2l}_eta>-1.45 && C_{mu2l}_eta<1.45) || (C_{mu2l}_matched_MU9_IP6>0 && C_{mu2l}_dr_MU9_IP6<0.05 && C_{mu2l}_dptopt_MU9_IP6<0.1 && C_{mu2l}_pt >7.5 && C_{mu2l}_eta>-1.45 && C_{mu2l}_eta<1.45) || (C_{mu2l}_matched_MU10p5_IP3p5>0 && C_{mu2l}_dr_MU10p5_IP3p5<0.05 && C_{mu2l}_dptopt_MU10p5_IP3p5<0.1 && C_{mu2l}_pt >7.5 && C_{mu2l}_eta>-1.45 && C_{mu2l}_eta<1.45) || (C_{mu2l}_matched_MU12_IP6>0 && C_{mu2l}_dr_MU12_IP6<0.05 && C_{mu2l}_dptopt_MU12_IP6<0.1 && C_{mu2l}_pt >7.5 && C_{mu2l}_eta>-1.45 && C_{mu2l}_eta<1.45)".format(mu2l=config["mu2_label"])) 
+    df = df.Define("C_{mu1l}_matched_HLT".format(mu1l=config["mu1_label"]),"(C_{mu1l}_matched_MU7_IP4>0 && C_{mu1l}_dr_MU7_IP4<0.05 && C_{mu1l}_dptopt_MU7_IP4<0.1 && C_{mu1l}_pt >7.5 && C_{mu1l}_eta>-1.45 && C_{mu1l}_eta<1.45) || (C_{mu1l}_matched_MU8_IP3>0 && C_{mu1l}_dr_MU8_IP3<0.05 && C_{mu1l}_dptopt_MU8_IP3<0.1 && C_{mu1l}_pt >7.5 && C_{mu1l}_eta>-1.45 && C_{mu1l}_eta<1.45) || (C_{mu1l}_matched_MU8_IP5>0 && C_{mu1l}_dr_MU8_IP5<0.05 && C_{mu1l}_dptopt_MU8_IP5<0.1 && C_{mu1l}_pt >7.5 && C_{mu1l}_eta>-1.45 && C_{mu1l}_eta<1.45) || (C_{mu1l}_matched_MU8_IP6>0 && C_{mu1l}_dr_MU8_IP6<0.05 && C_{mu1l}_dptopt_MU8_IP6<0.1 && C_{mu1l}_pt >7.5 && C_{mu1l}_eta>-1.45 && C_{mu1l}_eta<1.45) || (C_{mu1l}_matched_MU9_IP4>0 && C_{mu1l}_dr_MU9_IP4<0.05 && C_{mu1l}_dptopt_MU9_IP4<0.1 && C_{mu1l}_pt >7.5 && C_{mu1l}_eta>-1.45 && C_{mu1l}_eta<1.45) || (C_{mu1l}_matched_MU9_IP5>0 && C_{mu1l}_dr_MU9_IP5<0.05 && C_{mu1l}_dptopt_MU9_IP5<0.1 && C_{mu1l}_pt >7.5 && C_{mu1l}_eta>-1.45 && C_{mu1l}_eta<1.45) || (C_{mu1l}_matched_MU9_IP6>0 && C_{mu1l}_dr_MU9_IP6<0.05 && C_{mu1l}_dptopt_MU9_IP6<0.1 && C_{mu1l}_pt >7.5 && C_{mu1l}_eta>-1.45 && C_{mu1l}_eta<1.45) || (C_{mu1l}_matched_MU10p5_IP3p5>0 && C_{mu1l}_dr_MU10p5_IP3p5<0.05 && C_{mu1l}_dptopt_MU10p5_IP3p5<0.1 && C_{mu1l}_pt >7.5 && C_{mu1l}_eta>-1.45 && C_{mu1l}_eta<1.45) || (C_{mu1l}_matched_MU12_IP6>0 && C_{mu1l}_dr_MU12_IP6<0.05 && C_{mu1l}_dptopt_MU12_IP6<0.1 && C_{mu1l}_pt >7.5 && C_{mu1l}_eta>-1.45 && C_{mu1l}_eta<1.45)".format(mu1l=config["mu1_label"])) 
+    df = df.Define("C_trigger_sf","vcompute_total_sf(C_trigger_eff_data_ds,C_trigger_eff_mc_ds,C_{mu1l}_matched_HLT,C_trigger_eff_data_hnl,C_trigger_eff_mc_hnl,C_{mu2l}_matched_HLT)".format(mu1l=config["mu1_label"],mu2l=config["mu2_label"]))
+
+# define mu id factors for MC only
+if dataset_category != "data" and not args.skipMuIDsf:
+    variation = args.varyMuIDSf
+    mu1_id_sf = "vget_mu_id_sf(mu_id_sf_cfg,C_{mu1l}_pt,C_{mu1l}_eta,{variation})".format(mu1l=config["mu1_label"],variation=variation)
+    mu2_id_sf = "vget_mu_id_sf(mu_id_sf_cfg,C_{mu2l}_pt,C_{mu2l}_eta,{variation})".format(mu2l=config["mu2_label"],variation=variation)
+    df = df.Define("C_{mu1l}_id_sf".format(mu1l=config["mu1_label"]),mu1_id_sf)
+    df = df.Define("C_{mu2l}_id_sf".format(mu2l=config["mu2_label"]),mu2_id_sf)
+
+# define mu id factors for MC only
+if dataset_category != "data" and not args.skipMuRecosf:
+    variation = args.varyMuRecoSf
+    mu1_reco_sf = "vget_mu_reco_sf(mu_reco_sf_cfg,C_{mu1l}_pt,C_{mu1l}_eta,{variation})".format(mu1l=config["mu1_label"],variation=variation)
+    mu2_reco_sf = "vget_mu_reco_sf(mu_reco_sf_cfg,C_{mu2l}_pt,C_{mu2l}_eta,{variation})".format(mu2l=config["mu2_label"],variation=variation)
+    df = df.Define("C_{mu1l}_reco_sf".format(mu1l=config["mu1_label"]),mu1_reco_sf) 
+    df = df.Define("C_{mu2l}_reco_sf".format(mu2l=config["mu2_label"]),mu2_reco_sf) 
+
+# define mu_Ds pt shape scale factors for MC only
+if dataset_category != "data" and args.applyMuDsPtCorr:
+    ds_pt_shape_sf  = "get_1D_binContent(h_ds_pt_shape_sf,C_{}_pt)".format(config["mu1_label"])
+    df = df.Define("C_ds_pt_shape_sf",str(ds_pt_shape_sf)) 
+
+# define mu_Hnl pt shape scale factors for MC only
+if dataset_category != "data" and args.applyMuHnlPtCorr:
+    hnl_pt_shape_sf  = "get_1D_binContent(h_hnl_pt_shape_sf,C_{}_pt)".format(config["mu2_label"])
+    df = df.Define("C_hnl_pt_shape_sf",str(hnl_pt_shape_sf)) 
+
+# define mu_Ds IPS shape scale factors for MC only
+if dataset_category != "data" and args.applyMuDsIPSCorr:
+    ds_ips_shape_sf  = "get_1D_binContent(h_ds_ips_shape_sf,C_{}_BS_ips_xy)".format(config["mu1_label"])
+    df = df.Define("C_ds_ips_shape_sf",str(ds_ips_shape_sf)) 
+
+# define mu_Hnl IPS shape scale factors for MC only
+if dataset_category != "data" and args.applyMuHnlIPSCorr:
+    hnl_ips_shape_sf  = "get_1D_binContent(h_hnl_ips_shape_sf,C_{}_BS_ips_xy)".format(config["mu2_label"])
+    df = df.Define("C_hnl_ips_shape_sf",str(hnl_ips_shape_sf)) 
+
 if args.bestCandChecks:
     hmodel = ("h_mult_input",";Candidate multiplicity;Normalized to unit",20,1.,21.)
     df_check = df.Define("mult_input","get_cand_multiplicity(C_Hnl_mass)")
@@ -377,75 +442,35 @@ if dataset_category == "signal":
 #define categories
 df = df.Define("C_cat","get_lxy_categories(C_Hnl_vertex_2DDist_BS,C_mu_Hnl_charge,C_mu_Ds_charge)")
 
-#################
-#### WEIGHTS ####
-#################
+# redefine here the total weight as the product of all weights previously defined
 
-#define cross section normalization mc_weight
-df = df.Define("mc_weight",str(mc_weight))    
-
-# define pu weight for MC only
-if dataset_category != "data" and not args.skipPUrw:
-    pu_weight = "h_pu_weights->GetBinContent(h_pu_weights->FindBin(nPU_trueInt))"
-df = df.Define("pu_weight",str(pu_weight)) 
-df = df.Define("tot_weight","mc_weight*pu_weight")
-
-# define trigger scale factors for MC only
+# Include trigger SF
 if dataset_category != "data" and not args.skipTrigSF:
-    trigger_eff_data_ds = "h_trigger_eff_data->GetBinContent(h_trigger_eff_data->FindBin(C_{mu1l}_pt>100.0?99.9:C_{mu1l}_pt,C_{mu1l}_BS_ips_xy>500.0?499.9:C_{mu1l}_BS_ips_xy))".format(mu1l=config["mu1_label"])
-    trigger_eff_mc_ds   = "h_trigger_eff_mc->GetBinContent(h_trigger_eff_mc->FindBin(C_{mu1l}_pt>100.0?99.9:C_{mu1l}_pt,C_{mu1l}_BS_ips_xy>500.0?499.9:C_{mu1l}_BS_ips_xy))".format(mu1l=config["mu1_label"])
-    trigger_eff_data_hnl = "h_trigger_eff_data->GetBinContent(h_trigger_eff_data->FindBin(C_{mu2l}_pt>100.0?99.9:C_{mu2l}_pt,C_{mu2l}_BS_ips_xy>500.0?499.9:C_{mu2l}_BS_ips_xy))".format(mu2l=config["mu2_label"])
-    trigger_eff_mc_hnl   = "h_trigger_eff_mc->GetBinContent(h_trigger_eff_mc->FindBin(C_{mu2l}_pt>100.0?99.9:C_{mu2l}_pt,C_{mu2l}_BS_ips_xy>500.0?499.9:C_{mu2l}_BS_ips_xy))".format(mu2l=config["mu2_label"])
-    df = df.Define("trigger_eff_data_ds",str(trigger_eff_data_ds)) 
-    df = df.Define("trigger_eff_data_hnl",str(trigger_eff_data_hnl)) 
-    df = df.Define("trigger_eff_mc_ds",str(trigger_eff_mc_ds))
-    df = df.Define("trigger_eff_mc_hnl",str(trigger_eff_mc_hnl)) 
-    df = df.Define("C_{mu2l}_matched_HLT".format(mu2l=config["mu2_label"]),"(C_{mu2l}_matched_MU7_IP4>0 && C_{mu2l}_dr_MU7_IP4<0.005) || (C_{mu2l}_matched_MU8_IP3>0 && C_{mu2l}_dr_MU8_IP3<0.005) || (C_{mu2l}_matched_MU8_IP5>0 && C_{mu2l}_dr_MU8_IP5<0.005) || (C_{mu2l}_matched_MU8_IP6>0 && C_{mu2l}_dr_MU8_IP6<0.005) || (C_{mu2l}_matched_MU9_IP4>0 && C_{mu2l}_dr_MU9_IP4<0.005) || (C_{mu2l}_matched_MU9_IP5>0 && C_{mu2l}_dr_MU9_IP5<0.005) || (C_{mu2l}_matched_MU9_IP6>0 && C_{mu2l}_dr_MU9_IP6<0.005) || (C_{mu2l}_matched_MU10p5_IP3p5>0 && C_{mu2l}_dr_MU10p5_IP3p5<0.005) || (C_{mu2l}_matched_MU12_IP6>0 && C_{mu2l}_dr_MU12_IP6<0.005)".format(mu2l=config["mu2_label"])) 
-    df = df.Define("C_{mu1l}_matched_HLT".format(mu1l=config["mu1_label"]),"(C_{mu1l}_matched_MU7_IP4>0 && C_{mu1l}_dr_MU7_IP4<0.005) || (C_{mu1l}_matched_MU8_IP3>0 && C_{mu1l}_dr_MU8_IP3<0.005) || (C_{mu1l}_matched_MU8_IP5>0 && C_{mu1l}_dr_MU8_IP5<0.005) || (C_{mu1l}_matched_MU8_IP6>0 && C_{mu1l}_dr_MU8_IP6<0.005) || (C_{mu1l}_matched_MU9_IP4>0 && C_{mu1l}_dr_MU9_IP4<0.005) || (C_{mu1l}_matched_MU9_IP5>0 && C_{mu1l}_dr_MU9_IP5<0.005) || (C_{mu1l}_matched_MU9_IP6>0 && C_{mu1l}_dr_MU9_IP6<0.005) || (C_{mu1l}_matched_MU10p5_IP3p5>0 && C_{mu1l}_dr_MU10p5_IP3p5<0.005) || (C_{mu1l}_matched_MU12_IP6>0 && C_{mu1l}_dr_MU12_IP6<0.005)".format(mu1l=config["mu1_label"])) 
-    df = df.Define("trigger_sf","compute_total_sf(trigger_eff_data_ds,trigger_eff_mc_ds,C_{mu1l}_matched_HLT,trigger_eff_data_hnl,trigger_eff_mc_hnl,C_{mu2l}_matched_HLT)".format(mu1l=config["mu1_label"],mu2l=config["mu2_label"]))
-    df = df.Redefine("tot_weight","tot_weight*trigger_sf")
+    df = df.Redefine("tot_weight","tot_weight*C_trigger_sf")
 
-# define mu id factors for MC only
+# Include ID scale factors
 if dataset_category != "data" and not args.skipMuIDsf:
-    variation = args.varyMuIDSf
-    mu1_id_sf = "get_mu_id_sf(mu_id_sf_cfg,C_{mu1l}_pt,C_{mu1l}_eta,{variation})".format(mu1l=config["mu1_label"],variation=variation)
-    mu2_id_sf = "get_mu_id_sf(mu_id_sf_cfg,C_{mu2l}_pt,C_{mu2l}_eta,{variation})".format(mu2l=config["mu2_label"],variation=variation)
-    df = df.Define("mu1_id_sf",mu1_id_sf) 
-    df = df.Define("mu2_id_sf",mu2_id_sf) 
-    df = df.Redefine("tot_weight","tot_weight*mu1_id_sf*mu2_id_sf")
+    df = df.Redefine("tot_weight","tot_weight*C_{mu1l}_id_sf*C_{mu2l}_id_sf".format(mu1l=config["mu1_label"],mu2l=config["mu2_label"]))
 
-# define mu id factors for MC only
+# Include RECO scale factors
 if dataset_category != "data" and not args.skipMuRecosf:
-    variation = args.varyMuRecoSf
-    mu1_reco_sf = "get_mu_reco_sf(mu_reco_sf_cfg,C_{mu1l}_pt,C_{mu1l}_eta,{variation})".format(mu1l=config["mu1_label"],variation=variation)
-    mu2_reco_sf = "get_mu_reco_sf(mu_reco_sf_cfg,C_{mu2l}_pt,C_{mu2l}_eta,{variation})".format(mu2l=config["mu2_label"],variation=variation)
-    df = df.Define("mu1_reco_sf",mu1_reco_sf) 
-    df = df.Define("mu2_reco_sf",mu2_reco_sf) 
-    df = df.Redefine("tot_weight","tot_weight*mu1_reco_sf*mu2_reco_sf")
+    df = df.Redefine("tot_weight","tot_weight*C_{mu1l}_reco_sf*C_{mu2l}_reco_sf".format(mu1l=config["mu1_label"],mu2l=config["mu2_label"]))
 
-# define mu_Ds pt shape scale factors for MC only
+# Include mu_Ds pt shape scale factors
 if dataset_category != "data" and args.applyMuDsPtCorr:
-    ds_pt_shape_sf  = "h_ds_pt_shape_sf->GetBinContent(h_ds_pt_shape_sf->FindBin(C_{}_pt))".format(config["mu1_label"])
-    df = df.Define("ds_pt_shape_sf",str(ds_pt_shape_sf)) 
-    df = df.Redefine("tot_weight","tot_weight*ds_pt_shape_sf")
+    df = df.Redefine("tot_weight","tot_weight*C_ds_pt_shape_sf")
 
-# define mu_Hnl pt shape scale factors for MC only
+# Include mu_Hnl pt shape scale factors
 if dataset_category != "data" and args.applyMuHnlPtCorr:
-    hnl_pt_shape_sf  = "h_hnl_pt_shape_sf->GetBinContent(h_hnl_pt_shape_sf->FindBin(C_{}_pt))".format(config["mu2_label"])
-    df = df.Define("hnl_pt_shape_sf",str(hnl_pt_shape_sf)) 
-    df = df.Redefine("tot_weight","tot_weight*hnl_pt_shape_sf")
+    df = df.Redefine("tot_weight","tot_weight*C_hnl_pt_shape_sf")
 
-# define mu_Ds IPS shape scale factors for MC only
+# Include mu_Ds IPS shape scale factors
 if dataset_category != "data" and args.applyMuDsIPSCorr:
-    ds_ips_shape_sf  = "h_ds_ips_shape_sf->GetBinContent(h_ds_ips_shape_sf->FindBin(C_{}_BS_ips_xy))".format(config["mu1_label"])
-    df = df.Define("ds_ips_shape_sf",str(ds_ips_shape_sf)) 
-    df = df.Redefine("tot_weight","tot_weight*ds_ips_shape_sf")
-
-# define mu_Hnl IPS shape scale factors for MC only
+    df = df.Redefine("tot_weight","tot_weight*C_ds_ips_shape_sf")
+ 
+# Include mu_Hnl IPS shape scale factors
 if dataset_category != "data" and args.applyMuHnlIPSCorr:
-    hnl_ips_shape_sf  = "h_hnl_ips_shape_sf->GetBinContent(h_hnl_ips_shape_sf->FindBin(C_{}_BS_ips_xy))".format(config["mu2_label"])
-    df = df.Define("hnl_ips_shape_sf",str(hnl_ips_shape_sf)) 
-    df = df.Redefine("tot_weight","tot_weight*hnl_ips_shape_sf")
+    df = df.Redefine("tot_weight","tot_weight*C_hnl_ips_shape_sf")
 
 #################
 ##### SAVE ######
