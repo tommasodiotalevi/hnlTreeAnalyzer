@@ -54,11 +54,7 @@ with open(configFileName, "r") as f:
 #get ntuples configuration
 with open(config["ntuples_cfg_file_full_path"], "r") as f:
     ntuples = json.loads(f.read())
-
-#get histogram configuration
-with open(config["histogram_cfg_file_full_path"], "r") as f:
-    histos = json.loads(f.read())
-
+    
 #get selection and categorization cuts
 with open(config["selection_cfg_file_full_path"], "r") as f:
     selection = json.loads(f.read())
@@ -534,48 +530,7 @@ if dataset_category=="data" and args.addSPlotWeight:
 #######################
 
 if not args.noHistograms:
-    histo_outputFileName = "histograms_"+dataset_name_label+".root"
-    if tag != "":
-        histo_outputFileName = "histograms_"+tag+"_"+dataset_name_label+".root"
-    histo_outputDirName = config["output_dir_name"]        
-    subprocess.call(['mkdir','-p',histo_outputDirName])
-    histo_outFullPath = os.path.join(histo_outputDirName,histo_outputFileName)
-    histo_outputFile = ROOT.TFile.Open(histo_outFullPath,"RECREATE")
-
-    #book histograms
-    histo_dict = {}
-    for histo_name in histos:
-        title = str(histos[histo_name]["title"])
-        nbins = int(histos[histo_name]["nbins"])
-        xlow  = float(histos[histo_name]["xlow"])
-        xhigh = float(histos[histo_name]["xhigh"])
-        histo_model = (histo_name,title,nbins,xlow,xhigh)
-        var_name = str(histos[histo_name]["var"])
-        histo_dict[histo_name]= df.Histo1D(histo_model,var_name,"tot_weight")
-
-    #Add ctau reweighted histograms
-    if args.ctauReweighting and dataset_category=="signal":
-        for w in [str(x) for x in df.GetColumnNames() if not str(x).find("ctau_weight_")<0]:
-            weight_label = w.split("_")[-1]
-            df = df.Define("tot_weight_"+weight_label,"tot_weight*"+w)
-            for histo_name in histos:
-                weighted_histo_name = histo_name+"_"+weight_label
-                title = str(histos[histo_name]["title"])+"_"+weight_label
-                nbins = int(histos[histo_name]["nbins"])
-                xlow  = float(histos[histo_name]["xlow"])
-                xhigh = float(histos[histo_name]["xhigh"])
-                histo_model = (weighted_histo_name,title,nbins,xlow,xhigh)
-                var_name = str(histos[histo_name]["var"])
-                #print("---> {}".format(var_name))
-                histo_dict[weighted_histo_name]= df.Histo1D(histo_model,var_name,"tot_weight_"+weight_label)
-
-    # write histograms on file
-    for histo_name in histo_dict:
-        histo_outputFile.cd()
-        histo_dict[histo_name].Write()
-    
-    histo_outputFile.Close()
-    print("Output histograms saved in {}".format(os.path.join(histo_outputDirName,histo_outputFileName)))
+    hnl_tools.do_histos(df, config, dataset_name_label, tag="")
 
 # TODO:define per category reports
 print("+++ FINAL REPORT +++")
