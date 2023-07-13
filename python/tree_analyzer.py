@@ -507,7 +507,7 @@ if args.saveOutputTree:
     key = "final_file_name_list"
     if args.addTag != "":
         key = key+"_"+str(args.addTag)
-    ntuples[dataset_to_process][key] += [str(finalTree_outFullPath)]
+    ntuples[dataset_to_process][key] = [str(finalTree_outFullPath)]
     with open(config["ntuples_cfg_file_full_path"], "w") as f:
         json.dump(ntuples,f, indent=4, sort_keys=True)
     print("{} updated".format(config["ntuples_cfg_file_full_path"]))
