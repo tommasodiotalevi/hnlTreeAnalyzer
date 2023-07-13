@@ -108,7 +108,7 @@ def is_good_cand_var(varname):
         good = True
     return good
 
-def do_histos(df, config, dataset_name_label, tag):
+def do_histos(df, config, dataset_name_label, tag=""):
 
     #get histogram configuration
     with open(config["histogram_cfg_file_full_path"], "r") as f:
