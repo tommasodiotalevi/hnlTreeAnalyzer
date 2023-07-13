@@ -2,6 +2,9 @@ import math
 import sys
 import ROOT
 import pandas as pd
+import subprocess
+import json
+import os
 
 #dummy class that contains all the physics constants that I need
 class Constants:
@@ -104,3 +107,37 @@ def is_good_cand_var(varname):
     if varname.find("C_")==0 and varname!="C_mu_Hnl_BS_ips" and varname!="C_mu_Hnl_BS_ip" and varname!="C_mu_Ds_BS_ips" and varname!="C_mu_Ds_BS_ip" and varname!="C_mu_Hnl_PV_ips" and varname!="C_mu_Hnl_PV_ip" and varname!="C_mu_Ds_PV_ips" and varname!="C_mu_Ds_PV_ip":
         good = True
     return good
+
+def do_histos(df, config, dataset_name_label, tag):
+
+    #get histogram configuration
+    with open(config["histogram_cfg_file_full_path"], "r") as f:
+        histos = json.loads(f.read())
+
+    histo_outputFileName = "histograms_"+dataset_name_label+".root"
+    if tag != "":
+        histo_outputFileName = "histograms_"+tag+"_"+dataset_name_label+".root"
+    histo_outputDirName = config["output_dir_name"]        
+    subprocess.call(['mkdir','-p',histo_outputDirName])
+    histo_outFullPath = os.path.join(histo_outputDirName,histo_outputFileName)
+    histo_outputFile = ROOT.TFile.Open(histo_outFullPath,"RECREATE")
+
+    #book histograms
+    histo_dict = {}
+    for histo_name in histos:
+        title = str(histos[histo_name]["title"])
+        nbins = int(histos[histo_name]["nbins"])
+        xlow  = float(histos[histo_name]["xlow"])
+        xhigh = float(histos[histo_name]["xhigh"])
+        histo_model = (histo_name,title,nbins,xlow,xhigh)
+        var_name = str(histos[histo_name]["var"])
+        histo_dict[histo_name]= df.Histo1D(histo_model,var_name,"tot_weight")
+
+    # write histograms on file
+    for histo_name in histo_dict:
+        histo_outputFile.cd()
+        histo_dict[histo_name].Write()
+    
+    histo_outputFile.Close()
+    print("Output histograms saved in {}".format(os.path.join(histo_outputDirName,histo_outputFileName)))
+
