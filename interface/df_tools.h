@@ -177,14 +177,14 @@ RVec<float> get_mu_trigger_dptopt(RVec<short> trigger_match, RVec<float> trigger
   return muTrig_dptopt;
 }
 
-RVec<float> get_2D_binContent(TH2D* h, RVec<float> xv, RVec<float> yv)
+RVec<float> get_2D_binContent(TH2D* h, RVec<float> xv, RVec<float> yv, float xlim, float ylim)
 {
   RVec<float> bin_content(xv.size());
 
   for(unsigned i=0; i<xv.size(); ++i){
     float x = xv[i];
     float y = yv[i];
-    float bc = h->GetBinContent(h->FindBin(x,y));
+    float bc = h->GetBinContent(h->FindBin(x>xlim?xlim:x,y>ylim?ylim:y));
     bin_content[i] = bc;
   }
 
@@ -307,6 +307,14 @@ RVec<float> vcompute_total_sf(RVec<float> eff_data_1, RVec<float> eff_mc_1, RVec
     total_sf[i] = compute_total_sf(ed1,emc1,m1,ed2,emc2,m2);
   }
   return total_sf;
+}
+
+RVec<float> xdotv(float x, RVec<float> v){
+  RVec<float> ov(v.size());
+  for(unsigned i=0; i<v.size(); ++i){
+    ov[i] = v[i]*x;
+  }
+  return ov;
 }
 
 //this is to get candidate invariant mass with different 

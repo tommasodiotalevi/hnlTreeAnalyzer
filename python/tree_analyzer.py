@@ -10,6 +10,7 @@ import subprocess
 import argparse
 import numpy
 import hnl_tools
+import pandas as pd
 start_time = time.time()
 
 #script input arguments
@@ -18,7 +19,7 @@ parser.add_argument("cfg_filename"          ,                                   
 parser.add_argument("dataset_short_name"    ,                                     help="Short name of the input sample to process")
 parser.add_argument("--saveOutputTree"      , action='store_true', default=False, help="Save an output tree (after all the cuts)")
 parser.add_argument("--savePreselectedTree" , action='store_true', default=False, help="Save an output tree (before the cuts and after best candidate selection)")
-parser.add_argument("--noHistograms"        , action='store_true', default=False, help="Do not save histogram as output")
+parser.add_argument("--doHistograms"        , action='store_true', default=False, help="Plot and save histograms")
 parser.add_argument("--addSPlotWeight"      , action='store_true', default=False, help="Add splot weight for data")
 parser.add_argument("--skipPUrw"            , action='store_true', default=False, help="Do not apply PU reweighting")
 parser.add_argument("--skipTrigSF"          , action='store_true', default=False, help="Do not apply trigger scale factors")
@@ -227,10 +228,10 @@ df = df.Define("tot_weight","mc_weight*pu_weight")
 
 # define trigger scale factors for MC only
 if dataset_category != "data" and not args.skipTrigSF:
-    trigger_eff_data_ds = "get_2D_binContent(h_trigger_eff_data,C_{mu1l}_pt,C_{mu1l}_BS_ips_xy)".format(mu1l=config["mu1_label"])
-    trigger_eff_mc_ds = "get_2D_binContent(h_trigger_eff_mc,C_{mu1l}_pt,C_{mu1l}_BS_ips_xy)".format(mu1l=config["mu1_label"])
-    trigger_eff_data_hnl = "get_2D_binContent(h_trigger_eff_data,C_{mu2l}_pt,C_{mu2l}_BS_ips_xy)".format(mu2l=config["mu2_label"])
-    trigger_eff_mc_hnl = "get_2D_binContent(h_trigger_eff_mc,C_{mu2l}_pt,C_{mu2l}_BS_ips_xy)".format(mu2l=config["mu2_label"])
+    trigger_eff_data_ds  = "get_2D_binContent(h_trigger_eff_data,C_{mu1l}_pt,C_{mu1l}_BS_ips_xy,99.0,499.0)".format(mu1l=config["mu1_label"])
+    trigger_eff_mc_ds    = "get_2D_binContent(h_trigger_eff_mc,C_{mu1l}_pt,C_{mu1l}_BS_ips_xy,99.0,499.0)".format(mu1l=config["mu1_label"])
+    trigger_eff_data_hnl = "get_2D_binContent(h_trigger_eff_data,C_{mu2l}_pt,C_{mu2l}_BS_ips_xy,99.0,499.0)".format(mu2l=config["mu2_label"])
+    trigger_eff_mc_hnl   = "get_2D_binContent(h_trigger_eff_mc,C_{mu2l}_pt,C_{mu2l}_BS_ips_xy,99.0,499.0)".format(mu2l=config["mu2_label"])
 
     df = df.Define("C_trigger_eff_data_ds",str(trigger_eff_data_ds)) 
     df = df.Define("C_trigger_eff_data_hnl",str(trigger_eff_data_hnl)) 
@@ -494,8 +495,8 @@ if args.saveOutputTree:
 
     #save output csv
     a = df.AsNumpy(csv_var_list)
-    arr = numpy.array([x for x in a.values()]).transpose()
-    numpy.savetxt(finalCSV_outFullPath, arr, delimiter=',', header=",".join([str(x) for x in a.keys()]), comments='',fmt=['%.18e' if str(x)!="C_cat" else '%s' for x in a.keys()])
+    pdf = pd.DataFrame(a)
+    pdf.to_csv(finalCSV_outFullPath, index=False)
     print("Output tree saved in {}".format(finalTree_outFullPath))
     print("Output csv saved in {}".format(finalCSV_outFullPath))
 
@@ -529,7 +530,7 @@ if dataset_category=="data" and args.addSPlotWeight:
 ##### HISTOGRAMS ######
 #######################
 
-if not args.noHistograms:
+if args.doHistograms:
     hnl_tools.do_histos(df, config, dataset_name_label, tag="")
 
 # TODO:define per category reports
