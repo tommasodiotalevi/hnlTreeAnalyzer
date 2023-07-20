@@ -486,7 +486,7 @@ if args.saveOutputTree:
 
     #save output tree
     var_list = df.GetColumnNames()
-    csv_var_list = [x for x in df.GetColumnNames() if hnl_tools.is_good_cand_var(x) or x.find("ctau_weight")==0 or x.find("tot_weight")==0 or x.find("mc_weight")==0]
+    csv_var_list = [x for x in df.GetColumnNames() if hnl_tools.is_good_cand_var(x) or x.find("tot_weight")==0 or x.find("mc_weight")==0]
     var_keep_list = args.keep
     if len(var_keep_list)>0:
         var_list = var_keep_list
