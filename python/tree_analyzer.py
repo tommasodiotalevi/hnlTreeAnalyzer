@@ -210,7 +210,7 @@ if dataset_category == "signal":
         for new_ctau in selection["mN"+hnl_mass_label+"_ctau"+old_ctau_label+"mm_rw_points"]:
           old_ctau = float(old_ctau_label.replace("p","."))
           w_expr   = "("+str(old_ctau)+"/"+str(new_ctau)+")*"+"exp(C_Hnl_gen_l_prop*("+str(1./old_ctau)+"-"+str(1./new_ctau)+"))"
-          df = df.Define("ctau_weight_"+old_ctau_label+"TO"+str(new_ctau).replace(".","p"),w_expr)
+          df = df.Define("C_ctau_weight_"+old_ctau_label+"TO"+str(new_ctau).replace(".","p"),w_expr)
 
 
 #################
