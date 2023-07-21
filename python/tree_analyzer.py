@@ -73,11 +73,18 @@ dataset_category = ntuples[dataset_to_process]["dataset_category"]
 
 #get pu weights histogram
 if dataset_category != "data" and not args.skipPUrw:
-    ROOT.gInterpreter.Declare("""
-    auto pu_weights_file = TFile::Open("{}");
-    auto h_pu_weights = pu_weights_file->Get<TH1D>("{}");
-    """.format(config["pu_weight_input_file"],config["pu_weight_histo_name"])
-    )
+    if dataset_category=="signal":
+        ROOT.gInterpreter.Declare("""
+        auto pu_weights_file = TFile::Open("{}");
+        auto h_pu_weights = pu_weights_file->Get<TH1D>("{}");
+        """.format(config["pu_weight_input_file_signal"],config["pu_weight_histo_name"])
+        )
+    else:
+        ROOT.gInterpreter.Declare("""
+        auto pu_weights_file = TFile::Open("{}");
+        auto h_pu_weights = pu_weights_file->Get<TH1D>("{}");
+        """.format(config["pu_weight_input_file_bkg"],config["pu_weight_histo_name"])
+        )
 
 #get trigger scale factors histogram
 if dataset_category != "data" and not args.skipTrigSF:
@@ -206,7 +213,7 @@ if dataset_category == "signal":
     # define ctau weights
     if args.ctauReweighting and dataset_category == "signal":
         old_ctau_label = dataset_name_label[dataset_name_label.find("ctau")+4:dataset_name_label.find("mm")]
-        hnl_mass_label = dataset_name_label[dataset_name_label.find("mN")+2:dataset_name_label.find("mN")+5]
+        hnl_mass_label = dataset_name_label[dataset_name_label.find("mN")+2:dataset_name_label.find("_ctau")]
         for new_ctau in selection["mN"+hnl_mass_label+"_ctau"+old_ctau_label+"mm_rw_points"]:
           old_ctau = float(old_ctau_label.replace("p","."))
           w_expr   = "("+str(old_ctau)+"/"+str(new_ctau)+")*"+"exp(C_Hnl_gen_l_prop*("+str(1./old_ctau)+"-"+str(1./new_ctau)+"))"
