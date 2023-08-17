@@ -108,7 +108,7 @@ def is_good_cand_var(varname):
         good = True
     return good
 
-def do_histos(df, config, dataset_name_label, tag=""):
+def do_histos(df, config, dataset_name_label, saveRemotely=False, tag=""):
 
     #get histogram configuration
     with open(config["histogram_cfg_file_full_path"], "r") as f:
@@ -139,5 +139,13 @@ def do_histos(df, config, dataset_name_label, tag=""):
         histo_dict[histo_name].Write()
     
     histo_outputFile.Close()
-    print("Output histograms saved in {}".format(os.path.join(histo_outputDirName,histo_outputFileName)))
-
+    if saveRemotely == False:
+        print("Output histograms saved in {}".format(os.path.join(histo_outputDirName,histo_outputFileName)))
+    else:
+        histo_outFullPath2 = "https://" + config["redirector"] + histo_outFullPath #histo_outputDirName
+        histo_outFullPath = "root://t2-xrdcms.lnl.infn.it:7070/" + histo_outFullPath #histo_outputDirName
+        #print(histo_outFullPath2)
+        #client.run(transfer_to_tier, remote_folder_name=histo_outFullPath2)
+        os.system("davix-put " + histo_outputFileName + " " + histo_outFullPath2 + " -E $X509_USER_PROXY --capath $X509_CERT_DIR")
+        #os.system("rm " + histo_outputFileName)
+        print("Output histograms saved in {}".format(histo_outFullPath))
