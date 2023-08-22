@@ -113,14 +113,21 @@ def do_histos(df, config, dataset_name_label, saveRemotely=False, tag=""):
     #get histogram configuration
     with open(config["histogram_cfg_file_full_path"], "r") as f:
         histos = json.loads(f.read())
-
     histo_outputFileName = "histograms_"+dataset_name_label+".root"
+    if saveRemotely == False:
+        histo_outputDirName = config["output_dir_name"] 
+    else:
+        histo_outputDirName = config["remote_output_dir_name"]   
     if tag != "":
-        histo_outputFileName = "histograms_"+tag+"_"+dataset_name_label+".root"
-    histo_outputDirName = config["output_dir_name"]        
-    subprocess.call(['mkdir','-p',histo_outputDirName])
+        histo_outputFileName = "histograms_"+tag+"_"+dataset_name_label+".root"  
+    if saveRemotely == False:
+        subprocess.call(['mkdir','-p',histo_outputDirName])
+        
     histo_outFullPath = os.path.join(histo_outputDirName,histo_outputFileName)
-    histo_outputFile = ROOT.TFile.Open(histo_outFullPath,"RECREATE")
+    if saveRemotely == False:
+        histo_outputFile = ROOT.TFile.Open(histo_outFullPath,"RECREATE")
+    else:
+        histo_outputFile = ROOT.TFile.Open(histo_outputFileName,"RECREATE")
 
     #book histograms
     histo_dict = {}
