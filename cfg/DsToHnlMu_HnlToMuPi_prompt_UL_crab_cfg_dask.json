@@ -1,6 +1,7 @@
 {
     "ntuples_cfg_file_full_path"	: "/opt/workspace/persistent-storage/AF_HNL_analysis/cfg/DsToHnlMu_HnlToMuPi_prompt_UL_tree_input_fromCrab_new.json",
-    "histogram_cfg_file_full_path"	: "/opt/workspace/persistent-storage/AF_HNL_analysis/cfg/histos.json", 
+    "histogram_cfg_file_full_path"	: "/opt/workspace/persistent-storage/AF_HNL_analysis/cfg/histos.json",
+    "remote_metrics_dir_name"   : "/store/user/todiotal/metrics/",
     "remote_output_dir_name"    : "/store/user/todiotal/output/",
     "output_dir_name"			: "/opt/workspace/persistent-storage/AF_HNL_analysis/output", 
     "selection_cfg_file_full_path"	: "/opt/workspace/persistent-storage/AF_HNL_analysis/cfg/selection_hnl_opt_incl_cfg.json", 
